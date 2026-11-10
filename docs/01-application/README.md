@@ -21,6 +21,8 @@ These are proposed technology choices, not installed services or a completed app
 
 ## Six-lesson sequence
 
+Start with [Lesson 1.1 — Full-stack architecture and request lifecycle](lesson-1.1-full-stack-architecture.md). The general [architecture reference](architecture.md) complements the lesson.
+
 | Lesson | Topic |
 |---|---|
 | 1.1 | Full-stack architecture and request lifecycle |
