@@ -6,7 +6,8 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 
 - **Phase 0:** Completed as the engineering-foundations baseline.
 - **Current phase:** 1 — Full-stack application fundamentals.
-- **Next lesson:** 1.1 — Full-stack architecture and request lifecycle.
+- **Current lesson:** 1.1 — Full-stack architecture and request lifecycle.
+- **Lesson 1.1 material:** Published in GitHub; learner checkpoint and explanation exercise pending.
 - **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
 - **Repository state:** Learning documentation only.
 - **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
@@ -46,14 +47,14 @@ The [Phase 0 notes](00-foundations/README.md) remain a reference. We will revisi
 
 | Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 1.1 | Full-stack architecture and request lifecycle | Trace a browser action through frontend, API, backend, and database | **Next** |
+| 1.1 | Full-stack architecture and request lifecycle | Trace a browser action through frontend, API, backend, and database | Study material published; checkpoint pending |
 | 1.2 | Browser, React, and TypeScript | Understand UI rendering, components, state, and type safety | Planned |
 | 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Planned |
 | 1.4 | HTTP, REST-style APIs, and JSON | Design and inspect request/response contracts | Planned |
 | 1.5 | PostgreSQL and data modeling | Understand tables, relationships, SQL, constraints, and indexes | Planned |
 | 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Planned |
 
-Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
+Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
