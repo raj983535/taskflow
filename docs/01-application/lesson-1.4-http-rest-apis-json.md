@@ -457,16 +457,13 @@ Status: `400 Bad Request`
 
 ```json
 {
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Please correct the task details.",
-    "details": [
-      {
-        "field": "title",
-        "message": "Title is required."
-      }
-    ]
-  }
+  "message": "Please correct the task details.",
+  "details": [
+    {
+      "field": "title",
+      "message": "Title is required."
+    }
+  ]
 }
 ```
 
