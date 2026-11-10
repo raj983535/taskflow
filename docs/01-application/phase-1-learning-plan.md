@@ -6,11 +6,11 @@
 
 | Lesson | Topic | Required understanding |
 |---|---|---|
-| 1.1 | Full-stack architecture and request lifecycle | Identify the browser, frontend, backend, API, database, and trace one request end to end |
-| 1.2 | Browser, React, and TypeScript | Understand the browser's role, components, props, state, rendering, and basic types |
-| 1.3 | Node.js and Express backend | Understand runtime vs framework, routes, middleware, validation, and error handling |
-| 1.4 | HTTP, REST-style APIs, and JSON | Understand methods, headers, bodies, status codes, endpoint design, and request/response flow |
-| 1.5 | PostgreSQL and data modeling | Understand tables, rows, keys, relationships, SQL CRUD, constraints, and the purpose of indexes |
+| 1.1 | [Full-stack architecture and request lifecycle](lesson-1.1-full-stack-architecture.md) | Identify the browser, frontend, backend, API, database, and trace one request end to end |
+| 1.2 | [Browser, React, and TypeScript](lesson-1.2-browser-react-typescript.md) | Understand the browser's role, components, props, state, rendering, and basic types |
+| 1.3 | [Node.js and Express backend](lesson-1.3-nodejs-express-backend.md) | Understand runtime vs framework, routes, middleware, validation, and error handling |
+| 1.4 | [HTTP, REST-style APIs, and JSON](lesson-1.4-http-rest-apis-json.md) | Understand methods, headers, bodies, status codes, endpoint design, and request/response flow |
+| 1.5 | [PostgreSQL and data modeling](lesson-1.5-postgresql-data-modeling.md) | Understand tables, rows, keys, relationships, SQL CRUD, constraints, and the purpose of indexes |
 | 1.6 | [Identity, security, and quality basics](lesson-1.6-identity-security-quality.md) | Understand authentication vs authorization, sessions/cookies, secrets, validation, migrations, and test levels |
 
 ## Standard format for each lesson
@@ -27,19 +27,7 @@ No extra lesson is created for every term. Advanced internals are deferred unles
 
 ## Final Phase 1 exercise
 
-Explain the lifecycle:
-
-A signed-in user opens TaskFlow, creates a task, refreshes the browser, and later signs out.
-
-Your explanation should identify:
-- What the browser and frontend do.
-- What HTTP request is sent and what the API endpoint represents.
-- What Node.js and Express do.
-- Where identity and task ownership are checked.
-- What PostgreSQL stores and returns.
-- How the response reaches the browser.
-- Why the task remains after a refresh.
-- What changes when the user signs out.
+Complete the end-to-end walkthrough and knowledge checkpoint in [Lesson 1.6 — Identity, security, and quality basics](lesson-1.6-identity-security-quality.md). It brings together the browser, frontend, HTTP API, backend, PostgreSQL, identity, authorization, and test coverage in one TaskFlow lifecycle.
 
 ## Completion rule
 
