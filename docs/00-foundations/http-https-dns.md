@@ -1,126 +1,243 @@
 # HTTP, HTTPS, and DNS: The Anatomy of Web Communication
 
----
+## Learning objectives
 
-## 1. Definition
-- **DNS (Domain Name System)**: The phonebook of the Internet. A decentralized global database that translates human-friendly domain names (e.g., `taskflow.dev`) into machine-routable IP addresses (e.g., `13.235.45.120`).
-- **HTTP (Hypertext Transfer Protocol)**: An application-layer, text-based, stateless communication protocol that defines how messages are formatted and transmitted across the web.
-- **HTTPS (HTTP Secure)**: HTTP encrypted with **TLS (Transport Layer Security)**, ensuring that all data in transit is encrypted, tamper-proof, and authenticated.
+Understand how a browser locates a service, establishes a connection, protects data in transit, and exchanges HTTP messages.
 
----
+## 1. What is a URL?
 
-## 2. Problem: Why They Were Created
-1. **The Human Memory Bottleneck**: Computers route packets using binary IP addresses (IPv4: `192.0.2.1`, IPv6: `2001:db8::1`). Humans cannot remember numeric addresses for hundreds of web services. DNS was created to decouple human names from machine locations.
-2. **Eavesdropping and Man-In-The-Middle (MITM) Attacks**: Standard HTTP sends headers, cookies, passwords, and JSON payloads in plain text. Any network router, ISP, or rogue Wi-Fi hotspot between the user and server could read or modify the data. HTTPS was introduced to encrypt the connection end-to-end.
+Consider:
 
----
+`https://app.taskflow.example/api/tasks?status=open`
 
-## 3. Internal Working: From URL to Pixel
+- Scheme: `https`
+- Hostname: `app.taskflow.example`
+- Path: `/api/tasks`
+- Query string: `status=open`
 
-What happens when you type `https://taskflow.dev/api/tasks` in your browser?
+A URL identifies the resource the client wants to access and provides information about how to access it.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant Browser as Browser (Client)
-    participant DNS as DNS Resolver (8.8.8.8 / ISP)
-    participant LB as AWS Load Balancer (Port 443)
-    participant Server as Node.js Backend (Port 5000)
+## 2. DNS: names to network addresses
 
-    Browser->>DNS: Resolve "taskflow.dev" to IP
-    DNS-->>Browser: Returns IP: 13.235.45.120
-    Browser->>LB: TCP Handshake (SYN -> SYN-ACK -> ACK)
-    Browser->>LB: TLS Handshake (Cipher suite, Certificate verification, Session Key)
-    Browser->>LB: GET /api/tasks (Encrypted HTTP payload)
-    LB->>Server: Decrypts & Forwards (Internal Network)
-    Server-->>LB: HTTP 200 OK with Task JSON
-    LB-->>Browser: Encrypted Response
+The Domain Name System (DNS) is a distributed naming system. It can return many kinds of records, including addresses and mail-routing information.
+
+A browser normally asks a recursive DNS resolver to look up a hostname. The resolver may answer from cache or query the DNS hierarchy to find the authoritative answer.
+
+Common records:
+
+| Record | Purpose |
+|---|---|
+| A | Maps a hostname to an IPv4 address |
+| AAAA | Maps a hostname to an IPv6 address |
+| CNAME | Makes one hostname an alias of another hostname |
+| MX | Identifies mail exchangers for a domain |
+| TXT | Publishes text data, often used for domain verification and email security |
+| NS | Identifies authoritative name servers |
+
+**TTL (Time to Live)** tells DNS caches how long a record may be cached. A DNS change is not guaranteed to appear everywhere instantly because caches may retain earlier answers until their TTL expires.
+
+A CNAME points to another hostname, not directly to an IP address. DNS standards restrict a CNAME from coexisting with other records at the same owner name. Some DNS providers offer ALIAS, ANAME, or CNAME flattening behavior for zone-apex use cases.
+
+## 3. HTTP: the application protocol
+
+HTTP defines request and response messages exchanged by clients and servers.
+
+A request commonly contains:
+- Method: GET, POST, PUT, PATCH, DELETE, etc.
+- Path and query parameters.
+- Headers: metadata about the request.
+- Optional body: data sent to the server.
+
+A response commonly contains:
+- Status code, such as 200, 201, 400, 401, 404, or 500.
+- Headers.
+- Optional response body.
+
+Example:
+
+```http
+GET /api/tasks HTTP/1.1
+Host: localhost:5000
+Accept: application/json
 ```
 
-### The TLS Handshake (Under the Hood):
-1. **Client Hello**: Browser sends supported TLS versions and cryptographic cipher suites.
-2. **Server Hello & Certificate**: Server responds with its chosen cipher suite and sends its **SSL/TLS Certificate** containing its **Public Key** (signed by a trusted Certificate Authority like Let's Encrypt or DigiCert).
-3. **Key Exchange**: The browser verifies the certificate against built-in operating system trust stores, generates a random symmetric session key, encrypts it with the server's public key, and sends it to the server.
-4. **Symmetric Encryption**: Both parties now share a secret session key. All further HTTP traffic is encrypted using high-speed symmetric algorithms (e.g., AES-GCM or ChaCha20).
+A successful response might be:
 
----
-
-## 4. Architecture: DNS Hierarchy
-
-```
-                      Root DNS Servers (.)
-                               │
-                      TLD DNS Servers (.dev, .com)
-                               │
-               Authoritative Name Servers (Route 53, Cloudflare)
-                               │
-                   IP Address: 13.235.45.120
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
 ```
 
-- **A Record**: Maps a domain name directly to an IPv4 address (`taskflow.dev` → `13.235.45.120`).
-- **AAAA Record**: Maps a domain name to an IPv6 address.
-- **CNAME (Canonical Name)**: Maps an alias domain to another domain name (`www.taskflow.dev` → `taskflow.dev`).
-- **TTL (Time to Live)**: The number of seconds intermediate DNS caches (browsers, ISPs, routers) are allowed to remember the IP before asking the authoritative server again.
+```json
+{
+  "success": true,
+  "data": []
+}
+```
 
----
+HTTP is designed to be stateless at the protocol level: each request can be understood independently. Applications can still maintain user sessions using cookies, tokens, databases, or other mechanisms.
 
-## 5. Practical: Commands & Diagnostics
+## 4. HTTPS and TLS
 
-Run these in PowerShell to debug DNS and HTTP connections:
+HTTPS is HTTP protected by TLS (Transport Layer Security).
+
+TLS provides:
+- **Confidentiality:** Network observers cannot normally read the protected application data.
+- **Integrity:** Changes to protected data in transit can be detected.
+- **Authentication:** The client can verify the server's certificate and identity, subject to correct certificate validation.
+
+A certificate does not mean a website is trustworthy in every sense. It helps verify control of the hostname and establish an encrypted connection; it does not prove that the site's business or content is safe.
+
+## 5. A simplified modern connection sequence
+
+For a typical HTTPS connection over TCP (such as HTTP/1.1 or HTTP/2), the broad sequence is:
+
+1. The client resolves the hostname through DNS, if it is not already cached.
+2. The client establishes a TCP connection to the selected server endpoint.
+3. The client and server perform a TLS handshake.
+4. The server presents a certificate chain. The client validates the chain, hostname, validity period, and trust.
+5. The peers negotiate cryptographic parameters and establish shared traffic keys.
+6. HTTP messages are sent inside the encrypted TLS connection.
+
+Modern TLS does not normally send a newly generated symmetric key encrypted with the server's RSA public key. TLS 1.3 typically uses ephemeral Diffie-Hellman key agreement (for example, ECDHE) to derive shared secrets. Both sides then derive symmetric traffic keys. This also supports forward secrecy.
+
+HTTP/3 is different at the transport layer: it uses QUIC over UDP, with TLS 1.3 integrated into the QUIC handshake. Therefore, a TCP three-way handshake is not part of an HTTP/3 connection.
+
+## 6. What happens when opening a website?
+
+```text
+Browser
+  |
+  | 1. Resolve hostname (DNS, if needed)
+  v
+DNS recursive resolver
+  |
+  | 2. Return an address record
+  v
+Browser
+  |
+  | 3. Connect to the selected endpoint
+  | 4. Negotiate TLS for HTTPS
+  | 5. Send an encrypted HTTP request
+  v
+Load balancer / reverse proxy (if configured)
+  |
+  | 6. Route request to application
+  v
+Node.js + Express API
+  |
+  | 7. Query database if required
+  v
+PostgreSQL
+  |
+  | 8. Return result to backend
+  v
+Express API
+  |
+  | 9. Create HTTP response
+  v
+Browser
+  |
+  | 10. Render or update the page
+  v
+User sees the result
+```
+
+This is a conceptual flow. Caches, CDNs, service workers, proxies, and connection reuse can change the exact sequence.
+
+## 7. TLS termination at a reverse proxy
+
+In a production design, TLS may terminate at a load balancer or reverse proxy.
+
+For example:
+
+```text
+Browser --HTTPS/TLS--> AWS Load Balancer --HTTP or HTTPS--> API
+```
+
+The first connection is encrypted. The second connection's protection depends on its configuration. If the load balancer forwards plain HTTP, the traffic is not encrypted on that internal segment. A private network reduces exposure but is not itself encryption.
+
+We will decide and document the actual configuration when we deploy TaskFlow. Do not assume that a connection is encrypted end-to-end merely because the browser URL begins with `https://`.
+
+## 8. HTTP versions at a high level
+
+| Version | Transport | Main idea |
+|---|---|---|
+| HTTP/1.1 | TCP | Text-based message format; browsers commonly use multiple connections for concurrency |
+| HTTP/2 | TCP | Binary framing and multiplexed streams on a connection |
+| HTTP/3 | QUIC over UDP | Multiplexed streams with transport behavior designed to avoid TCP-level head-of-line blocking between independent streams |
+
+These are protocol-level differences. Application code often uses the same high-level HTTP methods regardless of version.
+
+## 9. PowerShell diagnostics
+
+Query DNS:
 
 ```powershell
-# 1. Query DNS records and check TTL directly using Resolve-DnsName
-Resolve-DnsName -Name google.com -Type A
-
-# 2. Trace the exact path and latency of DNS queries
-nslookup taskflow.dev 8.8.8.8
-
-# 3. Test HTTP status, headers, and SSL certificates via curl
-curl.exe -I https://httpbin.org/get
-
-# 4. Measure connection timings (DNS lookup time, TCP connect time, TLS handshake)
-curl.exe -w "DNS: %{time_namelookup}s | Connect: %{time_connect}s | TLS: %{time_appconnect}s | Total: %{time_total}s\n" -o $null -s https://google.com
+Resolve-DnsName -Name example.com -Type A
+Resolve-DnsName -Name example.com -Type AAAA
 ```
 
----
+Ask a specific recursive resolver:
 
-## 6. Project Usage in TaskFlow
-- In **local development**: We access our app via `http://localhost:3000` (frontend) and `http://localhost:5000` (backend) without TLS encryption to speed up iteration.
-- In **production on AWS**:
-  1. We register our domain in **AWS Route 53** (or Cloudflare).
-  2. Route 53 creates an **A Record (Alias)** pointing traffic to an **AWS Application Load Balancer (ALB)**.
-  3. The Load Balancer terminates HTTPS using a free **AWS ACM (Certificate Manager)** or Let's Encrypt certificate on port `443`.
-  4. The Load Balancer proxies plain HTTP requests across private subnets to our Node.js Docker containers on port `5000`.
+```powershell
+nslookup example.com 8.8.8.8
+```
 
----
+Inspect HTTP response headers:
 
-## 7. Real-World Context: TLS Termination & Reverse Proxies
-In modern cloud architectures, you almost **never** configure SSL certificates inside your Node.js or React container code.
-Instead, companies use **TLS Termination at the Edge**:
-- A reverse proxy (Cloudflare, AWS ALB, Nginx) terminates the encrypted HTTPS connection at the edge.
-- Unencrypted HTTP is passed across isolated, private VPC subnets to the container.
-- *Why?* Cryptographic operations consume CPU cycles. Offloading TLS to specialized hardware/load balancers keeps application containers lean and fast.
+```powershell
+curl.exe -I https://httpbin.org/get
+```
 
----
+Inspect connection timing:
 
-## 8. Troubleshooting: Common Errors & Solutions
-| Problem | Cause | Solution |
+```powershell
+curl.exe -w "DNS: %{time_namelookup}s | TCP: %{time_connect}s | TLS: %{time_appconnect}s | Total: %{time_total}s\n" -o NUL -s https://example.com
+```
+
+The timing fields are measurements from curl. The exact interpretation depends on protocol, connection reuse, proxies, and the curl build.
+
+## 10. TaskFlow usage
+
+During local development, the frontend and backend may use HTTP on localhost because they are running on the same development machine. This is a learning convenience, not a production security recommendation.
+
+For a production deployment:
+- A DNS provider hosts the required DNS records.
+- A public endpoint such as an AWS load balancer receives traffic.
+- HTTPS is configured using a valid certificate.
+- The load balancer forwards requests to the backend through the intended network path.
+- The database is not exposed as a public application endpoint.
+
+We will choose Route 53 or another DNS provider only when the project needs it.
+
+## 11. Common errors
+
+| Error | Possible cause | What to check |
 |---|---|---|
-| `ERR_NAME_NOT_RESOLVED` | DNS cannot find an A/CNAME record for the domain. | Check domain registrar settings, nameserver delegations, and TTL expiration. |
-| `SSL Certificate Expired / Untrusted` | The certificate has passed its validity window, or was signed by an unknown self-signed CA. | Automated renewal using Let's Encrypt Certbot cron jobs or AWS ACM automated rotation. |
-| `Mixed Content Warning` | The website was served over `https://`, but loaded images or APIs over `http://`. | Ensure all API URLs and static assets use relative paths or HTTPS schemes. |
+| Name not resolved | Missing or incorrect DNS record, stale cache, resolver issue | Authoritative records, resolver answer, TTL |
+| Certificate name mismatch | Certificate does not cover the requested hostname | Subject Alternative Names and hostname |
+| Certificate expired | Certificate renewal or deployment issue | Validity period and certificate automation |
+| Mixed content | HTTPS page loads an insecure HTTP resource | API and asset URLs |
+| 502 Bad Gateway | Proxy could not obtain a valid upstream response | Upstream process, port, logs |
+| 504 Gateway Timeout | Upstream did not respond in time | Slow handler, database, external dependency |
 
----
+## 12. Interview questions
 
-## 9. Interview Preparation
-1. **Q: What is the difference between an A record and a CNAME record?**
-   - *Answer*: An `A record` directly maps a hostname to an IP address (e.g., `api.example.com` → `192.0.2.1`). A `CNAME record` maps an alias hostname to another hostname (e.g., `www.example.com` → `example.com`). Root domains (`example.com`) cannot typically be CNAMEs according to RFC standards, which is why cloud providers created ALIAS/ANAME records.
-2. **Q: What is the difference between HTTP/1.1, HTTP/2, and HTTP/3?**
-   - *Answer*: HTTP/1.1 suffered from head-of-line blocking (one request per TCP connection at a time). HTTP/2 introduced binary framing and multiplexing over a single TCP connection. HTTP/3 replaced TCP with **QUIC (UDP-based)**, eliminating packet-loss blocking at the transport layer.
+1. What is DNS and what does a recursive resolver do?
+2. What is the difference between A, AAAA, and CNAME records?
+3. What does TTL control?
+4. What does TLS provide?
+5. How does a modern TLS handshake establish traffic keys?
+6. How does HTTP/3 differ from HTTP/2?
+7. What does TLS termination mean?
+8. Does HTTPS guarantee that a website is trustworthy?
 
----
+## 13. Key takeaways
 
-## 10. Revision & Key Takeaways
-- DNS translates names to numbers; TTL dictates how long records are cached.
-- HTTPS adds encryption, authentication, and integrity over HTTP via TLS handshakes.
-- In production, we terminate TLS at the Load Balancer or Nginx, keeping backend container code simple and focused on business logic.
+- DNS is a distributed naming system, not just a single phonebook server.
+- HTTP defines the request-response message format.
+- HTTPS protects HTTP using TLS.
+- Modern TLS uses key agreement to derive symmetric traffic keys.
+- HTTP/3 uses QUIC over UDP, not TCP.
+- TLS termination at a proxy means the proxy is an endpoint of that encrypted connection.
