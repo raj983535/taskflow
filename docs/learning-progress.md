@@ -6,8 +6,10 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 
 - **Phase 0:** Completed as the engineering-foundations baseline.
 - **Current phase:** 1 — Full-stack application fundamentals.
-- **Current lesson:** 1.2 — Browser, React, and TypeScript.
-- **Lesson 1.1:** Material published; learner checkpoint remains pending. The learner has chosen to continue to Lesson 1.2 and can revisit the checkpoint.
+- **Current lesson:** 1.3 — Node.js and the Express Backend.
+- **Lesson 1.1:** Material published; learner checkpoint remains pending and can be revisited.
+- **Lesson 1.2:** Material published; learner checkpoint remains pending and can be revisited.
+- **Lesson 1.3 material:** Published in GitHub; learner checkpoint and explanation exercise pending.
 - **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
 - **Repository state:** Learning documentation only.
 - **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
@@ -49,12 +51,12 @@ The [Phase 0 notes](00-foundations/README.md) remain a reference. We will revisi
 |---|---|---|---|
 | 1.1 | Full-stack architecture and request lifecycle | Trace a browser action through frontend, API, backend, and database | Study material published; checkpoint pending |
 | 1.2 | Browser, React, and TypeScript | Understand UI rendering, components, state, and type safety | Study material published; checkpoint pending |
-| 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Planned |
+| 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Study material published; checkpoint pending |
 | 1.4 | HTTP, REST-style APIs, and JSON | Design and inspect request/response contracts | Planned |
 | 1.5 | PostgreSQL and data modeling | Understand tables, relationships, SQL, constraints, and indexes | Planned |
 | 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Planned |
 
-Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Lesson 1.2: [Browser, React, and TypeScript](01-application/lesson-1.2-browser-react-typescript.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
+Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Lesson 1.2: [Browser, React, and TypeScript](01-application/lesson-1.2-browser-react-typescript.md). Lesson 1.3: [Node.js and the Express Backend](01-application/lesson-1.3-nodejs-express-backend.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
@@ -157,4 +159,5 @@ A lesson is complete when the learner can explain the purpose, trace the main fl
 - Confirmed that implementation and deployment follow the bounded theory roadmap.
 - Published Phase 1 Lesson 1.1 as a standalone theory document; its learner checkpoint remains pending.
 - Published Phase 1 Lesson 1.2 as a standalone theory document; its learner checkpoint remains pending.
+- Published Phase 1 Lesson 1.3 as a standalone theory document; its learner checkpoint remains pending.
 - No application code or deployment is claimed.
