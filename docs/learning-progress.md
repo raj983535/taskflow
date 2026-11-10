@@ -6,12 +6,14 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 
 - **Phase 0:** Completed as the engineering-foundations baseline.
 - **Current phase:** 1 — Full-stack application fundamentals.
-- **Current lesson:** 1.5 — PostgreSQL and data modeling.
+- **Current lesson:** 1.6 — Identity, security, and quality basics.
 - **Lesson 1.1:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.2:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.3:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.4 material:** Published in GitHub; learner checkpoint and explanation exercise pending.
 - **Lesson 1.5 material:** Published in GitHub; learner checkpoint and data-modeling exercise pending.
+- **Lesson 1.6 material:** Published in GitHub; learner checkpoint and Phase 1 final walkthrough pending.
+- **Phase 1 study material:** All six lesson documents are published. Learner checkpoints and the final walkthrough remain pending; Phase 1 is not marked complete.
 - **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
 - **Repository state:** Learning documentation only.
 - **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
@@ -21,7 +23,7 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 | Phase | Focus | Lessons | Status |
 |---|---|---:|---|
 | 0 | Engineering foundations | Baseline | **Completed** |
-| 1 | Full-stack application fundamentals | 6 | **In progress: Lesson 1.5** |
+| 1 | Full-stack application fundamentals | 6 | **In progress: Lesson 1.6** |
 | 2 | Git and GitHub workflows | 2 | Planned |
 | 3 | Docker fundamentals | 3 | Planned |
 | 4 | Docker Compose | 2 | Planned |
@@ -56,9 +58,9 @@ The [Phase 0 notes](00-foundations/README.md) remain a reference. We will revisi
 | 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Study material published; checkpoint pending |
 | 1.4 | HTTP, REST-style APIs, and JSON | Design and inspect request/response contracts | Study material published; checkpoint pending |
 | 1.5 | PostgreSQL and data modeling | Understand tables, relationships, SQL, constraints, and indexes | Study material published; checkpoint pending |
-| 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Planned |
+| 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Study material published; checkpoint and final walkthrough pending |
 
-Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Lesson 1.2: [Browser, React, and TypeScript](01-application/lesson-1.2-browser-react-typescript.md). Lesson 1.3: [Node.js and the Express Backend](01-application/lesson-1.3-nodejs-express-backend.md). Lesson 1.4: [HTTP, REST APIs, and JSON](01-application/lesson-1.4-http-rest-apis-json.md). Lesson 1.5: [PostgreSQL and data modeling](01-application/lesson-1.5-postgresql-data-modeling.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
+Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Lesson 1.2: [Browser, React, and TypeScript](01-application/lesson-1.2-browser-react-typescript.md). Lesson 1.3: [Node.js and the Express Backend](01-application/lesson-1.3-nodejs-express-backend.md). Lesson 1.4: [HTTP, REST APIs, and JSON](01-application/lesson-1.4-http-rest-apis-json.md). Lesson 1.5: [PostgreSQL and data modeling](01-application/lesson-1.5-postgresql-data-modeling.md). Lesson 1.6: [Identity, security, and quality basics](01-application/lesson-1.6-identity-security-quality.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
@@ -164,4 +166,5 @@ A lesson is complete when the learner can explain the purpose, trace the main fl
 - Published Phase 1 Lesson 1.3 as a standalone theory document; its learner checkpoint remains pending.
 - Published Phase 1 Lesson 1.4 as a standalone theory document covering HTTP semantics, REST-style API design, JSON, API contracts, request inspection, and common status codes; its learner checkpoint remains pending.
 - Published Phase 1 Lesson 1.5 as a standalone theory document covering PostgreSQL, relational modeling, SQL CRUD, keys, constraints, transactions, indexes, and backend/database boundaries; its learner checkpoint remains pending.
+- Published Phase 1 Lesson 1.6 as the final study-material unit, covering authentication, authorization, sessions, cookies, security risks, secrets, migrations, and testing; its learner checkpoint and the Phase 1 final walkthrough remain pending.
 - No application code or deployment is claimed.
