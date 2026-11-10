@@ -131,7 +131,7 @@ Example SQL pattern from Lesson 1.5:
 
 ~~~sql
 UPDATE tasks
-SET status = 'done'
+SET status = 'completed'
 WHERE id = $1
   AND user_id = $2;
 ~~~
