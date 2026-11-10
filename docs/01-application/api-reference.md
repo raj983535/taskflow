@@ -67,9 +67,13 @@ The JSON body is just data. The backend still has to parse it, validate its shap
 | 401 | Unauthorized | Valid authentication is missing |
 | 403 | Forbidden | The caller is authenticated but lacks permission |
 | 404 | Not Found | The resource or endpoint was not found |
+| 405 | Method Not Allowed | The path exists but does not support the requested method |
 | 409 | Conflict | The request conflicts with existing state |
+| 415 | Unsupported Media Type | The request body format is not supported |
+| 422 | Unprocessable Content | The request is understood but its instructions cannot be processed |
 | 429 | Too Many Requests | A rate limit was reached |
 | 500 | Internal Server Error | An unexpected server-side failure occurred |
+| 502 | Bad Gateway | A gateway received an invalid upstream response |
 | 503 | Service Unavailable | The service cannot currently handle the request |
 
 The exact status used depends on the API's documented contract. Status codes are not substitutes for clear error messages or server-side logging.
@@ -89,3 +93,31 @@ When we enter the practical stage, we can use the browser's Developer Tools Netw
 - Response body and timing.
 
 Do not paste real cookies, authorization headers, passwords, or tokens into notes or screenshots.
+
+
+## 7. Illustrative validation error response
+
+For consistency, TaskFlow's proposed validation errors use this response shape:
+
+Status: HTTP 400
+
+```json
+{
+  "message": "Please correct the task details.",
+  "details": [
+    {
+      "field": "title",
+      "message": "Title is required."
+    }
+  ]
+}
+```
+
+The `message` provides a general explanation. The optional `details` array can identify fields that need correction. Unexpected internal errors should not expose stack traces, database credentials, or other sensitive implementation details.
+
+## 8. Authentication and authorization status codes
+
+- HTTP 401 means the request has not established a valid authenticated identity.
+- HTTP 403 means the caller is authenticated but is not allowed to perform the requested operation.
+
+For resource privacy, an API may deliberately return 404 when a resource does not exist or is not owned by the caller. The final behavior must be documented consistently.
