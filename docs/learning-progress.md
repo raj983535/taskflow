@@ -1,116 +1,157 @@
 # TaskFlow — Learning Progress
 
-This is the source of truth for the learning journey. It distinguishes reference notes, topics discussed, learner-understood concepts, and practical implementation. These are different states.
+This is the source of truth for the roadmap. The goal is project-ready engineering fluency, not exhaustive mastery of every technology.
 
 ## Current checkpoint
 
-- **Current mode:** Theory first
-- **Current phase:** 1 — Full-stack application fundamentals
-- **Current lesson:** To begin — Lesson 1.1, understanding full-stack architecture
-- **Application implementation:** Not started by design
-- **GitHub repository:** Documentation and learning notes only
-- **Implementation stage:** Starts only after all phases 0–11 have been studied and the implementation blueprint is agreed
-- **Environment:** Windows 11 and PowerShell are the assumed learning environment unless a lesson says otherwise
+- **Phase 0:** Completed as the engineering-foundations baseline.
+- **Current phase:** 1 — Full-stack application fundamentals.
+- **Next lesson:** 1.1 — Full-stack architecture and request lifecycle.
+- **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
+- **Repository state:** Learning documentation only.
+- **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
 
-## Roadmap
+## Fixed roadmap
 
-| Phase | Focus | Status | Main learning outcome |
-|---|---|---|---|
-| 0 | Engineering foundations | Reference notes available; checkpoint pending | Understand how clients, servers, networks, protocols, compute, and cloud fit together |
-| 1 | Full-stack application fundamentals | **Theory in progress** | Explain the browser, frontend, backend, API, database, runtime, authentication, and testing |
-| 2 | Git and GitHub workflows | Planned | Understand version control, branches, commits, remotes, pull requests, and collaboration |
-| 3 | Docker fundamentals | Planned | Understand images, containers, layers, registries, volumes, and networks |
-| 4 | Docker Compose | Planned | Understand how multiple services are described and run together |
-| 5 | Linux and server administration | Planned | Understand shell, files, users, permissions, processes, SSH, and server basics |
-| 6 | AWS cloud fundamentals | Planned | Understand IAM, VPC, subnets, security groups, EC2, ECR, and RDS |
-| 7 | Cloud deployment | Planned | Understand DNS, reverse proxies, HTTPS, hosting, and deployment architecture |
-| 8 | CI/CD | Planned | Understand automated checks, build pipelines, artifacts, registries, and deployment |
-| 9 | Monitoring and reliability | Planned | Understand logs, metrics, health checks, alerts, and operational response |
-| 10 | Scaling and high availability | Planned | Understand load balancing, replicas, autoscaling, caching, and database scaling |
-| 11 | Kubernetes and Terraform | Planned | Understand orchestration and declarative infrastructure |
-
-AWS is the primary cloud provider for hands-on learning. Azure and Google Cloud will be compared conceptually when that comparison helps build transferable understanding.
+| Phase | Focus | Lessons | Status |
+|---|---|---:|---|
+| 0 | Engineering foundations | Baseline | **Completed** |
+| 1 | Full-stack application fundamentals | 6 | **Next** |
+| 2 | Git and GitHub workflows | 2 | Planned |
+| 3 | Docker fundamentals | 3 | Planned |
+| 4 | Docker Compose | 2 | Planned |
+| 5 | Linux and server administration | 3 | Planned |
+| 6 | AWS cloud fundamentals | 3 | Planned |
+| 7 | Cloud deployment | 2 | Planned |
+| 8 | CI/CD with GitHub Actions | 2 | Planned |
+| 9 | Monitoring and reliability | 2 | Planned |
+| 10 | Scaling and high availability | 2 | Planned |
+| 11 | Kubernetes and Terraform | 3 | Planned |
+| **Total** | **Phases 1–11** | **30** | |
 
 ## Phase 0 — Engineering foundations
 
-| Lesson | Topic | Documentation | Status |
+**Status: Completed baseline.**
+
+Covered and documented:
+- Client-server architecture and frontend/backend responsibilities.
+- How a browser reaches a server.
+- DNS, IP addresses, ports, and networking.
+- HTTP and HTTPS.
+- Bare-metal servers, virtual machines, containers, and the cloud/hosting model.
+
+The [Phase 0 notes](00-foundations/README.md) remain a reference. We will revisit a foundation briefly when a later topic depends on it, without reopening Phase 0.
+
+## Phase 1 — Full-stack application fundamentals (6 lessons)
+
+| Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 0.1 | Client-server architecture | [Client-server architecture](00-foundations/client-server-architecture.md) | Reference notes available; learner checkpoint pending |
-| 0.2 | Frontend vs backend | To be connected to Phase 1 | Covered again in Phase 1 |
-| 0.3 | How websites work | To be connected to Phase 1 | Covered again in Phase 1 |
-| 0.4 | DNS and IP addresses | [HTTP, HTTPS, and DNS](00-foundations/http-https-dns.md) | Reference notes available; checkpoint pending |
-| 0.5 | Ports and networking | [Ports and networking](00-foundations/ports-and-networking.md) | Reference notes available; checkpoint pending |
-| 0.6 | HTTP and HTTPS | [HTTP, HTTPS, and DNS](00-foundations/http-https-dns.md) | Reference notes available; checkpoint pending |
-| 0.7 | Physical servers, VMs, and containers | [Bare metal, VMs, and containers](00-foundations/bare-metal-vs-vm-vs-containers.md) | Reference notes available; checkpoint pending |
-| 0.8 | Cloud computing | To be covered in the cloud phases | Planned |
-| 0.9 | Connect the full architecture | Across Phase 1 and later phases | Planned |
+| 1.1 | Full-stack architecture and request lifecycle | Trace a browser action through frontend, API, backend, and database | **Next** |
+| 1.2 | Browser, React, and TypeScript | Understand UI rendering, components, state, and type safety | Planned |
+| 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Planned |
+| 1.4 | HTTP, REST-style APIs, and JSON | Design and inspect request/response contracts | Planned |
+| 1.5 | PostgreSQL and data modeling | Understand tables, relationships, SQL, constraints, and indexes | Planned |
+| 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Planned |
 
-The foundation notes are available for study. They are not automatically marked as learner-completed.
+Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
 
-## Phase 1 — Full-stack application fundamentals
+## Phase 2 — Git and GitHub workflows (2 lessons)
 
-| Lesson | Topic | Documentation | Status |
+| Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 1.1 | Full-stack architecture and request lifecycle | [Architecture](01-application/architecture.md) | Next |
-| 1.2 | Browser, frontend, React, and TypeScript | [Phase 1 guide](01-application/README.md) | Planned |
-| 1.3 | Runtime, Node.js, backend, and Express | [Phase 1 guide](01-application/README.md) | Planned |
-| 1.4 | HTTP, APIs, REST, JSON, and status codes | [Proposed API contract](01-application/api-reference.md) | Planned |
-| 1.5 | Relational databases, SQL, and PostgreSQL | [Database design](01-application/database-design.md) | Planned |
-| 1.6 | Authentication, authorization, sessions, and security | [Security concepts](01-application/authentication-and-security.md) | Planned |
-| 1.7 | Packages, environment variables, and development commands | [Toolchain and commands](01-application/toolchain-and-commands.md) | Planned |
-| 1.8 | Migrations, testing, and quality checks | [Migrations and testing](01-application/migrations-and-testing.md) | Planned |
-| 1.9 | Connect the concepts into a complete system design | [Phase 1 learning plan](01-application/phase-1-learning-plan.md) | Planned |
+| 2.1 | Git fundamentals | Understand working tree, staging, commits, history, and remotes | Planned |
+| 2.2 | Team workflow | Understand branches, pull requests, reviews, conflicts, and safe collaboration | Planned |
 
-### Phase 1 theory checkpoint
+## Phase 3 — Docker fundamentals (3 lessons)
 
-- [ ] Explain the difference between a browser, frontend, backend, API, database, runtime, and framework.
-- [ ] Trace a user's request from the browser through the backend to the database and back.
-- [ ] Explain where React, TypeScript, Node.js, Express, and PostgreSQL fit.
-- [ ] Distinguish authentication from authorization.
-- [ ] Explain what HTTP methods, status codes, JSON, and REST mean.
-- [ ] Explain tables, rows, primary keys, foreign keys, and SQL at a conceptual level.
-- [ ] Explain what package managers, environment variables, migrations, and tests are for.
-- [ ] Walk through the proposed TaskFlow architecture without relying on implementation code.
-- [ ] Complete the lesson exercises and review questions.
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 3.1 | Containers and images | Explain image vs container, layers, registry, and lifecycle | Planned |
+| 3.2 | Dockerfile and image build | Read and write the project Dockerfile; understand build context and caching | Planned |
+| 3.3 | Runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Planned |
 
-Do not mark this checkpoint complete until the learner can explain these topics in their own words.
+## Phase 4 — Docker Compose (2 lessons)
 
-## Later implementation stage
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 4.1 | Multi-service application | Understand services, networks, volumes, and Compose configuration | Planned |
+| 4.2 | Local operations | Understand startup order, environment, health checks, logs, and cleanup | Planned |
 
-After the theory in every phase is complete:
+## Phase 5 — Linux and server administration (3 lessons)
 
-1. Review and finalize the complete TaskFlow architecture.
-2. Choose current supported versions and confirm the stack.
-3. Create an implementation plan and repository structure.
-4. Build the application in small, verified steps.
-5. Add Docker, cloud infrastructure, CI/CD, monitoring, and scaling in the order studied.
-6. Record actual test, build, deployment, and operational evidence.
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 5.1 | Shell and filesystem | Navigate files, inspect content, and understand users and permissions | Planned |
+| 5.2 | Processes and services | Inspect processes, manage services, and read system logs | Planned |
+| 5.3 | Server access and networking | Understand SSH, firewall basics, ports, and basic troubleshooting | Planned |
+
+## Phase 6 — AWS cloud fundamentals (3 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 6.1 | Cloud model and IAM | Understand regions, availability zones, shared responsibility, users, roles, and least privilege | Planned |
+| 6.2 | AWS networking and compute | Understand VPC, subnets, route tables, security groups, and EC2 | Planned |
+| 6.3 | Container and database services | Understand ECR and RDS, basic backups, access, and cost controls | Planned |
+
+AWS is the primary hands-on cloud path. Azure and Google Cloud are comparison points, not additional implementation targets.
+
+## Phase 7 — Cloud deployment (2 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 7.1 | Public web access | Connect domain/DNS, HTTPS/TLS, reverse proxy, and application ports | Planned |
+| 7.2 | TaskFlow deployment design | Map frontend, backend, database, network boundaries, and secrets into AWS | Planned |
+
+## Phase 8 — CI/CD with GitHub Actions (2 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 8.1 | Pipeline fundamentals | Understand workflow YAML, triggers, jobs, steps, runners, and artifacts | Planned |
+| 8.2 | Delivery pipeline | Understand test, build, image publish, deploy, secrets, and rollback flow | Planned |
+
+## Phase 9 — Monitoring and reliability (2 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 9.1 | Observability basics | Distinguish logs, metrics, traces, and health/readiness checks | Planned |
+| 9.2 | Operational response | Understand alerts, dashboards, CloudWatch basics, and incident triage | Planned |
+
+## Phase 10 — Scaling and high availability (2 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 10.1 | Application scaling | Understand load balancers, replicas, stateless services, and autoscaling | Planned |
+| 10.2 | Data and resilience | Understand caching, database bottlenecks, backups, and availability trade-offs | Planned |
+
+## Phase 11 — Kubernetes and Terraform (3 lessons)
+
+| Lesson | Topic | Main outcome | Status |
+|---|---|---|---|
+| 11.1 | Kubernetes mental model | Understand cluster, node, Pod, Deployment, and Service | Planned |
+| 11.2 | Running an application on Kubernetes | Understand configuration, secrets, probes, storage, and ingress at project level | Planned |
+| 11.3 | Terraform and infrastructure as code | Understand providers, resources, plan/apply, variables, outputs, and state | Planned |
+
+## Completion rule for a lesson
+
+A lesson is complete when the learner can explain the purpose, trace the main flow, use the essential vocabulary, understand the relevant commands/configuration, and pass a short checkpoint. Memorizing every option or learning specialist internals is not required.
+
+## After Phase 11 — Build and ship TaskFlow
+
+- [ ] Freeze the theory syllabus and review the architecture.
+- [ ] Agree on the implementation blueprint and supported technology versions.
+- [ ] Build the minimum full-stack application.
+- [ ] Add Docker and Docker Compose.
+- [ ] Deploy to AWS with appropriate security boundaries.
+- [ ] Add CI/CD.
+- [ ] Add health checks, logs, metrics, and alerts.
+- [ ] Demonstrate the basic scaling path.
+- [ ] Verify and document the deployed application.
 
 ## Learning log
 
-### Repository correction — 2026-11-10
-- Aligned the repository with the agreed theory-first learning sequence.
-- Removed the premature application source folders and runtime/package setup from the active branch.
-- Retained and reframed useful Phase 1 material as proposed architecture and conceptual learning notes.
-- Changed progress tracking so Phase 1 is theory in progress and no application implementation is claimed.
-- No application build, test, or deployment is claimed.
-
-## Definition of done for a theory phase
-
-- [ ] Understand why the technology exists.
-- [ ] Explain its key concepts and internal workings.
-- [ ] Understand its role in the end-to-end architecture.
-- [ ] Read and understand the relevant diagrams.
-- [ ] Understand commands, arguments, effects, and expected output.
-- [ ] Complete exercises and review questions.
-- [ ] Explain the topic in the learner's own words.
-- [ ] Update this ledger only after the checkpoint is reviewed.
-
-## Decisions and guardrails
-
-- Complete all theory phases before beginning application implementation.
-- Explain commands before execution; avoid unnecessary installs and paid resources during theory.
-- Use AWS as the primary cloud learning path, with conceptual comparisons to Azure and Google Cloud.
-- Keep local learning resource-conscious, especially on the 8 GB Windows machine.
-- Never commit credentials, tokens, cookies, private keys, or real environment files.
-- Do not call an unimplemented design working, tested, deployed, or production-ready.
+### Repository scope update — 2026-11-10
+- Confirmed Phase 0 as the completed foundation baseline.
+- Reduced Phases 1–11 to a fixed set of 30 project-relevant lessons.
+- Added explicit depth limits and a stop rule to prevent endless theory.
+- Confirmed that implementation and deployment follow the bounded theory roadmap.
+- No application code or deployment is claimed.
