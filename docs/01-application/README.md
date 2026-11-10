@@ -21,12 +21,12 @@ These are proposed technology choices, not installed services or a completed app
 
 ## Six-lesson sequence
 
-Start with [Lesson 1.1 — Full-stack architecture and request lifecycle](lesson-1.1-full-stack-architecture.md). The general [architecture reference](architecture.md) complements the lesson.
+Start with [Lesson 1.1 — Full-stack architecture and request lifecycle](lesson-1.1-full-stack-architecture.md), then continue to [Lesson 1.2 — Browser, React, and TypeScript](lesson-1.2-browser-react-typescript.md). The general [architecture reference](architecture.md) complements Lesson 1.1.
 
 | Lesson | Topic |
 |---|---|
 | 1.1 | Full-stack architecture and request lifecycle |
-| 1.2 | Browser, React, and TypeScript |
+| 1.2 | [Browser, React, and TypeScript](lesson-1.2-browser-react-typescript.md) |
 | 1.3 | Node.js and Express backend |
 | 1.4 | HTTP, REST-style APIs, and JSON |
 | 1.5 | PostgreSQL and data modeling |
