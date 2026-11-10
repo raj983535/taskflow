@@ -11,7 +11,7 @@
 | 1.3 | Node.js and Express backend | Understand runtime vs framework, routes, middleware, validation, and error handling |
 | 1.4 | HTTP, REST-style APIs, and JSON | Understand methods, headers, bodies, status codes, endpoint design, and request/response flow |
 | 1.5 | PostgreSQL and data modeling | Understand tables, rows, keys, relationships, SQL CRUD, constraints, and the purpose of indexes |
-| 1.6 | Identity, security, and quality basics | Understand authentication vs authorization, sessions/cookies, secrets, validation, migrations, and test levels |
+| 1.6 | [Identity, security, and quality basics](lesson-1.6-identity-security-quality.md) | Understand authentication vs authorization, sessions/cookies, secrets, validation, migrations, and test levels |
 
 ## Standard format for each lesson
 
