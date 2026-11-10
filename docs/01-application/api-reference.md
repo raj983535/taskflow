@@ -1,178 +1,91 @@
-# TaskFlow REST API Reference
+# TaskFlow — Illustrative API Contract
 
-Base URL during local development: `http://127.0.0.1:5000`.
+**Status:** Example contract for learning HTTP and API design. These endpoints do not currently exist on a running server.
 
-The browser normally accesses the API through the Vite proxy at `http://127.0.0.1:5173`.
+An API defines how one software component asks another component to perform an operation. For a browser-based application, the frontend commonly sends HTTP requests to backend endpoints and receives HTTP responses.
 
-All JSON request examples use `Content-Type: application/json`. Authentication uses a session cookie. Task routes require a valid session.
+## 1. Important API concepts
 
-## Health
+- **Endpoint:** a specific address and method combination exposed by an API.
+- **HTTP method:** expresses the kind of operation requested, such as reading or creating a resource.
+- **Request:** method, URL, headers, and optionally a body sent by the client.
+- **Response:** status code, headers, and optionally a body returned by the server.
+- **JSON:** a text-based format commonly used to represent structured request and response data.
+- **Status code:** a three-digit number describing the broad result of an HTTP request.
 
-### GET /health/live
+## 2. Illustrative TaskFlow endpoints
 
-Returns process liveness without checking PostgreSQL.
+| Method | Example path | Intended purpose |
+|---|---|---|
+| GET | `/health/live` | Ask whether the application process is responding |
+| GET | `/health/ready` | Ask whether required dependencies are ready |
+| POST | `/api/auth/register` | Create an account |
+| POST | `/api/auth/login` | Start an authenticated session |
+| GET | `/api/auth/me` | Retrieve the current user's public profile |
+| POST | `/api/auth/logout` | End the current session |
+| GET | `/api/tasks` | List tasks belonging to the current user |
+| POST | `/api/tasks` | Create a task for the current user |
+| PATCH | `/api/tasks/:id` | Change selected fields of a task |
+| DELETE | `/api/tasks/:id` | Delete a task belonging to the current user |
 
-Example response (200):
+The final paths and response shapes will be reviewed when the implementation blueprint is prepared.
 
-```json
-{ "status": "alive" }
-```
+## 3. HTTP methods in plain language
 
-### GET /health/ready
+| Method | Common intent | Typical behavior |
+|---|---|---|
+| GET | Read | Retrieve a representation; should not change server state |
+| POST | Submit or create | Ask the server to process submitted data; often creates a resource |
+| PUT | Replace | Replace the target resource representation |
+| PATCH | Partially update | Change selected fields |
+| DELETE | Remove | Request deletion of the target resource |
 
-Runs a simple PostgreSQL query. Returns 200 only when the database connection works.
+The intended meaning of a method matters. For example, GET should not be used to perform a destructive operation.
 
-Example response (200):
+## 4. Example JSON request
 
-```json
-{ "status": "ready", "database": "connected" }
-```
-
-## Authentication
-
-### POST /api/auth/register
-
-Creates an account and starts a session.
-
-Request:
-
-```json
-{
-  "email": "learner@example.com",
-  "password": "a-local-learning-password",
-  "fullName": "TaskFlow Learner"
-}
-```
-
-- `email`: valid email address; normalized to lowercase.
-- `password`: at least 12 characters and no more than 72 UTF-8 bytes (bcrypt input limit).
-- `fullName`: optional, up to 80 characters.
-
-Success: HTTP 201 with public user data and an HttpOnly session cookie.
-
-### POST /api/auth/login
-
-Authenticates an account and starts a new session.
-
-Request:
+A proposed request to create a task might contain:
 
 ```json
 {
-  "email": "learner@example.com",
-  "password": "a-local-learning-password"
+  "title": "Understand Docker images",
+  "description": "Learn what an image contains",
+  "priority": "high"
 }
 ```
 
-Success: HTTP 200 with public user data and a session cookie.
+The JSON body is just data. The backend still has to parse it, validate its shape, authenticate the caller, authorize the operation, and decide whether to store it.
 
-Incorrect credentials return HTTP 401 with a generic message.
+## 5. Common HTTP status codes
 
-### GET /api/auth/me
+| Code | Meaning | Example context |
+|---:|---|---|
+| 200 | OK | A read or update completed |
+| 201 | Created | A new resource was created |
+| 204 | No Content | The operation succeeded without a response body |
+| 400 | Bad Request | The submitted data is invalid |
+| 401 | Unauthorized | Valid authentication is missing |
+| 403 | Forbidden | The caller is authenticated but lacks permission |
+| 404 | Not Found | The resource or endpoint was not found |
+| 409 | Conflict | The request conflicts with existing state |
+| 429 | Too Many Requests | A rate limit was reached |
+| 500 | Internal Server Error | An unexpected server-side failure occurred |
+| 503 | Service Unavailable | The service cannot currently handle the request |
 
-Returns the current public user, or `null` when there is no valid session.
+The exact status used depends on the API's documented contract. Status codes are not substitutes for clear error messages or server-side logging.
 
-### POST /api/auth/logout
+## 6. Authentication and ownership
 
-Deletes the current session (if present), clears the cookie, and returns:
+In a secure design, the task API should determine the user from the authenticated request. It should not trust a client-supplied `userId` field to decide ownership.
 
-```json
-{ "success": true }
-```
+The backend must enforce resource ownership even when the frontend hides another user's task. We will connect this to authentication and authorization in [the security concepts lesson](authentication-and-security.md).
 
-## Tasks (authentication required)
+## 7. How to inspect an HTTP exchange later
 
-All tasks are scoped to the current user's ID. The API never accepts a user ID in the task body to set ownership.
+When we enter the practical stage, we can use the browser's Developer Tools Network tab or an API client to inspect:
+- Request method and URL.
+- Request headers and body.
+- Response status and headers.
+- Response body and timing.
 
-### GET /api/tasks
-
-Lists tasks for the current user.
-
-Success: HTTP 200.
-
-### POST /api/tasks
-
-Creates a task.
-
-Request:
-
-```json
-{
-  "title": "Learn Docker",
-  "description": "Understand images and containers",
-  "status": "todo",
-  "priority": "high",
-  "dueDate": "2026-12-15"
-}
-```
-
-Fields:
-- `title`: required, trimmed, 1–120 characters.
-- `description`: optional, nullable, up to 2,000 characters.
-- `status`: `todo`, `in_progress`, or `completed`; defaults to `todo`.
-- `priority`: `low`, `medium`, or `high`; defaults to `medium`.
-- `dueDate`: optional nullable calendar date in `YYYY-MM-DD` format.
-
-Success: HTTP 201 with the created task.
-
-### PATCH /api/tasks/:id
-
-Updates one or more supplied fields. The ID must be a UUID. Empty update objects are rejected.
-
-Example request:
-
-```json
-{
-  "status": "in_progress",
-  "priority": "medium"
-}
-```
-
-Success: HTTP 200 with the updated task. A task not owned by the caller returns HTTP 404, the same response used for an unknown task.
-
-### DELETE /api/tasks/:id
-
-Deletes a task owned by the current user.
-
-Success: HTTP 200.
-
-## Common status codes
-
-| Status | Meaning in TaskFlow |
-|---:|---|
-| 200 | Request completed |
-| 201 | Resource created |
-| 400 | Invalid input or invalid UUID |
-| 401 | Authentication required or credentials incorrect |
-| 403 | Request origin is not allowed |
-| 404 | Route or owned task not found |
-| 409 | Unique value conflict, such as an already-registered email |
-| 429 | Authentication rate limit reached |
-| 500 | Unexpected server error |
-
-## Error response shape
-
-A typical error:
-
-```json
-{
-  "message": "Please correct the task details.",
-  "details": [
-    {
-      "field": "title",
-      "message": "Title is required."
-    }
-  ]
-}
-```
-
-The exact `details` list is included for validation errors. Unexpected internal error details are logged server-side and are not returned to the browser.
-
-## API testing examples
-
-Check liveness:
-
-```powershell
-curl.exe -i http://127.0.0.1:5000/health/live
-```
-
-For manual authenticated API testing, use the browser UI or a dedicated API client with cookie support. Do not copy a production session cookie into screenshots or GitHub.
+Do not paste real cookies, authorization headers, passwords, or tokens into notes or screenshots.

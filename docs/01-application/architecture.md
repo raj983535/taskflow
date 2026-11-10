@@ -1,99 +1,115 @@
-# TaskFlow Application Architecture
+# TaskFlow — Proposed Application Architecture
 
-## 1. The system at a glance
+**Status:** Learning design only. This architecture is not implemented or deployed.
 
-TaskFlow uses a three-tier application structure:
+## 1. What does full-stack mean?
 
-| Tier | Component | Responsibility |
+A web application normally has several cooperating parts:
+
+- **Frontend:** the part the user sees and interacts with.
+- **Backend:** the server-side application that applies rules, checks identity and permissions, and coordinates data.
+- **Database:** the system that stores information so it remains available after a process or browser closes.
+- **API:** the agreed interface through which software components communicate.
+
+Together these parts form the application's stack. Full-stack understanding means knowing how the parts work individually and how information moves between them.
+
+## 2. Proposed technology mapping
+
+| Responsibility | Proposed technology | Important distinction |
 |---|---|---|
-| Presentation | React + TypeScript | Render the UI and collect user actions |
-| Application | Node.js + Express | Authenticate, validate, authorize, and apply business rules |
-| Data | PostgreSQL | Persist users, sessions, and tasks |
+| User interface | Browser + React | React is a UI library; the browser is the execution environment for the page |
+| Language and type checking | JavaScript + TypeScript | TypeScript adds a static type system and is transformed before browser execution |
+| Server-side JavaScript runtime | Node.js | Node.js runs JavaScript outside the browser |
+| HTTP server framework | Express | Express provides routing and middleware on top of Node.js |
+| Persistent relational data | PostgreSQL | The database is a separate service, not a part of React or Express |
+| Data exchange | HTTP + JSON | HTTP is the protocol; JSON is one common message format |
 
-The tiers are separate logical responsibilities. In local development, all three can run on one laptop.
+A framework or library does not replace the runtime. For example, Express runs on Node.js; React code normally runs in the browser.
 
-## 2. Local request flow
-
-The Vite server serves the frontend on `127.0.0.1:5173`. It proxies `/api` and `/health` to Express on `127.0.0.1:5000`. Express communicates with PostgreSQL on `127.0.0.1:5432`.
+## 3. High-level request flow
 
 ```mermaid
-sequenceDiagram
-  participant U as User
-  participant B as Browser / React
-  participant V as Vite dev server
-  participant A as Express API
-  participant D as PostgreSQL
-
-  U->>B: Submit sign-in form
-  B->>V: POST /api/auth/login
-  V->>A: Proxy request
-  A->>D: Find user by normalized email
-  D-->>A: User and password hash
-  A->>A: Verify password and create session
-  A->>D: Store SHA-256 session-token hash
-  A-->>V: Set HttpOnly cookie + public user
-  V-->>B: Response
-  B-->>U: Render dashboard
+flowchart TD
+    U[User] --> B[Browser]
+    B --> F[Frontend: React UI]
+    F -->|HTTP request, often JSON| A[Backend: Node.js + Express]
+    A -->|SQL query| D[(PostgreSQL database)]
+    D -->|Query result| A
+    A -->|HTTP response, often JSON| F
+    F --> B
+    B --> U
 ```
 
-For a task request, the API reads the cookie, hashes the opaque token, checks the session, then performs the task query with both task ID and authenticated user ID where applicable.
+The frontend does not connect directly to PostgreSQL. The backend mediates access, checks the request, applies business rules, and decides what data may be returned.
 
-## 3. Frontend responsibilities
+## 4. Example: a user creates a task
 
-The frontend:
-- Displays registration and login forms.
-- Loads the current user when the page opens.
-- Sends API requests with browser credentials enabled.
-- Displays task statistics and status filters.
-- Provides create and edit forms.
-- Does basic browser-side feedback, while relying on the backend for authoritative validation.
+1. The user enters a task title and selects Save in the browser.
+2. The frontend reads the form values and sends an HTTP request to the backend API.
+3. The backend receives the request and parses the incoming data.
+4. The backend validates the values. It also identifies the signed-in user and checks permission to create the task.
+5. The backend sends a parameterized SQL command to PostgreSQL.
+6. PostgreSQL stores the row and returns the result.
+7. The backend creates an HTTP response, commonly containing JSON.
+8. The frontend reads the response and updates the visible task list.
 
-The browser is untrusted. Hiding a button or validating a form in React is not a security boundary.
+This sequence separates presentation from authoritative business rules and persistent storage.
 
-## 4. Backend responsibilities
+## 5. Which part is responsible for what?
 
-The backend:
-- Parses JSON with a request-body size limit.
-- Validates input using Zod.
-- Hashes passwords with bcryptjs.
-- Issues opaque random session tokens and stores only SHA-256 hashes of those tokens.
-- Loads the authenticated user through middleware.
-- Requires authentication for task routes.
-- Scopes task reads, updates, and deletes to the authenticated user.
-- Uses parameterized SQL values.
-- Returns structured HTTP status codes and safe error messages.
+### Browser and frontend
 
-The frontend does not receive password hashes or raw session tokens in JSON. The session token is sent as an HttpOnly cookie.
+- Render the user interface.
+- Collect input and provide interaction.
+- Display loading, success, and error states.
+- Send requests to backend endpoints.
+- Improve usability with immediate feedback.
 
-## 5. Database responsibilities
+The browser is under the user's control. A person can modify browser code, send requests manually, or bypass a hidden button. Frontend checks are useful for user experience, not as the final security boundary.
 
-PostgreSQL stores:
-- Users and password hashes.
-- Session-token hashes and expiry timestamps.
-- Tasks with ownership, status, priority, and optional due date.
+### Backend
 
-Foreign keys enforce relationships. Check constraints limit valid status and priority values. Indexes support user-scoped task reads and session lookups.
+- Receive and route requests.
+- Validate untrusted input.
+- Authenticate the caller.
+- Authorize actions on specific resources.
+- Apply business rules.
+- Communicate with databases and other services.
+- Return controlled responses and handle errors.
 
-## 6. Why use a connection pool?
+### Database
 
-Opening a brand-new database connection for every request creates unnecessary connection setup overhead and can exhaust database connection limits. The `pg.Pool` object reuses a bounded number of connections. The initial pool limit is 10; it will need to be reconsidered when the number of API instances and database capacity increase.
+- Persist application data.
+- Enforce relationships and constraints.
+- Execute queries and transactions.
+- Provide a durable source of truth for stored records.
 
-## 7. Development proxy and same-origin browser requests
+## 6. A few terms that are easy to confuse
 
-The browser talks to the Vite origin. Vite forwards API traffic to the Express process. This avoids needing the browser to call a separate port directly in development and allows the cookie to stay associated with the development origin.
-
-The API still has an explicit allowed frontend origin for deployments where the frontend and API are hosted on different origins.
-
-## 8. Future deployment mapping
-
-This is a future conceptual mapping, not an implementation in Phase 1:
-
-| Local component | Later infrastructure concept |
+| Term | Meaning |
 |---|---|
-| Vite-built static frontend | Static hosting or web server |
-| Express process | Container on a compute service |
-| PostgreSQL local service | Managed PostgreSQL such as RDS |
-| npm build | CI build stage |
-| Manual app start | Deployment process managed by infrastructure |
+| Runtime | The environment that executes a program, such as Node.js |
+| Language | The notation used to write a program, such as JavaScript or TypeScript |
+| Framework | A structure and set of conventions that helps build an application, such as Express |
+| Library | Reusable code that an application calls, such as React |
+| API | A defined interface that software uses to communicate |
+| Protocol | Rules for communication, such as HTTP |
+| Database | A system that stores and retrieves structured data |
+| Hosting | Where an application or service runs and is made available |
 
-Docker, AWS, and CI/CD are intentionally deferred to their own phases.
+## 7. Development architecture versus production architecture
+
+During local development, a frontend development server, backend process, and database may all run on one laptop. In production, the frontend might be served from a static hosting platform, the backend might run on a cloud compute service, and PostgreSQL might run as a managed database.
+
+Those are deployment choices. They do not change the logical responsibilities of frontend, backend, API, and database.
+
+We will study Docker, cloud hosting, DNS, reverse proxies, HTTPS, and CI/CD in their own later phases rather than mixing them into this first application lesson.
+
+## 8. Questions to be able to answer
+
+- Why should the browser not connect directly to the production database?
+- Why is frontend validation not enough for security?
+- What does the API do between the frontend and backend?
+- Why are Node.js and Express not the same thing?
+- What happens after PostgreSQL returns a query result?
+- Which responsibilities remain the same when the app moves from a laptop to cloud hosting?

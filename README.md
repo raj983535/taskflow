@@ -1,120 +1,89 @@
 # TaskFlow — Full-Stack, Cloud & DevOps Learning Project
 
-TaskFlow is a task-management application built incrementally as an end-to-end software engineering learning project. The repository contains the working application and a structured technical notebook explaining the concepts, architecture, commands, verification, and troubleshooting behind it.
+TaskFlow is a guided software-engineering learning journey. We will first build a clear theoretical understanding of the complete software, cloud, and DevOps ecosystem. Only after all learning phases have been studied will we design and build the actual TaskFlow application.
 
-## Learning method
+**Current mode: theory and documentation only. The application has not been implemented.**
 
-Each phase follows: problem → theory → architecture → implementation → verification → documentation → exercises.
+## Learning approach
 
-We introduce infrastructure only when the application and the relevant fundamentals are understood. Phase 1 runs directly on Windows with PostgreSQL; Docker, AWS, and CI/CD come later.
+For every phase, we will work through:
+
+1. The problem the technology solves and why it exists.
+2. Core concepts and terminology, explained from first principles.
+3. Internal workings and how the pieces fit together.
+4. Architecture and request/process-flow diagrams.
+5. Commands, flags, arguments, expected output, and the effect of each command.
+6. How the concept will relate to TaskFlow and to real engineering teams.
+7. Common mistakes, troubleshooting, exercises, interview questions, and revision.
+8. A learner checkpoint before marking the phase's theory complete.
+
+We will not rush into writing the application while these concepts are still unfamiliar. Commands will be explained first; commands that create or change infrastructure will be run during the later practical stage, not during theory lessons.
 
 ## Current status
 
 | Phase | Focus | Status |
 |---|---|---|
-| 0 | Engineering foundations | Reviewed; learner exercise tracking remains in the progress ledger |
-| 1 | Full-stack application | **Implementation committed; local verification pending** |
+| 0 | Engineering foundations | Reference notes available; learner checkpoint remains |
+| 1 | Full-stack application fundamentals | **Theory in progress** |
 | 2 | Git and GitHub workflows | Planned |
 | 3 | Docker fundamentals | Planned |
 | 4 | Docker Compose | Planned |
 | 5 | Linux and server administration | Planned |
 | 6 | AWS cloud fundamentals | Planned |
-| 7 | First cloud deployment | Planned |
+| 7 | Cloud deployment | Planned |
 | 8 | CI/CD with GitHub Actions | Planned |
 | 9 | Monitoring and reliability | Planned |
 | 10 | Scaling and high availability | Planned |
 | 11 | Kubernetes and Terraform | Planned |
 
-See [the learning progress ledger](docs/learning-progress.md) for detailed lesson status and acceptance criteria.
+See [Learning Progress](docs/learning-progress.md) for lesson-level status and checkpoints.
 
-## Phase 1 technology stack
+## Planned technology landscape
 
-| Layer | Technology |
+These are the technologies we intend to understand and evaluate, not a statement that they are installed or already connected:
+
+| Area | Planned learning focus |
 |---|---|
-| Frontend | React 19 + TypeScript + Vite |
-| Backend | Node.js + Express 5 + TypeScript |
-| Database | PostgreSQL 16+ |
-| Database access | node-postgres connection pool |
-| Validation | Zod |
-| Authentication | bcrypt password hashes + server-side sessions |
-| Testing | Node.js built-in test runner |
-| Version control | Git + GitHub |
+| Frontend | Browser fundamentals, HTML/CSS/JavaScript, React, TypeScript |
+| Backend | Node.js runtime, Express, APIs, validation, application structure |
+| Data | Relational database concepts, SQL, PostgreSQL |
+| Identity | Authentication, authorization, sessions, cookies, security |
+| Version control | Git and GitHub |
+| Containers | Docker and Docker Compose |
+| Operating systems | Linux, shell, processes, permissions, networking |
+| Cloud | AWS as the primary hands-on cloud provider; Azure and GCP compared conceptually where useful |
+| Delivery | DNS, reverse proxies, HTTPS, CI/CD |
+| Operations | Logs, metrics, health checks, alerts, reliability |
+| Scale and infrastructure | Load balancing, replicas, Kubernetes, Terraform |
 
-## Phase 1 features
-
-- Account registration, sign-in, current-user lookup, and sign-out.
-- HTTP-only session cookie with database-backed session records.
-- Task create, list, edit, status update, filter, and delete.
-- User-specific task ownership checks in backend/database queries.
-- Input validation and centralized error handling.
-- Health and database-readiness endpoints.
-- SQL migrations and schema validation tests.
-- Responsive browser interface.
-
-## Run locally (Windows 11)
-
-Requirements:
-- Node.js 22.12+ (Node 26.13.0 is recorded in `.node-version`).
-- PostgreSQL 16 or later.
-- Git and PowerShell.
-
-Follow the complete [Windows local development guide](docs/01-application/local-development-setup.md). In outline:
-
-```powershell
-git pull origin main
-Copy-Item backend/.env.example backend/.env
-# Edit backend/.env and set the local PostgreSQL DATABASE_URL.
-npm install
-npm run db:migrate
-npm run dev
-```
-
-Open `http://127.0.0.1:5173`.
-
-Run checks from the repository root:
-
-```powershell
-npm run typecheck
-npm test
-npm run build
-```
-
-The commands are provided in the repo, but local build/test results must be recorded only after they are actually executed on a configured machine. See the [Phase 1 completion report](docs/01-application/phase-1-completion-report.md).
+The final technology choices and versions will be confirmed during the implementation-planning stage, using current official documentation.
 
 ## Repository structure
 
 ```text
 taskflow/
-├── backend/
-│   ├── migrations/         # Versioned SQL schema
-│   ├── src/                # Express API and database layer
-│   └── test/               # Backend validation tests
-├── frontend/
-│   └── src/                # React app, components, API client, styles
 ├── docs/
-│   ├── 00-foundations/     # Engineering foundations
-│   ├── 01-application/     # Phase 1 theory and implementation docs
+│   ├── 00-foundations/       # Networking, client-server, compute foundations
+│   ├── 01-application/       # Full-stack theory and proposed TaskFlow design
 │   ├── DOCUMENTATION-GUIDE.md
 │   └── learning-progress.md
-├── package.json            # npm workspaces and common scripts
 └── .gitignore
 ```
 
-Future phase implementation folders and workflows are created when those phases begin; the roadmap does not mean those tools have already been configured.
+Later phase folders will be added when their lessons begin. Application source code, dependency manifests, deployment files, and infrastructure configuration will be added only after the complete theory roadmap and implementation blueprint are finished.
 
-## Security and engineering guardrails
+## Important guardrails
 
-- Never commit real secrets, passwords, cookies, tokens, or private keys.
-- Variables prefixed with `VITE_` are public and must not contain secrets.
-- Backend authorization must be enforced server-side and in resource queries.
-- Database ports should not be exposed to the public internet.
-- Review cloud costs before provisioning paid resources.
-- Phase 1 is an educational application, not a security-audited production SaaS. Read [Authentication and Security](docs/01-application/authentication-and-security.md) before using it outside local learning.
+- A diagram or proposed design is not evidence that a service has been built or deployed.
+- A command in the notes is for understanding until we explicitly enter the practical stage.
+- Never commit passwords, API keys, tokens, cookies, private keys, or real environment files.
+- Prefer local, low-cost learning before creating paid cloud resources.
+- Review costs, permissions, network exposure, and cleanup before provisioning anything.
+- Mark a lesson complete only after the learner can explain the concepts and complete the agreed checkpoint.
 
 ## Documentation
 
 - [Documentation standards](docs/DOCUMENTATION-GUIDE.md)
-- [Engineering foundations index](docs/00-foundations/README.md)
-- [Phase 1 application documentation](docs/01-application/README.md)
-- [Phase 1 completion report](docs/01-application/phase-1-completion-report.md)
+- [Engineering foundations](docs/00-foundations/README.md)
+- [Phase 1 — Application fundamentals](docs/01-application/README.md)
 - [Learning progress](docs/learning-progress.md)

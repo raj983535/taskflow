@@ -1,79 +1,88 @@
-# TaskFlow Authentication and Security Model
+# Authentication, Authorization, and Application Security
 
-This document explains the learning project's baseline security controls and their limits. TaskFlow Phase 1 is an educational implementation, not a security-audited production identity service.
+**Status:** Conceptual learning notes and proposed design principles. No authentication system has been implemented in this repository.
 
-## 1. Password handling
+## 1. Authentication versus authorization
 
-- The API validates a minimum password length of 12 characters.
-- Password input is limited to 72 UTF-8 bytes because bcrypt uses at most 72 input bytes.
-- bcryptjs hashes passwords with cost factor 12.
-- The database stores the password hash, never the plaintext password.
-- Login uses bcrypt comparison and returns a generic incorrect-credentials message.
+These two ideas are related, but not interchangeable.
 
-Passwords should not be logged, included in error reports, sent to analytics, or committed to Git.
+- **Authentication:** Who is making this request?
+- **Authorization:** What is this authenticated person allowed to do?
 
-## 2. Opaque server-side sessions
+Example: signing in proves which account is making a request. Checking that the account owns a particular task is an authorization decision.
 
-After registration or successful login:
-1. The backend generates a cryptographically random 32-byte token.
-2. The browser receives the token in a cookie.
-3. The backend stores only the SHA-256 hash of the token in the sessions table.
-4. On later requests, the backend hashes the cookie token and looks up a non-expired session.
-5. Logout deletes the matching session and clears the cookie.
+Both checks must happen on the server. Hiding a button in the frontend does not protect an API or a database record.
 
-The browser cookie is configured with:
-- `HttpOnly`: frontend JavaScript cannot read the cookie.
-- `SameSite=Lax`: reduces cross-site cookie sending in common navigation/request scenarios.
-- `Secure` in production: browsers send the cookie only over secure connections.
-- `Path=/`.
-- Seven-day max age.
+## 2. Password storage
 
-## 3. Authentication vs authorization
+A system should never store users' plaintext passwords.
 
-Authentication answers "Who is making this request?"
+A password-hashing function is designed to make guessing expensive. A unique random salt is used so identical passwords do not result in identical stored hashes. Modern password-storage choices include dedicated algorithms such as Argon2id and bcrypt; the exact library and parameters should be selected using current security guidance when implementation begins.
 
-Authorization answers "Is this authenticated user allowed to access this resource?"
+Do not confuse:
+- **Password hashing:** deliberately expensive because passwords are human-chosen and may be guessable.
+- **General-purpose hashing:** fast algorithms such as SHA-256, which are not suitable by themselves for storing passwords.
 
-TaskFlow performs authentication in middleware and authorization by including the authenticated `user_id` in task SQL queries. This is essential for preventing insecure direct object reference (IDOR) bugs.
+The server verifies a submitted password by running the password-hashing verification procedure against the stored hash. It does not decrypt a password.
 
-## 4. Browser origin and CORS
+## 3. Sessions and tokens
 
-The API allows the configured frontend origin and credentialed requests. A separate origin-check middleware rejects a browser request that supplies a different Origin.
+After a successful login, the application needs a way to recognize later requests.
 
-CORS is not authentication. Non-browser tools can make requests without browser CORS enforcement. The backend still needs to validate the session and user ownership.
+One common approach is a server-side session:
+1. The server creates a cryptographically random session identifier.
+2. The browser stores it in a cookie.
+3. The browser sends the cookie on later requests according to its cookie rules.
+4. The server checks the session and determines the associated user.
+5. Logout or expiry makes the session invalid.
 
-The local Vite proxy makes browser API requests appear same-origin. The cookie is sent with requests because the frontend API client sets `credentials: "include"`.
+A different approach uses signed tokens, such as JWTs. These approaches have different trade-offs around revocation, state, storage, and operational complexity. Neither should be selected just because it is fashionable.
 
-## 5. Additional defensive controls
+## 4. Cookie concepts
 
-- Helmet sets common HTTP security headers.
-- JSON bodies are limited to 1 MB.
-- Zod validates untrusted input.
-- SQL values are parameterized.
-- Task IDs are validated as UUIDs.
-- Authentication routes are rate limited to 10 requests per 15-minute window per client key using the in-memory default store.
-- Unknown routes return 404.
-- Internal error details are not returned to the caller.
-- The API does not return password hashes or raw session tokens in JSON.
+Important cookie attributes include:
 
-## 6. Important limitations to understand
+- `HttpOnly`: prevents ordinary frontend JavaScript from reading the cookie.
+- `Secure`: restricts sending the cookie to secure connections.
+- `SameSite`: controls some cross-site cookie sending behavior.
+- `Path` and `Domain`: define where the cookie is sent.
+- `Max-Age` or `Expires`: control cookie lifetime.
 
-Before a real public production launch, this design needs a focused security review and additional work, including:
-- CSRF protection appropriate to the final origin and cookie deployment model.
-- Email verification and account recovery/password reset.
-- A shared rate-limit/session strategy when multiple API instances are deployed.
-- Session revocation and user-driven active-session management.
-- Security logging, audit events, alerting, and abuse monitoring.
-- Database TLS and secure secret delivery in production.
-- Dependency scanning, patching, security tests, and a documented incident process.
-- Appropriate reverse-proxy trust settings and network restrictions.
-- A password policy and abuse controls designed for the actual threat model.
+Cookie settings must be chosen for the actual frontend/API origin design. Cookie flags alone do not solve every cross-site request forgery (CSRF) risk.
 
-The in-memory rate-limit store is per-process. It does not coordinate limits between multiple API replicas and is not a distributed production rate limiter.
+## 5. CORS is not authentication
 
-## 7. Secret-handling rules
+Cross-Origin Resource Sharing (CORS) is a browser-enforced mechanism controlling whether frontend JavaScript from one origin can read responses from another origin.
 
-- Keep `backend/.env` local and untracked.
-- Commit only `backend/.env.example` with placeholder values.
-- Never put database passwords in frontend environment variables. Vite variables prefixed with `VITE_` are compiled into browser-accessible code.
-- Never paste cookies, session tokens, or credentials into GitHub issues or screenshots.
+CORS does not prove who the caller is. Non-browser clients are not constrained by browser CORS enforcement. The backend must still authenticate requests and authorize access to each resource.
+
+## 6. Other security concepts to understand
+
+- **Input validation:** check that incoming values have the expected type, format, and allowed range.
+- **SQL injection:** an attack in which untrusted input changes the meaning of a database query; parameterized queries help prevent it.
+- **CSRF:** tricks a browser into sending an unwanted authenticated request.
+- **XSS:** injection of script content that runs in another user's browser.
+- **Rate limiting:** restricts how frequently a client can make certain requests.
+- **Least privilege:** give each user, process, and service only the permissions it needs.
+- **Secret management:** keep passwords, API keys, and private credentials out of source code and browser bundles.
+- **TLS/HTTPS:** protects data in transit between communicating endpoints.
+
+## 7. A proposed TaskFlow security boundary
+
+The browser is not trusted to decide ownership. The backend should:
+1. Validate the request.
+2. Establish the caller's identity.
+3. Check whether the caller may perform the requested operation.
+4. Use parameterized database operations.
+5. Return only data the caller is allowed to see.
+6. Avoid exposing internal error details or secrets.
+
+## 8. Questions to review
+
+- Why is a password hash not the same as encryption?
+- Why should a password be processed differently from a random session token?
+- What is the difference between a session and a JWT?
+- Why does CORS not replace authentication?
+- Why must ownership be checked by the backend?
+- What risks do XSS and CSRF describe?
+- Why should a frontend bundle never contain a database password?

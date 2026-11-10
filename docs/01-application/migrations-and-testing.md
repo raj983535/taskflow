@@ -1,91 +1,79 @@
-# Database Migrations, Build, and Tests
+# Migrations, Testing, and Application Quality
 
-## 1. Why migrations?
+**Status:** Conceptual notes. There is no application code, migration runner, or automated test suite in the active repository yet.
 
-The database schema is part of the application. A migration is a version-controlled change to that schema.
+## 1. What is a database migration?
 
-Without migrations, each developer or environment may have a different database shape. That makes collaboration and deployment difficult.
+A migration is a version-controlled change to a database schema or data. Examples include:
+- Creating a table.
+- Adding a column.
+- Adding an index.
+- Changing a constraint.
+- Moving or transforming existing data.
 
-TaskFlow stores SQL migration files in `backend/migrations/`.
+Migrations allow developers to describe database changes in a known order rather than manually modifying each environment.
 
-## 2. Current migration
+A typical migration workflow:
+1. Write a new, uniquely named migration.
+2. Review the effect on existing data and application compatibility.
+3. Apply it to a development database.
+4. Verify the resulting schema and behavior.
+5. Apply the same ordered migration during later environment setup or deployment.
 
-`001_initial_schema.sql` creates:
-- `users`
-- `sessions`
-- `tasks`
-- Their keys, constraints, and indexes
+Changing a migration that has already run in a shared environment can make environments disagree. Later changes are normally recorded as new migrations.
 
-The migration runner records successfully applied filenames in `schema_migrations`.
+## 2. What is testing?
 
-## 3. Run the migration
+Testing checks whether software behaves as intended. Different levels answer different questions.
 
-From the repository root:
+| Type | What it checks | Example |
+|---|---|---|
+| Unit test | A small function or unit in isolation | Does a task validator reject an empty title? |
+| Integration test | Multiple components working together | Does an API endpoint store and retrieve a task through the database? |
+| End-to-end test | A complete user workflow | Can a user sign in and create a task through the browser? |
+| Manual exploratory test | Behavior inspected by a person | Is the error message understandable on a small screen? |
+
+A passing unit test does not prove the complete system works. A useful testing strategy combines different levels.
+
+## 3. Build, type checking, and tests are different
+
+- **Type checking** checks whether code uses declared types consistently. It does not prove that runtime behavior is correct.
+- **Build** transforms or packages source code into output suitable for running or deployment. A successful build does not prove all features work.
+- **Test** executes checks against expected behavior.
+- **Linting** identifies certain code-quality, consistency, or likely-error patterns.
+- **Deployment verification** checks that the deployed service and its dependencies are actually responding as expected.
+
+Each check provides different evidence.
+
+## 4. Illustrative commands for the later implementation stage
+
+These are examples of common npm commands. They are not executable in this documentation-only repository because the application and its package manifest have deliberately not been created.
 
 ```powershell
-npm run db:migrate
-```
-
-The runner executes from the backend workspace and reads files in `backend/migrations/`.
-
-Run it a second time. It should report that the existing migration is skipped.
-
-## 4. Rules for future migrations
-
-- Give every new migration a unique ordered filename, for example `002_add_task_archived_at.sql`.
-- Never rewrite a migration that has already run in a shared environment.
-- Make the change forward-only where practical.
-- Think about locks, data backfills, default values, and compatibility with the application version during rollout.
-- Back up important databases before risky schema changes.
-- Document rollback strategy. Some data transformations cannot be safely reversed automatically.
-
-## 5. Type checking
-
-```powershell
+npm install
+npm run dev
 npm run typecheck
-```
-
-This runs TypeScript checks for the API and frontend. Type checking catches many programming mistakes before runtime, but it does not prove that database queries or browser workflows work correctly.
-
-## 6. Automated tests
-
-```powershell
 npm test
-```
-
-Phase 1 includes Node's built-in test runner for input-schema behavior:
-- Email normalization.
-- Password length validation.
-- Login input validation.
-- Task defaults.
-- Impossible date rejection.
-- Empty task-update rejection.
-
-These tests do not require a running PostgreSQL server because they exercise pure validation functions.
-
-## 7. Build
-
-```powershell
 npm run build
 ```
 
-This compiles the backend TypeScript and creates an optimized frontend build in `frontend/dist/`.
+What they generally mean:
+- `npm install`: reads the package manifest and installs the project's declared dependencies.
+- `npm run dev`: runs a project-defined script usually intended for local development.
+- `npm run typecheck`: runs a project-defined type-checking script.
+- `npm test`: runs the project's configured test script.
+- `npm run build`: runs the project's build script.
 
-## 8. Manual integration verification
+The `run` commands depend on scripts being defined in `package.json`. The exact commands and tools will be decided when implementation begins.
 
-A complete local verification also needs PostgreSQL and the running web/API processes:
-1. Check `/health/live`.
-2. Check `/health/ready`.
-3. Register a new user.
-4. Confirm `GET /api/auth/me` identifies that user.
-5. Create and list a task.
-6. Update the task title, status, priority, and due date.
-7. Delete the task.
-8. Confirm unauthenticated task requests return 401.
-9. Sign in with a second account and confirm it cannot see, edit, or delete the first account's task.
+## 5. Verification evidence
 
-The second-account ownership check is especially important. It verifies the authorization boundary, not just the UI.
+When we eventually implement TaskFlow, record:
+- The command that was run.
+- The date and environment.
+- Whether it passed or failed.
+- The important output or error.
+- The correction made, if any.
+- What the result proves and what it does not prove.
 
-## 9. Evidence to record
-
-After completing local checks, add the date and results to `docs/learning-progress.md`. Do not claim a build or test passed unless it was actually run and the output was reviewed.
+Never report a build or test as successful merely because a test file or command exists.

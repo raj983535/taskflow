@@ -1,50 +1,58 @@
 # Documentation Guide
 
-TaskFlow documentation is part of the engineering deliverable. It should explain not only what command was run, but why it was needed and how to verify the result.
+TaskFlow is following a theory-first learning sequence. Documentation is the primary deliverable during the learning phases; application implementation comes later.
 
-## Where documentation belongs
+## Learning sequence
 
-- Foundation concepts: `docs/00-foundations/`
-- Application design and implementation: `docs/01-application/`
-- Git workflows: `docs/02-git-github/`
-- Docker: `docs/03-docker/`
-- Linux: `docs/04-linux/`
-- AWS: `docs/05-aws/`
-- CI/CD: `docs/06-cicd/`
-- Monitoring: `docs/07-monitoring/`
-- Scaling: `docs/08-scaling/`
-- Kubernetes: `docs/09-kubernetes/`
-- Terraform: `docs/10-terraform/`
-- Cross-cutting errors: `docs/troubleshooting/`
+The roadmap is organized as:
 
-Create folders and files as they are needed. Git does not track empty directories.
+- `docs/00-foundations/` — engineering foundations
+- `docs/01-application/` — full-stack application fundamentals
+- `docs/02-git-github/` — Git and GitHub workflows
+- `docs/03-docker/` — Docker fundamentals
+- `docs/04-docker-compose/` — multi-container applications
+- `docs/05-linux/` — Linux and server administration
+- `docs/06-aws/` — AWS cloud fundamentals
+- `docs/07-cloud-deployment/` — DNS, reverse proxies, HTTPS, and deployment
+- `docs/08-cicd/` — CI/CD and GitHub Actions
+- `docs/09-monitoring/` — logs, metrics, health, and reliability
+- `docs/10-scaling/` — scaling and high availability
+- `docs/11-kubernetes-terraform/` — Kubernetes and Infrastructure as Code
+
+Create a phase folder when that phase begins. Do not create empty folders just to reserve names.
 
 ## Suggested structure for a technical lesson
 
 1. Learning objectives
-2. Problem being solved
-3. Core concepts and terminology
-4. How it works internally (at the learner's current level)
-5. Architecture or sequence diagram
-6. TaskFlow application
-7. Practical commands and expected output
-8. Verification checklist
-9. Common mistakes and troubleshooting
-10. Interview questions
-11. Key takeaways
-12. Completion status
+2. The real problem being solved
+3. Why the technology exists
+4. Core concepts and terminology
+5. How it works internally
+6. Architecture, data flow, or sequence diagram
+7. How it connects to earlier and later topics
+8. TaskFlow use case and a real-world example
+9. Commands: purpose, syntax, arguments, effect, and expected output
+10. Common mistakes and troubleshooting
+11. Exercises and interview questions
+12. Key takeaways and a learner checkpoint
 
-## Accuracy and safety rules
+## Theory-first rules
 
-- Distinguish a simplified mental model from an exact implementation detail.
-- State assumptions such as operating system, protocol version, cloud region, and runtime where they matter.
-- Do not put real credentials, access tokens, private keys, or personal data in examples.
-- Use placeholders for secrets.
-- Explain what a command changes before asking the learner to run it.
-- Include a verification command or expected observable result.
-- Review cloud costs before creating resources and include cleanup instructions.
-- Mark a lesson complete only after the practical work and knowledge check have been verified with the learner.
+- Explain a command before asking the learner to run it.
+- During theory lessons, commands are examples to understand; do not ask the learner to install packages, start services, change system settings, or provision cloud resources unless the lesson explicitly enters a practical exercise.
+- Label proposed architecture, sample configuration, and illustrative API contracts as proposals. Do not describe them as deployed or verified systems.
+- Keep implementation code out of the repository until all theory phases are complete and the learner agrees to move to the build stage.
+- When implementation begins, revisit the proposed designs and confirm current technology versions and official guidance.
+
+## Accuracy and security rules
+
+- Distinguish simplified mental models from exact implementation details.
+- State assumptions such as operating system, protocol version, cloud region, and runtime when they matter.
+- Use placeholders for secrets. Never add real credentials, tokens, private keys, or personal data.
+- Explain destructive or cost-incurring effects before any command is run.
+- Include a safe verification step and cleanup instructions for practical work.
+- Do not call a design production-ready without security, reliability, and operational review.
 
 ## Progress tracking
 
-Use `docs/learning-progress.md` as the source of truth for lesson status. A file existing in the repository means notes are available; it does not by itself prove the learner has completed the lesson.
+Use `docs/learning-progress.md` as the single source of truth. A document existing in GitHub means reference material is available; it does not prove the learner has studied or completed the lesson. Record completion only after the explanation, exercises, and checkpoint have been reviewed with the learner.
