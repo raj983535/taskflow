@@ -1,89 +1,84 @@
 # TaskFlow — Full-Stack, Cloud & DevOps Learning Project
 
-TaskFlow is a guided software-engineering learning journey. We will first build a clear theoretical understanding of the complete software, cloud, and DevOps ecosystem. Only after all learning phases have been studied will we design and build the actual TaskFlow application.
+TaskFlow is a guided learning-and-building project. The goal is to gain the practical engineering understanding needed to design, build, deploy, operate, and explain a modern web application.
 
-**Current mode: theory and documentation only. The application has not been implemented.**
+**Learning strategy: bounded theory first, then build the real application.** We will cover the concepts TaskFlow needs, not every detail of every technology. The target is confident project-level engineering fluency and the ability to discuss architecture and trade-offs with experienced engineers. Senior-level judgment still comes from building, debugging, operating, and learning from real systems.
 
-## Learning approach
+## The fixed learning boundary
 
-For every phase, we will work through:
+- Phase 0 is complete as the foundation baseline.
+- Phases 1–11 contain **30 planned lessons in total**.
+- Each lesson is one focused learning unit, not a chain of endless sub-lessons.
+- We go deep enough to understand purpose, architecture, normal operation, essential commands, common failures, and project trade-offs.
+- We skip specialist internals and unrelated theory unless a real TaskFlow requirement makes them necessary.
+- After the theory roadmap, we build, deploy, test, and improve TaskFlow. We do not keep extending the syllabus instead of shipping.
 
-1. The problem the technology solves and why it exists.
-2. Core concepts and terminology, explained from first principles.
-3. Internal workings and how the pieces fit together.
-4. Architecture and request/process-flow diagrams.
-5. Commands, flags, arguments, expected output, and the effect of each command.
-6. How the concept will relate to TaskFlow and to real engineering teams.
-7. Common mistakes, troubleshooting, exercises, interview questions, and revision.
-8. A learner checkpoint before marking the phase's theory complete.
+See [Learning Scope](docs/LEARNING-SCOPE.md) for the exact boundaries and [Learning Progress](docs/learning-progress.md) for the lesson checklist.
 
-We will not rush into writing the application while these concepts are still unfamiliar. Commands will be explained first; commands that create or change infrastructure will be run during the later practical stage, not during theory lessons.
+## Roadmap
 
-## Current status
+| Phase | Focus | Lessons | Status |
+|---|---|---:|---|
+| 0 | Engineering foundations | Baseline | **Completed** |
+| 1 | Full-stack application fundamentals | 6 | **Next: Lesson 1.1** |
+| 2 | Git and GitHub workflows | 2 | Planned |
+| 3 | Docker fundamentals | 3 | Planned |
+| 4 | Docker Compose | 2 | Planned |
+| 5 | Linux and server administration | 3 | Planned |
+| 6 | AWS cloud fundamentals | 3 | Planned |
+| 7 | Cloud deployment | 2 | Planned |
+| 8 | CI/CD with GitHub Actions | 2 | Planned |
+| 9 | Monitoring and reliability | 2 | Planned |
+| 10 | Scaling and high availability | 2 | Planned |
+| 11 | Kubernetes and Terraform | 3 | Planned |
+| **Total** | **Phases 1–11** | **30** | |
 
-| Phase | Focus | Status |
-|---|---|---|
-| 0 | Engineering foundations | Reference notes available; learner checkpoint remains |
-| 1 | Full-stack application fundamentals | **Theory in progress** |
-| 2 | Git and GitHub workflows | Planned |
-| 3 | Docker fundamentals | Planned |
-| 4 | Docker Compose | Planned |
-| 5 | Linux and server administration | Planned |
-| 6 | AWS cloud fundamentals | Planned |
-| 7 | Cloud deployment | Planned |
-| 8 | CI/CD with GitHub Actions | Planned |
-| 9 | Monitoring and reliability | Planned |
-| 10 | Scaling and high availability | Planned |
-| 11 | Kubernetes and Terraform | Planned |
+## Technology landscape
 
-See [Learning Progress](docs/learning-progress.md) for lesson-level status and checkpoints.
+These are the planned technologies and concepts to understand. Final versions and exact architecture choices will be confirmed before implementation.
 
-## Planned technology landscape
-
-These are the technologies we intend to understand and evaluate, not a statement that they are installed or already connected:
-
-| Area | Planned learning focus |
+| Area | Project focus |
 |---|---|
-| Frontend | Browser fundamentals, HTML/CSS/JavaScript, React, TypeScript |
-| Backend | Node.js runtime, Express, APIs, validation, application structure |
-| Data | Relational database concepts, SQL, PostgreSQL |
-| Identity | Authentication, authorization, sessions, cookies, security |
-| Version control | Git and GitHub |
-| Containers | Docker and Docker Compose |
-| Operating systems | Linux, shell, processes, permissions, networking |
-| Cloud | AWS as the primary hands-on cloud provider; Azure and GCP compared conceptually where useful |
-| Delivery | DNS, reverse proxies, HTTPS, CI/CD |
-| Operations | Logs, metrics, health checks, alerts, reliability |
-| Scale and infrastructure | Load balancing, replicas, Kubernetes, Terraform |
-
-The final technology choices and versions will be confirmed during the implementation-planning stage, using current official documentation.
+| Frontend | Browser, HTML/CSS/JavaScript essentials, React, TypeScript |
+| Backend | Node.js, Express, API design, validation, error handling |
+| Data | SQL, PostgreSQL, schema design, migrations, indexes |
+| Identity and security | Authentication, authorization, sessions/cookies, secrets, common web risks |
+| Version control | Git, GitHub, branches, pull requests, code review |
+| Containers | Docker images/containers, Dockerfiles, volumes, networks, registries |
+| Local multi-service setup | Docker Compose, service configuration, health checks |
+| Server | Linux shell, files, users, permissions, processes, SSH, networking |
+| Cloud | AWS as the primary cloud path; Azure/GCP only compared when useful |
+| Delivery | DNS, HTTPS, reverse proxy, CI/CD |
+| Operations | Logs, metrics, health checks, alerts, incident basics |
+| Scale | Load balancing, replicas, autoscaling, caching, database limits |
+| Orchestration and IaC | Kubernetes fundamentals and Terraform fundamentals |
 
 ## Repository structure
 
 ```text
 taskflow/
 ├── docs/
-│   ├── 00-foundations/       # Networking, client-server, compute foundations
-│   ├── 01-application/       # Full-stack theory and proposed TaskFlow design
+│   ├── 00-foundations/
+│   ├── 01-application/
+│   ├── LEARNING-SCOPE.md
 │   ├── DOCUMENTATION-GUIDE.md
 │   └── learning-progress.md
 └── .gitignore
 ```
 
-Later phase folders will be added when their lessons begin. Application source code, dependency manifests, deployment files, and infrastructure configuration will be added only after the complete theory roadmap and implementation blueprint are finished.
+Only learning documentation is present at this stage. Application source code and infrastructure configuration will be added when the theory roadmap is complete and the implementation blueprint is agreed.
 
-## Important guardrails
+## Guardrails
 
-- A diagram or proposed design is not evidence that a service has been built or deployed.
-- A command in the notes is for understanding until we explicitly enter the practical stage.
-- Never commit passwords, API keys, tokens, cookies, private keys, or real environment files.
-- Prefer local, low-cost learning before creating paid cloud resources.
-- Review costs, permissions, network exposure, and cleanup before provisioning anything.
-- Mark a lesson complete only after the learner can explain the concepts and complete the agreed checkpoint.
+- A design is not a running or deployed system.
+- Commands are explained before they are used.
+- Avoid unnecessary installations and paid cloud resources during theory.
+- Never commit credentials, tokens, cookies, private keys, or real environment files.
+- Mark a lesson complete when the learner can explain and apply the required concepts, not when every edge case is memorized.
 
-## Documentation
+## Start here
 
-- [Documentation standards](docs/DOCUMENTATION-GUIDE.md)
-- [Engineering foundations](docs/00-foundations/README.md)
-- [Phase 1 — Application fundamentals](docs/01-application/README.md)
-- [Learning progress](docs/learning-progress.md)
+1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
+2. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
+3. [Lesson 1.1 — architecture and request lifecycle](docs/01-application/architecture.md)
+4. [Learning progress](docs/learning-progress.md)
