@@ -1,116 +1,199 @@
 # Client-Server Architecture: The Foundation of Modern Software
 
----
+## Learning objectives
 
-## 1. Definition
-**Client-Server Architecture** is a distributed computing model where workload is divided between two distinct entities:
-- **Client (Service Requester)**: Any hardware or software that requests services, resources, or computation (e.g., a React app running in Chrome, a mobile iOS app, or a terminal running `curl`).
-- **Server (Service Provider)**: Any hardware or operating system process that passively listens for requests, performs authentication, executes business logic, interacts with persistence layers (databases), and returns responses.
+By the end of this lesson, you should be able to explain:
+- What a client and server are.
+- Why applications separate user interfaces from server-side business logic.
+- How a request-response interaction works.
+- Why a backend can be a server to a browser and a client to a database.
+- Where networking and databases fit into the architecture.
 
----
+## 1. The basic idea
 
-## 2. Problem: Why It Was Created
-In early computing (monolithic mainframe era), computation, display, and data all resided on a single centralized machine. Terminals were "dumb" screens without processing capability.
-As personal computers and distributed networks emerged, companies faced two major issues:
-1. **Centralized Bottlenecks**: One machine doing display rendering, file storage, and data querying crashed when thousands of users connected simultaneously.
-2. **Duplication & Insecurity**: Storing data and business logic directly on end-user machines (peer-to-peer / desktop software) allowed users to tamper with critical data, inspect database passwords, and created massive data synchronization conflicts.
+Client-server architecture is a model in which one program requests a service or resource and another program provides it.
 
-**The Solution**: Centralize the source of truth, security policies, and heavy processing on **Servers**, while offloading rendering and user interaction to **Clients**.
+- **Client:** Starts a request. Examples include a browser, mobile app, command-line tool, or another backend service.
+- **Server:** Receives requests and provides a response. A server is often a program running on a computer, not necessarily a special physical machine.
 
----
+A browser is a client when it requests a web page. An Express application is a server when it handles that browser's HTTP request.
 
-## 3. Internal Working
-The interaction follows a continuous **Request-Response Cycle**:
+The same Express application can also be a client when it connects to PostgreSQL or calls another service. The words client and server describe a role in a particular interaction.
 
-1. **Passive Listening**: The server process binds to a network socket (IP address + Port) and enters an event loop listening for incoming TCP connection handshakes.
-2. **Connection Handshake**: The client initiates a TCP 3-way handshake (`SYN` → `SYN-ACK` → `ACK`).
-3. **Payload Transmission**: The client sends a formatted request (HTTP method, headers, query parameters, or body).
-4. **Execution & Context Isolation**: The server accepts the socket, parses the raw bytes into a structured request object, checks authentication tokens, queries the database, and constructs a response.
-5. **Response Delivery**: The server writes the response status code, headers, and payload back to the socket.
-6. **Connection Termination or Reuse**: Depending on HTTP `keep-alive` headers, the TCP socket is either held open for subsequent requests or closed.
+## 2. Why separate the client and server?
 
----
+Consider a task-management application. The browser needs to display tasks and capture user actions. The application also needs to enforce rules such as:
+- A user must be authenticated before accessing private tasks.
+- A task title cannot be empty.
+- One user must not read or edit another user's tasks.
+- Data must be stored consistently.
 
-## 4. Architecture: Components & Relationships
+The browser is not a trusted place to enforce these rules. Users can inspect and modify browser code and requests. The backend therefore validates requests and enforces authorization before changing protected data.
 
-```
-┌─────────────────────────────────┐
-│         CLIENT TIER             │
-│  - React Application (Vite)     │
-│  - Browser DOM & Local Storage  │
-│  - Axios / Fetch API Client     │
-└────────────────┬────────────────┘
-                 │ HTTP/HTTPS Request (JSON)
-                 ▼
-┌─────────────────────────────────┐
-│      APPLICATION SERVER TIER    │
-│  - Reverse Proxy (Nginx)        │
-│  - Node.js / Express Process    │
-│  - JWT Auth & Route Validation  │
-└────────────────┬────────────────┘
-                 │ TCP Protocol (Port 5432)
-                 ▼
-┌─────────────────────────────────┐
-│        DATABASE TIER            │
-│  - PostgreSQL Engine            │
-│  - Disk Storage & WAL Logs      │
-│  - Connection Pool (pg)         │
-└─────────────────────────────────┘
+The database stores durable information. It is not normally exposed directly to an untrusted browser.
+
+## 3. A request-response cycle
+
+Suppose a signed-in TaskFlow user opens the My Tasks screen.
+
+1. The user performs an action in the browser.
+2. The frontend sends a request to the backend API.
+3. The backend receives and parses the request.
+4. The backend authenticates the caller and checks authorization.
+5. If needed, the backend queries PostgreSQL.
+6. PostgreSQL returns a result or error.
+7. The backend creates an HTTP response.
+8. The browser uses the response to update the screen.
+
+This is a simplified logical sequence. Real requests also involve DNS resolution, transport connections, possible TLS encryption, proxies, timeouts, and error handling.
+
+### Example request
+
+```http
+GET /api/tasks HTTP/1.1
+Host: localhost:5000
+Accept: application/json
+Authorization: Bearer <access-token>
 ```
 
----
+### Example response
 
-## 5. Practical: Commands & Implementation
-To inspect client-server communication from your terminal without a browser:
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+```
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "task-001",
+      "title": "Learn Docker",
+      "status": "pending"
+    }
+  ]
+}
+```
+
+The example token is a placeholder. Never put a real access token in committed documentation.
+
+## 4. Architecture and responsibilities
+
+```text
++---------------------------+
+| Browser / React frontend  |
+| - Renders the interface   |
+| - Captures user actions   |
+| - Calls the backend API   |
++-------------+-------------+
+              |
+              | HTTP request / response
+              v
++---------------------------+
+| Node.js + Express backend |
+| - Authentication         |
+| - Authorization           |
+| - Validation              |
+| - Business rules          |
+| - Logging and errors      |
++-------------+-------------+
+              |
+              | Database protocol / SQL
+              v
++---------------------------+
+| PostgreSQL                |
+| - Stores durable data     |
+| - Enforces constraints    |
+| - Executes queries        |
++---------------------------+
+```
+
+Responsibilities should be separated, but the diagram does not mean every application requires separate physical machines. During local development, all three components can run on one laptop. In production, they may run on different services or hosts.
+
+## 5. A server is a role, not necessarily a physical machine
+
+A server can be:
+- A program listening for network requests.
+- A physical computer running that program.
+- A virtual machine in a data centre.
+- A container running on a host.
+- A managed cloud service.
+
+For example, an EC2 virtual machine is a cloud compute resource. Our Node.js process inside it can act as the application server.
+
+## 6. TaskFlow usage
+
+For TaskFlow:
+- **Client:** React + TypeScript in the user's browser.
+- **Application server:** Node.js + Express API.
+- **Database server:** PostgreSQL.
+- **Communication:** HTTP between browser and API; PostgreSQL's database protocol between API and database.
+
+The backend is a server to the browser and a client to PostgreSQL.
+
+## 7. Important concepts not to confuse
+
+### Authentication vs authorization
+- Authentication asks: Who are you?
+- Authorization asks: Are you allowed to do this?
+
+### CORS vs authentication
+CORS is a browser-enforced mechanism that controls whether frontend JavaScript can read cross-origin responses. It is not an authentication or authorization system. The backend must still validate identity and permissions. Tools such as curl and Postman do not enforce browser CORS rules, but they can send credentials when configured to do so.
+
+### Stateful vs stateless
+A stateful service keeps relevant session or conversational state between requests. A stateless API design aims for each request to carry the information required to process it, rather than depending on memory stored in one particular application instance. Stateless design can make horizontal scaling easier, but it does not mean the whole system has no state: the database still stores application data.
+
+## 8. Practical observation
+
+Open Chrome DevTools:
+1. Open the Network tab.
+2. Filter by Fetch/XHR.
+3. Visit `https://jsonplaceholder.typicode.com/posts`.
+4. Select a request.
+5. Inspect Request URL, Request Method, Status Code, Response, and Content-Type.
+
+You can also inspect a request from PowerShell:
 
 ```powershell
-# 1. Inspect raw headers and timing of a server request
-curl.exe -v https://httpbin.org/get
-
-# 2. Inspect active network listening sockets on your local Windows machine
-Get-NetTCPConnection -State Listen | Select-Object LocalAddress, LocalPort, OwningProcess
-
-# 3. Simulate a simple client request passing JSON to a local backend
-curl.exe -X POST http://localhost:5000/api/tasks `
-  -H "Content-Type: application/json" `
-  -d '{\"title\":\"Learn Docker\",\"status\":\"Todo\"}'
+curl.exe -i https://httpbin.org/get
 ```
 
----
+The command sends an HTTP request and prints response headers along with the response body.
 
-## 6. Project Usage in TaskFlow
-In TaskFlow:
-- **Client**: React + TypeScript frontend running in the user's browser (or served via an Nginx container). It renders the Kanban dashboard, captures task creation events, and manages authentication state in memory.
-- **Server**: Node.js + Express backend running as an isolated process inside a Docker container. It validates JWT tokens, executes CRUD queries against PostgreSQL, and logs all incoming requests.
-- **Database**: PostgreSQL server running independently on port `5432`. The backend acts as a client to the PostgreSQL server.
+## 9. Common errors
 
----
-
-## 7. Real-World Industry Context
-In high-scale enterprise environments (Uber, Netflix, Airbnb):
-- **BFF (Backend for Frontend)**: Different client platforms (iOS, Android, Web, Smart TVs) connect to dedicated micro-servers tailored to their UI needs.
-- **Stateless Servers**: Servers do not store user sessions in local server RAM. Instead, authentication is managed via cryptographically signed tokens (JWTs) or shared distributed caches (Redis). This allows engineers to spin up 50 copies of the server behind a load balancer without users getting logged out.
-
----
-
-## 8. Troubleshooting: Common Errors & Solutions
-| Error | Root Cause | Engineering Solution |
+| Error | Possible cause | What to inspect |
 |---|---|---|
-| `ECONNREFUSED 127.0.0.1:5000` | The server process is not running, or is listening on a different port/interface. | Verify the server is running using `Get-Process node` or check logs. |
-| `CORS Error: No 'Access-Control-Allow-Origin'` | The browser blocked the client from reading the server response because the frontend domain differs from the backend domain. | Configure Express middleware: `app.use(cors({ origin: 'http://localhost:3000' }))`. |
-| `504 Gateway Timeout` | The reverse proxy (Nginx or Load Balancer) did not receive a timely response from the backend application. | Check backend performance, database locks, or slow third-party API calls. |
+| Connection refused | No process is listening at the target address and port | Server process, port, bind address |
+| 401 Unauthorized | Missing or invalid authentication | Token or session validation |
+| 403 Forbidden | Caller is authenticated but lacks permission | Authorization rules |
+| 404 Not Found | Route or resource does not exist | Request path and resource ID |
+| 500 Internal Server Error | Unexpected server-side failure | Application logs and stack trace |
+| CORS error in browser | Browser rejected access to a cross-origin response | Origin, preflight, CORS headers |
 
----
+## 10. Interview questions
 
-## 9. Interview Preparation: High-Yield Questions
-1. **Q: What is the difference between a stateful and a stateless server?**
-   - *Answer*: A stateful server keeps client session data in its local memory, requiring subsequent requests from the same user to hit that exact server (sticky sessions). A stateless server stores no client session locally; every request contains all necessary credentials (e.g., JWT), allowing any server replica in the cluster to process it.
-2. **Q: Why does the browser enforce CORS, but tools like `curl` or Postman do not?**
-   - *Answer*: CORS (Cross-Origin Resource Sharing) is a browser-enforced security sandbox designed to protect authenticated end users from malicious websites executing unauthorized background requests using their saved cookies. `curl` and Postman are developer tools without ambient credentials or cross-site user sessions.
+1. What is client-server architecture?
+2. Can a backend be both a client and a server?
+3. Why should the backend enforce authorization?
+4. What is the difference between authentication and authorization?
+5. Does a server have to be a physical machine?
+6. Does CORS replace authentication?
 
----
+## 11. Key takeaways
 
-## 10. Revision & Summary
-- The client initiates requests; the server passively listens on a socket and responds.
-- In modern DevOps, servers must be **stateless** so they can be packaged into containers and horizontally scaled.
-- The backend application is simultaneously a **server** to the browser client and a **client** to the PostgreSQL database server.
+- Client and server describe roles in a specific interaction.
+- The client initiates a request; the server handles it and returns a response.
+- The backend enforces business rules and access permissions.
+- The database stores durable application data.
+- The backend can be a client to another server.
+- CORS, authentication, and authorization solve different problems.
+
+## 12. Lesson completion
+
+- [ ] Explain client and server in your own words.
+- [ ] Trace a request in Chrome DevTools.
+- [ ] Explain why the browser should not connect directly to the production database.
+- [ ] Distinguish CORS from authorization.
+- [ ] Complete the knowledge check with the mentor.
