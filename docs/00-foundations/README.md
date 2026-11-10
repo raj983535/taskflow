@@ -1,23 +1,21 @@
 # Engineering Foundations
 
-This section builds the mental model required before we write application code or manage infrastructure.
+**Status: Phase 0 foundation baseline completed.** These notes remain available as reference material. They are not a second, unfinished curriculum, and no additional Phase 0 checkpoint is required before continuing the fixed 30-lesson roadmap.
 
-## Lesson sequence
+## Foundation reference map
 
-| Order | Topic | Documentation | Status |
-|---|---|---|---|
-| 0.1 | Client-server architecture | [Client-server architecture](client-server-architecture.md) | Notes available; practice pending |
-| 0.2 | Frontend vs backend | Planned | Not started |
-| 0.3 | How websites work | Planned | Not started |
-| 0.4 | DNS and IP addresses | [HTTP, HTTPS, and DNS](http-https-dns.md) | Notes available; practice pending |
-| 0.5 | Ports and networking | [Ports and networking](ports-and-networking.md) | Notes available; practice pending |
-| 0.6 | HTTP and HTTPS | [HTTP, HTTPS, and DNS](http-https-dns.md) | Notes available; practice pending |
-| 0.7 | Physical servers, VMs, and containers | [Bare metal, VMs, and containers](bare-metal-vs-vm-vs-containers.md) | Notes available; practice pending |
-| 0.8 | Cloud computing | Planned | Not started |
-| 0.9 | Connecting the architecture | Planned | Not started |
+| Concept | Reference / where it is covered | How it connects to later work |
+|---|---|---|
+| Client-server architecture | [Client-server architecture](client-server-architecture.md) | Baseline model reinforced in [Phase 1, Lesson 1.1](../01-application/lesson-1.1-full-stack-architecture.md) |
+| Frontend and backend responsibilities | [Phase 1, Lesson 1.1](../01-application/lesson-1.1-full-stack-architecture.md) and [Lesson 1.2](../01-application/lesson-1.2-browser-react-typescript.md) | Separates browser presentation from server-side rules |
+| How a website is reached | [HTTP, HTTPS, and DNS](http-https-dns.md) and [Ports and networking](ports-and-networking.md) | DNS, addresses, ports, TLS, and request routing |
+| HTTP and HTTPS | [HTTP, HTTPS, and DNS](http-https-dns.md), reinforced in [Phase 1, Lesson 1.4](../01-application/lesson-1.4-http-rest-apis-json.md) | Application requests, API contracts, and secure transport |
+| Physical servers, VMs, and containers | [Bare metal, VMs, and containers](bare-metal-vs-vm-vs-containers.md) | Expanded in [Phase 3 — Docker](../learning-progress.md#phase-3--docker-fundamentals-3-lessons) |
+| Cloud computing | Covered in the planned [Phase 6 — AWS cloud fundamentals](../learning-progress.md#phase-6--aws-cloud-fundamentals-3-lessons) and [Phase 7 — Cloud deployment](../learning-progress.md#phase-7--cloud-deployment-2-lessons) | Cloud concepts are revisited when TaskFlow needs a real deployment design |
+| Connecting the application architecture | [Phase 1, Lesson 1.1](../01-application/lesson-1.1-full-stack-architecture.md) and the [Phase 1 final walkthrough](../01-application/lesson-1.6-identity-security-quality.md) | Brings the browser, API, backend, database, identity, and quality flow together |
 
-## Recommended study order
+## How to use these notes
 
-Start with client-server roles, then understand frontend/backend responsibilities. Learn what happens when a URL is opened, including DNS, network connections, ports, and HTTP. Finally compare physical servers, virtual machines, and containers before moving to cloud computing.
+Phase 0 established the baseline vocabulary and mental models. Revisit a note briefly when a later lesson or implementation step depends on it. Do not reopen Phase 0 as a separate study phase or delay the fixed roadmap to complete extra foundation sub-lessons.
 
-The progress ledger at [docs/learning-progress.md](../learning-progress.md) records lesson completion. A document being present does not mean its exercise has been completed.
+The single source of truth for the 30 planned lessons and their checkpoints is [docs/learning-progress.md](../learning-progress.md). Phase 1's six study documents are indexed in the [Phase 1 guide](../01-application/README.md).
