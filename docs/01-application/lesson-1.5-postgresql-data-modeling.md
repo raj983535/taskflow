@@ -111,7 +111,7 @@ CREATE TABLE tasks (
   title text NOT NULL CHECK (length(trim(title)) > 0),
   description text,
   status text NOT NULL DEFAULT 'todo'
-    CHECK (status IN ('todo', 'in_progress', 'done')),
+    CHECK (status IN ('todo', 'in_progress', 'completed')),
   priority text NOT NULL DEFAULT 'normal'
     CHECK (priority IN ('low', 'normal', 'high')),
   due_date date,
@@ -148,7 +148,7 @@ The everyday data operations are often called **CRUD**:
 |---|---|---|
 | Create | INSERT | Add a task |
 | Read | SELECT | Show a user's tasks |
-| Update | UPDATE | Mark a task as done |
+| Update | UPDATE | Mark a task as completed |
 | Delete | DELETE | Remove a task |
 
 ### Read records
@@ -176,7 +176,7 @@ RETURNING asks PostgreSQL to return the inserted row's selected fields.
 
 ~~~sql
 UPDATE tasks
-SET status = 'done',
+SET status = 'completed',
     updated_at = now()
 WHERE id = $1 AND user_id = $2
 RETURNING id, title, status;
