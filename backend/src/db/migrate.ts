@@ -46,12 +46,19 @@ async function runMigrations(): Promise<void> {
     }
   } finally {
     client.release();
-    await pool.end();
   }
 }
 
-runMigrations().catch(async (error: unknown) => {
-  console.error("Database migration failed:", error);
-  await pool.end();
-  process.exitCode = 1;
-});
+runMigrations()
+  .catch((error: unknown) => {
+    console.error("Database migration failed:", error);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    try {
+      await pool.end();
+    } catch (error) {
+      console.error("Unable to close the PostgreSQL pool:", error);
+      process.exitCode = 1;
+    }
+  });
