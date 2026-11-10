@@ -61,10 +61,15 @@ export default function App() {
   }
 
   async function handleLogout() {
-    await api.logout();
-    setUser(null);
-    setTasks([]);
-    setFilter("all");
+    try {
+      await api.logout();
+      setUser(null);
+      setTasks([]);
+      setFilter("all");
+      setPageError("");
+    } catch (error) {
+      setPageError(error instanceof Error ? error.message : "Unable to sign out.");
+    }
   }
 
   async function saveTask(input: TaskInput) {
@@ -147,7 +152,7 @@ export default function App() {
         </a>
         <div className="sidebar-section">
           <p className="sidebar-label">WORKSPACE</p>
-          <button className="nav-link active" type="button"><span className="nav-icon">▦</span> My tasks <span className="nav-count">{counts.all}</span></button>
+          <button className={`nav-link ${filter === "all" ? "active" : ""}`} type="button" onClick={() => setFilter("all")}><span className="nav-icon">▦</span> My tasks <span className="nav-count">{counts.all}</span></button>
           <button className="nav-link" type="button" onClick={() => setFilter("in_progress")}><span className="nav-icon">◷</span> In progress</button>
           <button className="nav-link" type="button" onClick={() => setFilter("completed")}><span className="nav-icon">✓</span> Completed</button>
         </div>
