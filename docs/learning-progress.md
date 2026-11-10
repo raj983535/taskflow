@@ -45,8 +45,17 @@ This file is the single source of truth for what has actually been studied and v
 
 ### Initial repository setup
 - Repository created and initial Phase 0 documentation committed.
-- Readme, ignore rules, and progress ledger are present.
+- README, ignore rules, and progress ledger are present.
 - Future application and infrastructure directories should be introduced when needed, not represented as existing before implementation.
+
+### Repository review and documentation maintenance — 2026-11-10
+- Reviewed the repository structure, README, ignore rules, foundation notes, and commit history.
+- Aligned the README and progress ledger with the files that actually exist.
+- Corrected explanations covering client/server roles, CORS, modern TLS key agreement, HTTP/3 over QUIC, ports, Docker Desktop networking on Windows, and container isolation.
+- Added a foundations lesson index and a documentation guide.
+- Expanded ignore rules for environment files, credentials, local database data, and Terraform state.
+- No application runtime code or cloud infrastructure has been created yet.
+- **Verification status:** Repository changes were fetched again from GitHub; learner exercises are still pending.
 
 ### Lesson 0.1 — Client-server architecture
 - **Concepts:** client, server, request-response, database interaction.
