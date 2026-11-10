@@ -95,7 +95,7 @@ When we enter the practical stage, we can use the browser's Developer Tools Netw
 Do not paste real cookies, authorization headers, passwords, or tokens into notes or screenshots.
 
 
-## 7. Illustrative validation error response
+## 8. Illustrative validation error response
 
 For consistency, TaskFlow's proposed validation errors use this response shape:
 
@@ -115,7 +115,7 @@ Status: HTTP 400
 
 The `message` provides a general explanation. The optional `details` array can identify fields that need correction. Unexpected internal errors should not expose stack traces, database credentials, or other sensitive implementation details.
 
-## 8. Authentication and authorization status codes
+## 9. Authentication and authorization status codes
 
 - HTTP 401 means the request has not established a valid authenticated identity.
 - HTTP 403 means the caller is authenticated but is not allowed to perform the requested operation.
