@@ -80,5 +80,5 @@ Only learning documentation is present at this stage. Application source code an
 
 1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
 2. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
-3. [Lesson 1.1 — architecture and request lifecycle](docs/01-application/architecture.md)
+3. [Lesson 1.1 — Full-stack architecture and request lifecycle](docs/01-application/lesson-1.1-full-stack-architecture.md)
 4. [Learning progress](docs/learning-progress.md)
