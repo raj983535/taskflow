@@ -1,65 +1,66 @@
 # Phase 1 — Full-Stack Application Fundamentals
 
-**Purpose:** Understand how a modern web application works before writing TaskFlow's application code.
+**Six focused lessons.** The goal is to understand the moving parts of a web application well enough to design and explain TaskFlow before implementation.
 
-This phase is theory and system design only. The actual frontend, backend, database setup, and deployment will be built after all learning phases are complete.
+This is not an exhaustive web-development course. We cover the project-relevant behavior of the browser, React, TypeScript, Node.js, Express, HTTP APIs, PostgreSQL, authentication, and basic quality practices.
 
-## What we are learning
+## The proposed stack
 
-The proposed TaskFlow learning stack is:
-
-| Layer / concept | Technology or subject | What we need to understand |
+| Layer | Technology | What you need to understand |
 |---|---|---|
-| User interface | Browser, HTML, CSS, JavaScript | How a browser renders a page and handles user interaction |
-| Frontend framework | React | Components, state, props, rendering, and frontend structure |
-| Types | TypeScript | Static types and how they help catch mistakes |
-| Runtime | Node.js | How JavaScript can run outside the browser |
-| Backend framework | Express | Routing, middleware, request handling, and server structure |
-| Communication | HTTP, REST-style APIs, JSON | How frontend and backend exchange requests and responses |
-| Database | PostgreSQL and SQL | How persistent, relational data is organized and queried |
-| Identity | Authentication and authorization | How a user proves identity and what that user is allowed to do |
-| Quality | Testing, validation, migrations | How we check behavior and safely evolve an application |
+| User interface | Browser + React | Rendering, components, state, and user interaction |
+| Types | TypeScript | Basic static typing and why it helps |
+| Server runtime | Node.js | Running JavaScript outside the browser |
+| Backend framework | Express | Routes, middleware, request handling, and errors |
+| Communication | HTTP, REST-style API, JSON | How the frontend and backend exchange data |
+| Database | PostgreSQL + SQL | Tables, relationships, queries, constraints, and indexes |
+| Identity | Sessions/cookies and authorization | Recognizing users and protecting their data |
+| Quality | Validation, migrations, tests | Preventing bad input and checking changes |
 
-These are study choices and a proposed design, not installed dependencies or a completed application.
+These are proposed technology choices, not installed services or a completed application.
 
-## Lesson sequence
+## Six-lesson sequence
 
-1. [Architecture and request lifecycle](architecture.md)
-2. Browser, frontend, React, and TypeScript
-3. Node.js runtime, backend responsibilities, and Express
-4. HTTP, REST-style APIs, JSON, and status codes using the [proposed API contract](api-reference.md)
-5. Relational database concepts, SQL, and the [proposed data model](database-design.md)
-6. [Authentication, authorization, and security concepts](authentication-and-security.md)
-7. [Development toolchain and commands](toolchain-and-commands.md)
-8. [Migrations, testing, and quality checks](migrations-and-testing.md)
-9. Connect the complete design using the [Phase 1 theory plan](phase-1-learning-plan.md)
+| Lesson | Topic |
+|---|---|
+| 1.1 | Full-stack architecture and request lifecycle |
+| 1.2 | Browser, React, and TypeScript |
+| 1.3 | Node.js and Express backend |
+| 1.4 | HTTP, REST-style APIs, and JSON |
+| 1.5 | PostgreSQL and data modeling |
+| 1.6 | Identity, security, and quality basics |
 
-## The big picture
+## Reference notes
+
+- [Architecture](architecture.md)
+- [Illustrative API contract](api-reference.md)
+- [Database design](database-design.md)
+- [Authentication and security](authentication-and-security.md)
+- [Toolchain and commands](toolchain-and-commands.md)
+- [Migrations and testing](migrations-and-testing.md)
+- [Phase 1 lesson plan](phase-1-learning-plan.md)
+
+## The end-to-end mental model
 
 ```text
-Person
+User
   |
   v
-Browser / Frontend
-  |  HTTP request and response (often JSON)
+Browser and React frontend
+  |  HTTP request / JSON response
   v
-Backend application
-  |  SQL query
+Node.js and Express backend
+  |  SQL query / result
   v
-Relational database
+PostgreSQL database
 ```
 
-The backend is the trusted application boundary. The browser is controlled by the user and must never be trusted to enforce permissions or protect secrets.
+The backend is responsible for enforcing business rules and access permissions. The browser is controlled by the user and is not a trusted security boundary.
 
-## What Phase 1 does not ask you to do yet
+## What is deliberately out of scope
 
-- Do not create the React application or Express server.
-- Do not install npm packages or configure a local database.
-- Do not run migrations or start development servers.
-- Do not deploy anything.
+We will not study browser-engine internals, React reconciliation internals, Node.js event-loop internals in depth, database query-planner internals, every API style, or advanced identity-provider design. We will learn the relevant operational mental model and return to deeper details only if TaskFlow requires them.
 
-We will understand the purpose and meaning of these tools and commands first. Implementation comes after the full theory roadmap.
+## Completion
 
-## Phase 1 theory checkpoint
-
-The phase is ready to be considered understood only when the learner can describe the complete request lifecycle, explain each technology's role, understand the proposed database and API design, and complete the exercises in [the learning plan](phase-1-learning-plan.md).
+Phase 1 ends after the six lessons and one end-to-end TaskFlow walkthrough. We then move to Phase 2, not into an open-ended collection of extra web-development topics.
