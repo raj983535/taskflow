@@ -1,64 +1,48 @@
-# Phase 1 — Theory Learning Plan
+# Phase 1 — Six-Lesson Learning Plan
 
-**Goal:** Be able to explain a complete web application before building one.
+**Goal:** Understand the application architecture and the technologies TaskFlow will use without turning this into an exhaustive web-development course.
 
-## Learning objectives
+## Lesson map
 
-By the end of Phase 1, the learner should be able to:
-- Describe the role of the browser and frontend.
-- Explain React and TypeScript at a conceptual level.
-- Explain Node.js as a runtime and Express as a backend framework.
-- Describe how an HTTP API connects frontend and backend.
-- Understand JSON, methods, headers, status codes, and request/response bodies.
-- Explain relational tables, keys, constraints, SQL, and PostgreSQL.
-- Distinguish authentication, authorization, cookies, sessions, and token-based approaches.
-- Explain the purpose of packages, environment variables, migrations, and different test levels.
-- Trace a user's action through the full request lifecycle.
-
-## Lesson order
-
-| Lesson | Focus | Main question |
+| Lesson | Topic | Required understanding |
 |---|---|---|
-| 1.1 | Full-stack architecture | What are all the parts of a web application, and how do they communicate? |
-| 1.2 | Browser and frontend | What happens inside the browser, and what does React help us organize? |
-| 1.3 | JavaScript runtime and backend | Why is Node.js needed, and what does Express add? |
-| 1.4 | HTTP and APIs | How does one part of the system request work from another? |
-| 1.5 | SQL and PostgreSQL | How is application data stored, related, and retrieved? |
-| 1.6 | Authentication and security | How does the system recognize users and protect their data? |
-| 1.7 | Development toolchain | What are Node, npm, packages, scripts, environment variables, and command-line tools? |
-| 1.8 | Migrations and testing | How do teams safely change a database and check software behavior? |
-| 1.9 | System walkthrough | Can we explain TaskFlow end to end without relying on code? |
+| 1.1 | Full-stack architecture and request lifecycle | Identify the browser, frontend, backend, API, database, and trace one request end to end |
+| 1.2 | Browser, React, and TypeScript | Understand the browser's role, components, props, state, rendering, and basic types |
+| 1.3 | Node.js and Express backend | Understand runtime vs framework, routes, middleware, validation, and error handling |
+| 1.4 | HTTP, REST-style APIs, and JSON | Understand methods, headers, bodies, status codes, endpoint design, and request/response flow |
+| 1.5 | PostgreSQL and data modeling | Understand tables, rows, keys, relationships, SQL CRUD, constraints, and the purpose of indexes |
+| 1.6 | Identity, security, and quality basics | Understand authentication vs authorization, sessions/cookies, secrets, validation, migrations, and test levels |
 
-## How each lesson will be taught
+## Standard format for each lesson
 
-Each lesson will include:
-1. A plain-language explanation.
-2. The technical terms and their relationships.
-3. A diagram or request/data flow.
-4. A TaskFlow example.
-5. A real-world example from software teams.
-6. Relevant commands and every important argument explained.
-7. Common misconceptions and troubleshooting.
-8. A small exercise and review questions.
+- Explain the purpose and mental model in plain English.
+- Introduce the essential technical terms.
+- Show one diagram or request/data flow if it adds clarity.
+- Connect the subject to TaskFlow.
+- Explain only the commands and configuration we are likely to use.
+- Cover common mistakes and the practical trade-offs.
+- Finish with a small exercise and a short checkpoint.
 
-Theory lessons do not require installing tools or writing application code. Some commands will be explained as preparation for the practical stage.
+No extra lesson is created for every term. Advanced internals are deferred unless they become necessary for a real implementation or debugging problem.
 
-## Phase 1 final exercise
+## Final Phase 1 exercise
 
-Explain this scenario step by step:
+Explain the lifecycle:
 
 A signed-in user opens TaskFlow, creates a task, refreshes the browser, and later signs out.
 
-In the explanation, identify:
+Your explanation should identify:
 - What the browser and frontend do.
-- What request is sent and what an API endpoint means.
-- What Node.js and Express are responsible for.
-- Where authentication and authorization are checked.
+- What HTTP request is sent and what the API endpoint represents.
+- What Node.js and Express do.
+- Where identity and task ownership are checked.
 - What PostgreSQL stores and returns.
-- How the response reaches the frontend.
-- Why the task remains after a browser refresh.
+- How the response reaches the browser.
+- Why the task remains after a refresh.
 - What changes when the user signs out.
 
 ## Completion rule
 
-Phase 1 is complete only after the concepts and final exercise are understood. Completing Phase 1 does not begin application implementation. The remaining roadmap phases are still studied theoretically first. The application is built after the final theory phase and after the overall implementation blueprint is reviewed.
+You do not need to memorize every React hook, Express option, SQL feature, or security standard. You need to explain the normal flow, understand the core vocabulary, recognize the important security boundary, and complete the final exercise.
+
+After this lesson sequence, move to Phase 2. Do not add more Phase 1 lessons unless a concrete TaskFlow requirement exposes a genuine gap.
