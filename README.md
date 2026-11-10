@@ -52,7 +52,7 @@ taskflow/
 └── .gitignore
 ```
 
-Directories for future phases will be created when we reach them; the documentation index is maintained in `docs/learning-progress.md`.
+Directories for future phases will be created when we reach them. The [foundations lesson index](docs/00-foundations/README.md) lists the lesson sequence; the [learning progress ledger](docs/learning-progress.md) records verified completion.
 
 ## Learning roadmap
 
@@ -75,7 +75,7 @@ Directories for future phases will be created when we reach them; the documentat
 
 The initial lessons are theory and safe local diagnostics. Application runtime dependencies will be pinned and documented when Phase 1 begins.
 
-See [Learning Progress](docs/learning-progress.md) for the current lesson and completion criteria.
+See [Learning Progress](docs/learning-progress.md) for the current lesson and completion criteria, and the [Documentation Guide](docs/DOCUMENTATION-GUIDE.md) for the format and safety conventions used in technical notes.
 
 ## Engineering conventions
 
