@@ -17,7 +17,7 @@ Both checks must happen on the server. Hiding a button in the frontend does not 
 
 A system should never store users' plaintext passwords.
 
-A password-hashing function is designed to make guessing expensive. A unique random salt is used so identical passwords do not result in identical stored hashes. Modern password-storage choices include dedicated algorithms such as Argon2id and bcrypt; the exact library and parameters should be selected using current security guidance when implementation begins.
+A password-hashing function is designed to make guessing expensive. A unique random salt is used so identical passwords do not result in identical stored hashes. For a new system, current OWASP guidance prefers Argon2id. Scrypt is another option; bcrypt is more commonly encountered in legacy systems. Use a maintained library with suitable parameters and unique salts. The exact library and configuration should be selected and benchmarked using current security guidance when implementation begins.
 
 Do not confuse:
 - **Password hashing:** deliberately expensive because passwords are human-chosen and may be guessable.
