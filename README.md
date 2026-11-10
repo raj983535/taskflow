@@ -20,7 +20,7 @@ See [Learning Scope](docs/LEARNING-SCOPE.md) for the exact boundaries and [Learn
 | Phase | Focus | Lessons | Status |
 |---|---|---:|---|
 | 0 | Engineering foundations | Baseline | **Completed** |
-| 1 | Full-stack application fundamentals | 6 | **In progress: Lesson 1.5** |
+| 1 | Full-stack application fundamentals | 6 | **In progress: Lesson 1.6** |
 | 2 | Git and GitHub workflows | 2 | Planned |
 | 3 | Docker fundamentals | 3 | Planned |
 | 4 | Docker Compose | 2 | Planned |
@@ -80,5 +80,5 @@ Only learning documentation is present at this stage. Application source code an
 
 1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
 2. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
-3. [Lesson 1.5 — PostgreSQL and data modeling](docs/01-application/lesson-1.5-postgresql-data-modeling.md)
+3. [Lesson 1.6 — Identity, security, and quality basics](docs/01-application/lesson-1.6-identity-security-quality.md)
 4. [Learning progress](docs/learning-progress.md)
