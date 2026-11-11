@@ -21,7 +21,7 @@ See [Learning Scope](docs/LEARNING-SCOPE.md) for the exact boundaries and [Learn
 |---|---|---:|---|
 | 0 | Engineering foundations | Baseline | **Completed** |
 | 1 | Full-stack application fundamentals | 6 | **Progressed to Phase 2; checkpoints not validated** |
-| 2 | Git and GitHub workflows | 2 | **In progress: Lesson 2.1; materials published** |
+| 2 | Git and GitHub workflows | 2 | **In progress: final learner checkpoint** |
 | 3 | Docker fundamentals | 3 | Planned |
 | 4 | Docker Compose | 2 | Planned |
 | 5 | Linux and server administration | 3 | Planned |
@@ -82,4 +82,5 @@ Only learning documentation is present at this stage. Application source code an
 1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
 2. [Phase 2 — Git and GitHub workflows](docs/02-git/README.md)
 3. [Lesson 2.1 — Git fundamentals](docs/02-git/lesson-2.1-git-fundamentals.md)
-4. [Learning progress](docs/learning-progress.md)
+4. [Lesson 2.2 — GitHub team workflow](docs/02-git/lesson-2.2-github-team-workflow.md)
+5. [Learning progress](docs/learning-progress.md)
