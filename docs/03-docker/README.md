@@ -35,7 +35,7 @@ This phase focuses on Docker itself. **Docker Compose is Phase 4**, where we wil
 ## Practical boundary
 
 - These lessons are theory-first. Do not install Docker Desktop or start containers just to read the material.
-- On Windows, Docker Desktop provides a managed Docker Engine experience and can use the WSL 2 backend. We will confirm current installation requirements and resource settings only when we are ready to run the project.
+- On Windows, Docker Desktop provides a managed Docker Engine experience and supports a WSL 2 backend. Read the [official Docker Desktop WSL 2 guide](https://docs.docker.com/desktop/features/wsl/) when we are ready to check installation requirements and resource settings.
 - Do not download large images or allocate cloud resources during this phase.
 - Treat example image names, ports, and application paths as examples, not as a completed TaskFlow configuration.
 
