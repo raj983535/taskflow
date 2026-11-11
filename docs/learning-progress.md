@@ -65,7 +65,7 @@ Phase guide: [Phase 1 overview](01-application/README.md). Reference material in
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. study is self-paced; assessment records actual learner results.**
+**Material status: Both lessons and the integrated checkpoint published. Study is self-paced; assessment records actual learner results.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -76,7 +76,7 @@ Phase guide and integrated checkpoint: [Phase 2 overview](02-git/README.md).
 
 ## Phase 3 — Docker fundamentals (3 lessons)
 
-**Material status: All three lessons and the connected walkthrough published. study is self-paced; assessment records actual learner results.**
+**Material status: All three lessons and the connected walkthrough published. Study is self-paced; assessment records actual learner results.**
 
 | Lesson | Topic | Material |
 |---|---|---|
