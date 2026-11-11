@@ -77,14 +77,6 @@ Lesson guides: [Phase 2 overview and final checkpoint](02-git/README.md), [Lesso
 
 | Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 3.1 | Containers and images | Explain image vs container, layers, registry, and lifecycle | Planned |
-| 3.2 | Dockerfile and image build | Read and write the project Dockerfile; understand build context and caching | Planned |
-| 3.3 | Runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Planned |
-
-## Phase 3 — Docker fundamentals (3 lessons)
-
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
 | 3.1 | Containers and images | Explain image vs container, Docker Engine, layers, registry, and lifecycle | Study material published; learner checkpoint pending |
 | 3.2 | Dockerfile and image build | Read and write Dockerfiles; understand build context, .dockerignore, layers, and cache | Study material published; learner checkpoint pending |
 | 3.3 | Container runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Study material published; learner checkpoint pending |
