@@ -57,7 +57,7 @@ These are project directions, not permission to silently select every library or
 
 Do not replace the agreed direction with another framework, database, or cloud provider without explaining the reason and recording the decision. Do not invent product requirements, roles, permissions, workflows, or business rules that have not been agreed or documented.
 
-Keep local development practical for a Windows 11 and PowerShell user with limited machine resources. Prefer a lean toolchain, explain required installations, and avoid unnecessary paid services. Never create paid cloud resources or incur a bill without explicit approval.
+Keep local development practical for a Windows 11 and PowerShell user with approximately 8 GB RAM. Prefer a lean toolchain and free or genuinely no-cost options. The mandatory installation/download and cost-approval gates in Section 8 apply to every task. A request to implement, build, test, deploy, or proceed does not waive those gates.
 
 ## 4. Folder structure is not implementation approval
 
@@ -75,7 +75,7 @@ The repository may contain folders and README placeholders for future components
 - Build one understandable vertical slice at a time. A vertical slice follows a real user action through the relevant frontend, API, and data layers.
 - Prefer a small working feature over a large speculative scaffold.
 - Do not introduce infrastructure early merely because it appears later in the theory roadmap. Introduce it when the implementation has a reason for it, and document that reason.
-- Do not add dependencies, abstractions, services, queues, caches, microservices, or frameworks without a concrete need.
+- Do not add dependencies, abstractions, services, queues, caches, microservices, or frameworks without a concrete need. A concrete need does not waive the approval requirements for downloading or installing anything; follow Section 8 first.
 - Preserve existing conventions unless there is a clear reason to change them.
 - Explain trade-offs in plain language. Distinguish a project requirement from an agent preference.
 
@@ -128,15 +128,84 @@ A typo, formatting, or local naming-only change does not need a new standalone g
 - When a check cannot be run, state why. Never imply that code, a command, a container, a migration, a deployment, or a cloud resource was tested unless it was actually tested.
 - When debugging, identify the symptom, gather evidence, isolate the failing layer, test a hypothesis, apply the smallest safe fix, and verify the result. Document reusable lessons in debugging/.
 
-## 8. Security, data, and cost rules
+## 8. Mandatory permission gates, security, and cost rules
+
+The two permission gates below are **hard requirements**, not suggestions. They apply to every AI agent, coding agent, builder tool, IDE agent, terminal agent, automation, delegated sub-agent, script, and service acting for the user. They apply regardless of the project, repository, programming language, technology, operating system, or tool being used. No agent may bypass them by delegating work, using another tool, running a script, or triggering an indirect operation.
+
+### 8.1 Rule 1 — No local installations or downloads without explicit permission
+
+**Do not download or install anything onto the user's local machine unless the user has first given explicit approval for that specific action.**
+
+This prohibition includes, but is not limited to:
+
+- Software, applications, developer tools, IDEs, plugins, and extensions.
+- Language runtimes, SDKs, CLIs, compilers, build tools, and system utilities.
+- Dependencies, libraries, packages, package-manager components, and global tools.
+- Container images, virtual-machine images, model weights, datasets, browser drivers, and test binaries.
+- Installers, archives, scripts, certificates, fonts, assets, and any other resources fetched onto local storage.
+- Updates, upgrades, additional packages, or optional components that an installer or package manager may fetch automatically.
+
+The restriction applies to every installation or download method, including GUI installers, browsers, PowerShell, terminal commands, package managers, IDEs, Docker, scripts, and builder tools. Examples of commands that may download or install content include `npm install`, `npx`, `pnpm add`, `yarn add`, `pip install`, `uv sync`, `winget install`, `choco install`, `scoop install`, `apt install`, and `docker pull`. This list is illustrative, not exhaustive.
+
+Before any such action:
+
+1. Stop before running the command or starting the download.
+2. Explain why the exact item is necessary for the approved task and what it will enable.
+3. Identify the exact software, tool, package, version, source/vendor, and command or installation method.
+4. Explain known or estimated download size, disk usage, RAM/runtime impact, required permissions, and relevant security considerations. Be clear when an estimate is unknown.
+5. Present a no-install or already-available alternative where practical, including whether the task can be completed with tools already present.
+6. Ask the user for explicit permission and wait for the answer.
+
+Approval must identify the proposed item and action clearly enough to understand what is being authorized. Approval to install one item is not approval to install other packages, optional dependencies, upgrades, or future tools. Do not interpret a general request to build, test, run, deploy, or complete a task as installation permission.
+
+Do not run commands that silently download or install dependencies, update tools, pull images, or fetch additional resources unless the required permission has been obtained first. If an operation may trigger an automatic download or installation and this cannot be ruled out, treat it as requiring permission. When permission is not granted, do not proceed with that installation or download; use an available alternative or explain the limitation.
+
+### 8.2 Rule 2 — No paid services, purchases, or cost-incurring actions without explicit permission
+
+**Never initiate, activate, purchase, subscribe to, provision, deploy, build, or otherwise trigger an action that could incur a charge unless the user has first received the cost explanation and explicitly approved that specific action.**
+
+This includes, but is not limited to:
+
+- Paid subscriptions, plans, licenses, credits, add-ons, and upgrades.
+- Purchases, paid APIs, AI model/API usage, paid build minutes, and metered services.
+- Cloud resources and services, including compute, databases, storage, networking, load balancers, logs, monitoring, backups, and data transfer.
+- Hosting, domains, certificates, email/SMS services, external integrations, and third-party services.
+- Actions on an existing account or free-tier plan that could trigger usage charges, overages, auto-scaling, renewals, or billing.
+- Any other activity whose direct or indirect result may be a payment, recurring commitment, or usage-based expense.
+
+Always investigate and prioritize genuinely free, open-source, already-available, and no-cost free-tier options before recommending a paid alternative. Do not recommend a paid option merely because it is more convenient. Explain why the free options are unsuitable or insufficient before presenting a paid option.
+
+Before any potentially chargeable action:
+
+1. Stop before enabling billing, starting a paid build, provisioning the resource, deploying, purchasing, or triggering metered usage.
+2. Explain why the action is needed and what user requirement it serves.
+3. Compare suitable free or no-cost alternatives and explain why they do or do not meet the requirement.
+4. State the expected cost in the provider's billing currency and, where practical, an approximate conversion to the user's currency. Separate one-time, recurring, and usage-based charges.
+5. Explain the assumptions behind the estimate, likely usage, quotas, free-tier limits, possible overages, taxes where known, renewal terms, and any cost uncertainty. Use current provider pricing information when making a price claim.
+6. Explain how the resource or subscription can be monitored, limited, cancelled, or cleaned up, including any residual charges that may remain.
+7. Ask for explicit approval for the identified action and wait for the answer.
+
+Approval for one purchase, subscription, resource, environment, build, usage limit, or time period does not authorize additional or recurring charges outside that scope. Do not assume that an attached payment method, existing subscription, free-tier eligibility, previous approval, or general implementation request is permission to spend. When a free tier can become chargeable after a quota is exceeded, explain that risk and obtain approval before enabling a billing path or triggering usage that could exceed the no-cost allowance.
+
+If approval is not granted, do not trigger the expense. Continue with an appropriate no-cost alternative or explain what cannot be completed without paid resources.
+
+### 8.3 Security and data handling
 
 - Never commit real API keys, passwords, tokens, cookies, private keys, database URLs containing credentials, or real environment files.
 - Commit safe example files only when useful; use placeholder values and explain how secrets are supplied locally.
 - Never paste secrets into documentation, examples, test output, screenshots, or logs.
 - Avoid destructive database, filesystem, Git, or cloud commands unless the task clearly requires them and consequences are understood.
 - Treat migrations, data deletion, permission changes, public network access, and cloud resource creation as high-impact operations.
-- Do not provision or modify paid AWS resources without explicit approval.
-- Document cost and cleanup implications whenever infrastructure or paid services are introduced.
+- Do not provision or modify paid AWS resources without following Rule 2 and receiving explicit approval.
+- Document cost, security, and cleanup implications whenever infrastructure or paid services are introduced.
+
+### 8.4 No bypasses and no implied consent
+
+- These rules apply to direct actions and indirect actions performed through scripts, package managers, IDEs, browser automation, CI services, cloud consoles, APIs, plugins, external builders, and delegated agents.
+- A user approving the overall project, folder structure, implementation phase, or a feature does not approve installations, downloads, subscriptions, purchases, paid builds, or chargeable infrastructure.
+- Never split an unapproved action into smaller steps, disguise it as setup, or let another agent perform it to avoid asking.
+- If the cost, download, installation, or side effects are uncertain, stop and ask rather than assume the action is safe.
+- Record what was approved and what was actually performed. Do not claim that approval was received when it was not.
 
 ## 9. Keep the repository understandable
 
@@ -161,6 +230,8 @@ Before reporting completion:
 - [ ] Documentation explains why, what, how, business logic, code locations, and debugging.
 - [ ] Related theory lessons are linked where useful.
 - [ ] README, project context, and progress status are updated when affected.
+- [ ] No software, tools, dependencies, packages, or other resources were downloaded or installed without explicit approval.
+- [ ] No paid subscription, purchase, paid build, cloud resource, or other potentially chargeable action was initiated without explicit approval.
 - [ ] No secrets or unapproved paid resources were added.
 - [ ] Changed Markdown links and paths are checked.
 - [ ] The final report separates implemented, tested, untested, and deferred items.
