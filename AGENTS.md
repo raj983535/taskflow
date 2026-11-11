@@ -59,7 +59,16 @@ Do not replace the agreed direction with another framework, database, or cloud p
 
 Keep local development practical for a Windows 11 and PowerShell user with limited machine resources. Prefer a lean toolchain, explain required installations, and avoid unnecessary paid services. Never create paid cloud resources or incur a bill without explicit approval.
 
-## 4. Work in small, understandable slices
+## 4. Folder structure is not implementation approval
+
+The repository may contain folders and README placeholders for future components. **A folder, placeholder, proposed architecture, or learning example does not mean its application code is approved or implemented.**
+
+- When the user asks only for structure, documentation, review, or planning, do not create application source code, package manifests, runtime configuration, database migrations, Dockerfiles, workflows, or cloud resources.
+- Start coding only when the user explicitly assigns and approves an implementation task.
+- Implement only the approved scope. Do not use the existence of a planned folder as permission to fill it with code.
+- Keep Proposed, Planned, Implemented, and Verified states distinct.
+
+## 5. Work in small, understandable slices
 
 - Inspect existing code, documentation, tests, and Git status before planning.
 - State the problem, outcome, approach, affected areas, and important unknowns before a meaningful architectural change.
@@ -70,7 +79,7 @@ Keep local development practical for a Windows 11 and PowerShell user with limit
 - Preserve existing conventions unless there is a clear reason to change them.
 - Explain trade-offs in plain language. Distinguish a project requirement from an agent preference.
 
-## 5. Mandatory implementation documentation
+## 6. Mandatory implementation documentation
 
 Documentation is part of the implementation, not optional follow-up work.
 
@@ -108,7 +117,7 @@ A typo, formatting, or local naming-only change does not need a new standalone g
 
 **Do not mark a feature complete while its required implementation guide is missing or materially out of date.** Code and its explanation should be committed together.
 
-## 6. Code, testing, and debugging expectations
+## 7. Code, testing, and debugging expectations
 
 - Keep code readable, typed, modular, and consistent with project conventions.
 - Explain non-obvious code through clear names, small functions, and targeted comments. Comments should explain why, not narrate every line.
@@ -119,7 +128,7 @@ A typo, formatting, or local naming-only change does not need a new standalone g
 - When a check cannot be run, state why. Never imply that code, a command, a container, a migration, a deployment, or a cloud resource was tested unless it was actually tested.
 - When debugging, identify the symptom, gather evidence, isolate the failing layer, test a hypothesis, apply the smallest safe fix, and verify the result. Document reusable lessons in debugging/.
 
-## 7. Security, data, and cost rules
+## 8. Security, data, and cost rules
 
 - Never commit real API keys, passwords, tokens, cookies, private keys, database URLs containing credentials, or real environment files.
 - Commit safe example files only when useful; use placeholder values and explain how secrets are supplied locally.
@@ -129,7 +138,7 @@ A typo, formatting, or local naming-only change does not need a new standalone g
 - Do not provision or modify paid AWS resources without explicit approval.
 - Document cost and cleanup implications whenever infrastructure or paid services are introduced.
 
-## 8. Keep the repository understandable
+## 9. Keep the repository understandable
 
 When a change affects layout, setup, developer workflow, architecture, or project status, update the relevant README and context document.
 
@@ -141,7 +150,7 @@ When a change affects layout, setup, developer workflow, architecture, or projec
 - Do not duplicate the theory course inside implementation documentation; explain the practical project use and link back to theory.
 - Use relative Markdown links and verify changed links before finishing.
 
-## 9. Definition of done for a meaningful change
+## 10. Definition of done for a meaningful change
 
 Before reporting completion:
 

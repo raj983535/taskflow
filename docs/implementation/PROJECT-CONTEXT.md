@@ -1,138 +1,159 @@
-# TaskFlow project context for coding agents
+# TaskFlow project context
 
-**Last reviewed:** 2026-11-11  
-**Purpose:** Give a new human or AI coding agent enough context to begin work without relying on a previous chat.
+**Purpose:** Give a new human or AI coding agent the project context without requiring access to previous conversations.
 
-## 1. What TaskFlow is
+## 1. Project identity
 
-TaskFlow is a learning-oriented full-stack task-management application. It is also a public engineering learning repository. The application should be developed as a real, maintainable project while the learner studies the published theory material at their own pace.
+TaskFlow is a task-management web application and a practical engineering learning project. It is intended to help the learner understand frontend, backend, databases, testing, Docker, Linux, cloud deployment, CI/CD, monitoring, scaling, Kubernetes, and Terraform through one evolving project.
 
-The exact product requirements and detailed business rules must be written down as features are agreed. Do not invent complex roles, permissions, collaboration rules, billing, notifications, or enterprise features without a requirement.
+The theory curriculum and application development are parallel tracks. The learner studies at their own pace; theory completion is not a prerequisite for coding.
 
-## 1A. Initial application model from the theory design
+The initial product direction is a personal task-management application. The detailed MVP, user journeys, task fields, business rules, authentication, and acceptance criteria must be finalized before feature implementation.
 
-The existing Phase 1 material contains a **proposed learning design** for a simple task-management application. It is useful context for the first implementation discussion, but it is not proof that any feature or endpoint has been implemented or that every proposed detail has been approved.
+## 2. Environment and constraints
 
-The illustrative first user journey is:
+- Local operating system: Windows 11.
+- Preferred shell: PowerShell.
+- Local project folder: `E:\Taskflow`.
+- Hardware: approximately 8 GB RAM.
+- Cost preference: keep local development lightweight and avoid paid services unless approved.
+- GitHub repository: [raj983535/taskflow](https://github.com/raj983535/taskflow).
+- Use one local repository with a working branch. Do not create a second clone unless the learner requests it.
 
-1. A person creates an account and signs in.
-2. The application identifies the current user.
-3. That user can create, list, update, and delete tasks that belong to them.
-4. The backend validates each request and enforces ownership. The browser is not trusted to decide who owns a task.
-5. PostgreSQL stores the user, session, and task records in the proposed relational model.
-
-The teaching database model currently describes three entities:
-
-- **Users:** account identity, a unique email, a password hash, and creation time.
-- **Sessions:** a session record linked to a user, a token hash, and an expiry time. This is one conceptual session-based design, not a final authentication decision.
-- **Tasks:** a task linked to its owner, with a title, optional description, status, priority, optional due date, and creation/update timestamps.
-
-The Phase 1 API reference contains illustrative routes such as health checks, registration, login, current-user lookup, logout, listing tasks, creating tasks, updating a task, and deleting a task. Those routes are examples only. Final route names, request/response shapes, validation rules, and authentication behaviour must be reviewed during implementation.
-
-Useful existing references:
-
-- [Phase 1 overview and six lessons](../01-application/README.md)
-- [Proposed full-stack architecture and task-creation flow](../01-application/architecture.md)
-- [Illustrative API contract](../01-application/api-reference.md)
-- [Proposed users, sessions, and tasks data model](../01-application/database-design.md)
-- [Authentication and security learning notes](../01-application/authentication-and-security.md)
-- [Migrations and testing learning notes](../01-application/migrations-and-testing.md)
-
-Before implementing this model, confirm the first-version requirements and record any important decisions. Do not assume that all listed API routes, fields, session storage details, or security mechanisms are already final.
-
-## 2. The learning and development model
-
-There are two parallel tracks:
-
-- **Theory:** the learner studies Phase 0–11 documents at their own pace.
-- **Implementation:** the application is developed in small, working slices.
-
-There is no dependency between completing a theory phase and starting implementation. When implementation introduces something unfamiliar, the agent must teach it in an implementation guide and link to its theory lesson. The person may read that guide immediately or study the theory later.
-
-The repository must serve a person who only wants the code as well as a person who wants to learn the concepts. Neither reader should need private chat history.
+Before reconciling a local folder with a remote branch, inspect Git status, current branch, remotes, existing files, and untracked/ignored content. Never overwrite or delete local files without reporting the exact conflict and receiving approval.
 
 ## 3. Agreed technology direction
 
-| Area | Direction | What remains to be decided |
+| Area | Agreed direction | Still open |
 |---|---|---|
-| Frontend | React + TypeScript | Build tool, routing, styling/UI system, state strategy, form strategy |
-| Backend | Node.js + Express + TypeScript | Runtime/package setup, API structure, validation, logging, error conventions |
-| Database | PostgreSQL | Driver or ORM, migration tool, schema conventions, local setup |
-| Cloud | AWS as the primary later cloud path | Exact hosting architecture, services, networking, cost, security, deployment sequence |
+| Web frontend | React + TypeScript | Build tool, routing, styling, state and form approach |
+| Backend API | Node.js + Express + TypeScript | Runtime/package setup, module conventions, validation and error format |
+| Database | PostgreSQL | Driver/query library, migration tool, schema, local setup |
+| Cloud | AWS as the later primary cloud path | Exact architecture, services, networking, cost and deployment sequence |
 
-This is the known direction. Do not quietly substitute Next.js, another backend framework, another database, or another cloud provider. A meaningful change to the agreed direction needs a clear proposal, trade-off explanation, and recorded decision.
+These are technology directions, not a selection of every supporting library. Record meaningful decisions in `docs/implementation/decisions/` before hard-to-change assumptions are introduced.
 
-Do not pick a library merely because it is popular. At the point it is needed, compare a small number of suitable options against project needs, beginner understandability, maintenance, compatibility, cost, and the user's machine constraints. Explain the recommendation and record meaningful choices in decisions/.
+## 4. Current repository stage
 
-## 4. Current repository state
+**Current stage: folder-structure preparation only.**
 
-At the time this context file was created:
+The repository contains:
+- Published Phase 0–11 theory documentation.
+- Root universal `AGENTS.md`.
+- Implementation documentation categories and templates.
+- A planned application folder layout under `app/`.
+- Planned database, infrastructure, CI/CD, and testing directories.
 
-- The complete Phase 0–11 theory material is present under docs/.
-- Agent instructions and the implementation documentation system are now established.
-- There is not yet an application scaffold or feature implementation on the main branch.
-- There is no verified frontend runtime, backend runtime, database instance, Docker setup, CI pipeline, AWS deployment, Kubernetes cluster, or Terraform-managed infrastructure.
+The folder layout is represented by explanatory README placeholders. It does not contain application source code or runtime setup.
 
-This snapshot must be updated as soon as implementation changes. Before each task, inspect the current branch rather than assuming this list is still current.
+Not yet implemented:
+- React application source code or frontend package manifest.
+- Express API source code or backend package manifest.
+- Root package manifest, package manager workspace configuration, or dependency lockfile.
+- PostgreSQL connection, schema, migrations, or seed scripts.
+- Authentication, sessions, or task CRUD.
+- Unit/integration/e2e test implementation or test runner configuration.
+- Dockerfiles, Compose configuration, CI workflows, AWS resources, Kubernetes manifests, or Terraform code.
 
-## 5. Development environment and cost constraints
+Check the current branch and repository contents before relying on this snapshot.
 
-The primary learner environment is Windows 11 with PowerShell. The machine has limited resources (around 8 GB RAM), and the project should remain affordable.
+## 5. Planned top-level structure
 
-- Give PowerShell commands when the user is expected to run commands locally. Label commands for other shells clearly.
-- Explain what important command flags do and which folder the command should run from.
-- Keep local development light. Avoid unnecessary background services and heavy tools.
-- Prefer free or low-cost options during local development.
-- AWS is the intended cloud learning path, but paid resources must not be provisioned or modified without explicit approval.
-- Explain resource cleanup and likely cost before any paid infrastructure action.
+```text
+taskflow/
+├── app/
+│   ├── web/                 # Browser frontend
+│   ├── api/                 # Backend HTTP API
+│   └── shared/              # Shared contracts/types if genuinely needed
+├── database/
+│   ├── migrations/
+│   └── seeds/
+├── infrastructure/
+│   ├── local/
+│   ├── docker/
+│   ├── linux/
+│   ├── aws/
+│   ├── deployment/
+│   ├── monitoring/
+│   ├── kubernetes/
+│   └── terraform/
+├── .github/
+│   └── workflows/           # Future CI/CD workflows
+├── tests/
+│   ├── integration/
+│   └── e2e/
+├── scripts/
+└── docs/
+    ├── theory phases 0–11
+    └── implementation/
+```
 
-## 6. Proposed implementation shape — not yet a committed architecture
+Each folder README explains its intended responsibility and whether it is only planned. The structure does not force an immediate choice of package manager, workspace tool, or application library.
 
-A simple monorepo layout may be appropriate:
+Unit tests may live close to the code they test. Cross-application tests belong in the root `tests/` area.
 
-    taskflow/
-    ├── apps/
-    │   ├── web/                 # React + TypeScript frontend
-    │   └── api/                 # Node.js + Express + TypeScript backend
-    ├── infrastructure/          # Local/container and later cloud configuration
-    ├── docs/
-    │   ├── theory phase folders
-    │   └── implementation/
-    ├── AGENTS.md
-    └── README.md
+## 6. Application areas
 
-This is a proposed organizing idea, not a requirement to create empty folders or add monorepo tooling immediately. Confirm the first implementation plan before locking package management, workspace tooling, or deployment structure. Add shared packages only when real reuse justifies them.
+### `app/web/`
 
-## 7. Suggested way to begin implementation
+Reserved for the React + TypeScript browser application. The proposed organization separates application entry/routing, reusable components, user-facing features, hooks, API clients/services, styles, types, public assets, and frontend tests.
 
-Start with a small end-to-end slice rather than generating the whole system at once:
+### `app/api/`
 
-1. Confirm a concise first-version feature list and the smallest useful user journey.
-2. Agree on the initial architecture and project layout. Record important decisions.
-3. Scaffold the frontend and API with a clear explanation of each file and command.
-4. Establish a simple local development and configuration workflow.
-5. Add one small feature that exercises the frontend, API, and database boundary.
-6. Add tests and a repeatable debugging path.
-7. Introduce Docker, cloud, CI/CD, monitoring, or orchestration when the application has a concrete need for them.
+Reserved for the Node.js + Express + TypeScript backend API. The proposed organization separates configuration, database access, middleware, and feature modules. Initial module areas are health, authentication, and tasks; their presence as folders does not mean their endpoints or behaviour are implemented.
 
-The exact first feature and details of the initial architecture should be confirmed from current project requirements. Do not build all future infrastructure in advance.
+### `app/shared/`
 
-## 8. Mandatory implementation documentation
+Reserved for contracts or types genuinely shared between the web and API. Do not add abstractions here before a real reuse case exists.
 
-For every meaningful feature or new concept, create or update a beginner-friendly guide under this folder's implementation documentation tree in the same change as the code.
+## 7. Database, infrastructure, and testing responsibilities
 
-The guide must explain why it exists, what changed, how the full flow works, its business logic, important files/functions, unfamiliar concepts, configuration/commands, security, failure cases, debugging, verification evidence, trade-offs, and relevant theory links.
+- `database/migrations/`: ordered schema changes after the schema and migration approach are approved.
+- `database/seeds/`: safe fictional development/test data.
+- `infrastructure/local/`: local environment documentation/configuration.
+- `infrastructure/docker/`: Dockerfiles and related build resources at the Docker stage.
+- `infrastructure/linux/`: server administration and host configuration when needed.
+- `infrastructure/aws/`: approved AWS infrastructure.
+- `infrastructure/deployment/`: deployment and reverse-proxy/TLS configuration.
+- `infrastructure/monitoring/`: logs, metrics, traces, health and alerts.
+- `infrastructure/kubernetes/`: Kubernetes manifests when that stage begins.
+- `infrastructure/terraform/`: Terraform infrastructure code when approved.
+- `.github/workflows/`: GitHub Actions workflow files after CI decisions.
+- `tests/integration/`: tests across application boundaries.
+- `tests/e2e/`: complete browser-to-API user journeys.
+- `scripts/`: repeatable maintenance/development scripts only when a concrete need exists.
 
-Start with [the implementation documentation index](README.md), follow [the mandatory agent rules](../../AGENTS.md), and use [the implementation guide template](templates/implementation-guide-template.md).
+## 8. Implementation sequence
 
-## 9. Source of truth
+The proposed delivery sequence is:
 
-When information differs, use this order:
+1. Confirm MVP scope, user journeys, task business rules, and acceptance criteria.
+2. Finalize UI/UX wireframes and API/data contracts.
+3. Select necessary supporting libraries and record decisions.
+4. Set up the web and API applications using the approved project tooling.
+5. Establish the database schema and migrations.
+6. Implement authentication and authorization if included in the approved MVP.
+7. Deliver task workflows as small end-to-end vertical slices.
+8. Add and run automated tests and document debugging.
+9. Introduce Docker and Compose after the application works locally.
+10. Add CI/CD, then AWS deployment after reviewing security, cost, and cleanup.
+11. Add monitoring, scaling, Kubernetes, and Terraform progressively.
 
+This is a plan, not an instruction to generate all layers at once. The learner can study theory in parallel.
+
+## 9. Documentation requirements
+
+For every meaningful implementation slice, maintain a beginner-friendly guide under `docs/implementation/` in the same change. Explain why it was needed, what changed, the business logic, how the full flow works, which code files matter, how to configure/run/test/debug it, relevant security and failure cases, what was actually verified, trade-offs, and links to theory.
+
+Start with [the implementation documentation guide](README.md), follow the root [AGENTS.md](../../AGENTS.md), and use the implementation guide template.
+
+## 10. Source of truth
+
+When information differs, use:
 1. Current user-approved requirements and decisions.
-2. Current code, tests, and configuration on the branch being changed.
-3. Current decision records and implementation guides.
-4. Project context and README summaries.
-5. Older theory examples, drafts, or historical discussion.
+2. Current code/tests/configuration on the branch being changed.
+3. Accepted decision records and current implementation guides.
+4. This project context and the root README.
+5. Older theory examples and historical discussions.
 
-If something important is ambiguous, do not silently invent a business rule or high-impact architecture choice. State the assumption and ask one focused question only when the work genuinely cannot proceed safely. Otherwise, make a small reversible proposal and label it clearly.
+Never treat a folder placeholder or theory example as proof that an implementation decision has been finalized.

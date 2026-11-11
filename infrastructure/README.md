@@ -1,9 +1,16 @@
-# TaskFlow infrastructure configuration
+# TaskFlow infrastructure
 
-This folder is reserved for infrastructure and delivery configuration that belongs in version control.
+This folder organizes local environment and future infrastructure configuration. Directories are introduced as placeholders for the learning and delivery roadmap; their presence does not mean infrastructure has been configured or deployed.
 
-Possible future areas include local container configuration and later AWS infrastructure, deployment, CI/CD, and operational configuration. Add them only when the application requires them and the approach has been explained and agreed.
+## Planned areas
 
-Do not store credentials, private keys, real environment files, state files containing sensitive values, or other secrets here. Explain cost, security, and cleanup before any paid cloud resources are introduced.
+- [local/](local/README.md) — local developer environment and service configuration.
+- [docker/](docker/README.md) — Dockerfiles, image build settings, and container-related files.
+- [linux/](linux/README.md) — Linux server administration and host setup.
+- [aws/](aws/README.md) — AWS account and cloud infrastructure configuration.
+- [deployment/](deployment/README.md) — deployment topology, reverse proxy, DNS, and TLS.
+- [monitoring/](monitoring/README.md) — logs, metrics, traces, health, and alerting.
+- [kubernetes/](kubernetes/README.md) — Kubernetes manifests and deployment configuration.
+- [terraform/](terraform/README.md) — infrastructure as code.
 
-Every meaningful infrastructure change requires a beginner-friendly guide under docs/implementation/infrastructure/ and links to the relevant theory lessons.
+Do not create paid resources, expose services publicly, or add executable infrastructure files without an approved task. Never commit real secrets.
