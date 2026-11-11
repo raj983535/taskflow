@@ -8,6 +8,8 @@ This is the source of truth for the TaskFlow curriculum.
 
 - **Phase 0:** Engineering foundations baseline documented.
 - **Phases 1–11:** All **30 planned lessons** and their phase guides are published in GitHub.
+- **Phases 3–11 beginner revision:** All 21 lesson files now include a plain-language bridge to prior knowledge and a guided TaskFlow walkthrough that connects the concepts end to end. Phase guides also link backward/forward through the roadmap.
+- **Beginner's map:** [How Phases 3–11 fit together](BEGINNER-MAP-PHASES-3-11.md).
 - **Learner study:** Deferred by the learner until the entire curriculum has been authored.
 - **Checkpoint assessments:** Deferred. No Phase 1–11 learner checkpoint is being recorded as passed merely because its material has been published or explained.
 - **Recommended starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle.
@@ -203,6 +205,8 @@ After the study pass and architecture review:
 - Confirmed the fixed roadmap of 30 planned lessons across Phases 1–11.
 - Published the guides and lesson documents for Phases 1–11.
 - Added integrated phase checkpoints and official reference links to the phase guides.
+- Revised all 21 Phase 3–11 lessons with prior-knowledge bridges, guided end-to-end TaskFlow examples, clearer failure diagnosis, and concept boundaries. Added the connected beginner map and previous/next phase navigation.
+- Updated the documentation standard to require first-use jargon explanations, complete workflows, command/flag explanations, and a practical failure path.
 - Updated repository navigation to point to the first study lesson, Phase 1 Lesson 1.1.
 - Deferred learner study and assessments at the learner's direction. No Phase 1–11 lesson is recorded as passed by publication alone.
 - Kept the repository documentation-only. No application code, Docker runtime, Kubernetes cluster, Terraform apply, or AWS infrastructure is claimed.
