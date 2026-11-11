@@ -4,6 +4,26 @@
 
 TaskFlow is not one process. It has a frontend, an API, and a database. Docker Compose lets us define the services and resources they share in one YAML configuration, then operate the application stack with a small set of commands.
 
+## Where Phase 4 fits in the bigger picture
+
+**You already know:** Phase 3 taught how to build an image, run one container, publish a port, attach a volume, and connect containers on a Docker network.
+
+**This phase adds:** one project file that describes several related services and the resources they share.
+
+Follow this chain:
+
+```text
+Docker images
+   -> Compose services
+   -> project network + named volumes
+   -> docker compose up
+   -> inspect / logs / troubleshoot / down
+```
+
+Lesson 4.1 explains how the Compose file connects the services. Lesson 4.2 explains the operating commands and safe cleanup. The output is a repeatable local environment for TaskFlow.
+
+**Important boundary:** Compose manages the local multi-container application. It does not create a cloud network, a production domain, or a managed database account.
+
 ## Outcomes
 
 By the end of Phase 4, you should be able to:
