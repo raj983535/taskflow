@@ -4,6 +4,27 @@
 
 This phase introduces observability and the practical operating loop for TaskFlow.
 
+## Where Phase 9 fits in the bigger picture
+
+**You already know:** Phase 7 exposed the application and Phase 8 described how releases are delivered. Now TaskFlow needs to be operated after deployment.
+
+**This phase adds:** evidence and response practices that show whether the service is healthy and help the team investigate failures.
+
+Follow this chain:
+
+```text
+Request
+   -> logs + metrics + traces
+   -> dashboard / alert
+   -> incident triage
+   -> mitigation + verification
+   -> post-incident improvements
+```
+
+Lesson 9.1 explains the signals and service goals. Lesson 9.2 explains how a human responder uses those signals, runbooks, and communication to recover service.
+
+**Important boundary:** a dashboard shows evidence; it does not fix the problem. An alert should point to an action and an owner.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
