@@ -69,4 +69,4 @@ Update local main
 
 ## Completion
 
-Both lesson documents and the combined walkthrough have been published and taught. The learner checkpoint remains open until the learner's answers are reviewed. See [Learning Progress](../learning-progress.md). A published or presented lesson is not automatically a passed learner checkpoint.
+Both lesson documents and the combined checkpoint are published. Learner study and assessment are deliberately deferred until the full curriculum has been authored. See [Learning Progress](../learning-progress.md). Publication does not imply that the learner has passed the checkpoint.
