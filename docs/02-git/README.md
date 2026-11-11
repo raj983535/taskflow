@@ -39,6 +39,34 @@ The command examples use **Windows PowerShell** and modern Git commands such as 
 
 This phase is not a deep dive into Git's internal object formats, advanced history rewriting, submodules, hooks, Git LFS, complex release branching, or every possible merge strategy. Those topics are outside TaskFlow's current needs. We will return to a specialist feature only if implementation creates a real requirement.
 
+## Phase 2 final checkpoint
+
+After studying both lessons, explain these six items in your own words:
+
+1. Explain the difference between Git and GitHub.
+2. Describe the working tree, staging area, and local repository. Explain what `git add` and `git commit` each do.
+3. Explain what a branch is and what `HEAD` identifies.
+4. Compare `git fetch`, `git pull`, and `git push`. Explain what `origin/main` represents.
+5. Describe a pull request, including its base branch, compare branch, review, approval, and automated checks.
+6. Explain why merge conflicts occur and how you safely resolve one before completing the merge.
+
+You should also be able to narrate this workflow without relying on a memorized command list:
+
+```text
+Update local main
+  -> create a feature branch
+  -> edit and inspect changes
+  -> stage and commit
+  -> push the branch
+  -> open a pull request
+  -> review and checks
+  -> resolve any conflict
+  -> merge into main
+  -> update local main
+```
+
+**Pass standard:** Your explanation should correctly connect the local Git workflow to GitHub collaboration. If an answer reveals a misunderstanding, revisit that specific section and try again. Do not install tools or change the repository just to pass this theory checkpoint.
+
 ## Completion
 
-Study material for both lessons is published. The learning checkpoints are recorded separately in [Learning Progress](../learning-progress.md). A published lesson is not automatically a passed learner checkpoint.
+Both lesson documents and the combined walkthrough have been published and taught. The learner checkpoint remains open until the learner's answers are reviewed. See [Learning Progress](../learning-progress.md). A published or presented lesson is not automatically a passed learner checkpoint.
