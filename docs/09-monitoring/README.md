@@ -79,3 +79,7 @@ Explain:
 - [CloudWatch Application Signals](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Monitoring-Intro.html)
 - [AWS Well-Architected Operational Excellence](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/operate.html)
 - [AWS runbook guidance](https://docs.aws.amazon.com/wellarchitected/2023-10-03/framework/ops_ready_to_support_use_runbooks.html)
+
+## Continue the roadmap
+
+**Previous:** [Phase 8 — CI/CD with GitHub Actions](../08-cicd/README.md). **Next:** [Phase 10 — Scaling and high availability](../10-scaling/README.md).
