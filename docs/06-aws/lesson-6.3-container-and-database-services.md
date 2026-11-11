@@ -3,6 +3,18 @@
 **Phase:** 6 — AWS Cloud Fundamentals  
 **Goal:** Understand where TaskFlow's container images can be stored and how a managed database service can reduce infrastructure work.
 
+## Start here: Docker images and databases need cloud services too
+
+From Phase 3, you know how to build an image and run it as a container. From Phase 4, you know that an application may contain several services. When TaskFlow moves to AWS, two practical questions appear:
+
+1. Where does the compute environment download the exact image it should run?
+2. Where should important relational data live, and who manages the database infrastructure?
+
+Amazon ECR answers the first question by storing container images. Amazon RDS can answer the second by operating a managed relational database such as PostgreSQL.
+
+ECR stores an image; it does not execute it. RDS manages database infrastructure; it does not remove your responsibility for schema design, database users, data access, or recovery planning.
+
+
 ## 1. Connect the Docker and AWS ideas
 
 In Phase 3, you learned how to build a Docker image. In Phase 4, you learned how to connect multiple containers with Compose.
@@ -248,6 +260,28 @@ These are different security layers; one does not replace the others.
 - **Confusing backups with Multi-AZ:** recovery and availability are related but separate goals.
 - **Ignoring image retention:** deleting images too aggressively can make rollbacks impossible.
 - **Assuming stopped compute means zero cost:** storage and other resources may remain billable.
+
+## Guided example: one TaskFlow release reaches its database
+
+Imagine the TaskFlow API has been built into a container image and is ready for deployment.
+
+1. A build system tags the image with a deliberate release identifier, such as a version or commit-based tag.
+2. The image is pushed to an ECR repository. ECR stores it and controls access through IAM and repository policies.
+3. The API compute environment obtains permission to pull that repository's image and starts a container from it.
+4. The API connects to an RDS for PostgreSQL endpoint over a private network path.
+5. A security group allows the connection from the API layer, while PostgreSQL authentication checks the database username and password.
+6. RDS backup and availability settings determine which recovery options exist if data or infrastructure is lost.
+
+Notice the separate controls:
+
+- IAM permissions allow access to AWS resources such as ECR and RDS management APIs.
+- Security groups control which network connections can reach the database.
+- PostgreSQL users and privileges decide which database operations are allowed.
+- Backups help recover earlier data. Multi-AZ configurations aim to improve availability. A read replica can serve suitable read traffic but may lag behind the primary.
+
+Before using any of these managed resources, estimate the monthly cost for the chosen Region and configuration. EC2, RDS, storage, snapshots, ECR storage, NAT Gateway, load balancers, and data transfer may all add charges. Stopping a compute instance does not automatically remove every billable resource.
+
+This lesson is about how the pieces connect, not about creating them now. The actual TaskFlow image, repository, database version, network, and budget are still implementation decisions.
 
 ## 13. Knowledge checkpoint
 
