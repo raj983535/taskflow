@@ -1,23 +1,23 @@
 # TaskFlow architecture and engineering decisions
 
-Use this folder to record meaningful decisions that affect how TaskFlow is built or operated.
+Use this folder for meaningful choices that affect how TaskFlow is organized, built, secured, or operated.
 
-Examples include selecting a database access approach, choosing a frontend router, defining an API error format, setting an authentication model, choosing local container strategy, or selecting a deployment topology.
+## Current accepted structure decision
 
-## When a decision record is useful
+- [0001 — Project folder structure](0001-project-folder-structure.md) — establishes the repository's planned directory responsibilities only. It does not select package tooling or create application code.
 
-Create one when a choice has meaningful impact on architecture, security, cost, maintainability, developer experience, or future changes. Do not create a record for every small code detail.
+## When to create a decision record
 
-## What each record must say
+Create one when a choice meaningfully affects architecture, security, cost, maintainability, developer experience, or future changes.
 
+Each record should include:
 - Status: Proposed, Accepted, Superseded, or Rejected.
 - Date and context.
-- The problem that needs a decision.
-- Requirements and constraints.
+- The problem and requirements.
 - Options considered.
-- The selected option and why it fits.
+- Selected option and reasons.
 - Trade-offs and consequences.
-- What would cause the decision to be revisited.
+- Conditions for revisiting the choice.
 - Related implementation and theory guides.
 
-Use [the decision record template](../templates/decision-record-template.md). Update this index when a new decision record is added.
+Use [the decision record template](../templates/decision-record-template.md).

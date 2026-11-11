@@ -1,24 +1,22 @@
 # TaskFlow implementation architecture
 
-This folder explains the architecture that actually exists in the codebase. Keep proposed designs clearly separate from implemented and verified designs.
+This folder describes the intended system boundaries and, later, the architecture that exists in code. Always label proposed and implemented designs separately.
+
+## Current structure decision
+
+- [Project directory layout](../decisions/0001-project-folder-structure.md) — accepted folder responsibilities for the web app, API, shared contracts, database, infrastructure, CI/CD, and tests.
 
 ## What belongs here
 
 - System context and component diagrams.
-- Frontend, backend, and database responsibilities.
+- Frontend, backend and database responsibilities.
 - Request and data flows across application boundaries.
 - Module and folder responsibilities.
 - API and integration boundaries.
-- Cross-cutting topics such as authentication, authorization, configuration, logging, and error handling.
+- Authentication, authorization, configuration, logging and error-handling architecture.
 
-## Current baseline
+## Technology direction
 
-The intended technology direction is React + TypeScript for the frontend, Node.js + Express + TypeScript for the backend, PostgreSQL for persistence, and AWS as the later primary cloud path.
+React + TypeScript is the frontend direction. Node.js + Express + TypeScript is the backend direction. PostgreSQL is the database direction. AWS is the later cloud path.
 
-The detailed architecture and implementation choices are not yet locked. See [Project Context](../PROJECT-CONTEXT.md). Do not treat a proposed diagram as a deployed or implemented system.
-
-## When adding an architecture guide
-
-Explain the problem the design solves, the responsibilities of each component, the direction of requests and data, key trust/security boundaries, important trade-offs, and how to verify or debug the flow. Link to feature guides and relevant theory lessons.
-
-Update this index when a new architecture document is added.
+Supporting libraries and runtime architecture remain to be decided when implementation is approved. The current repository has folder placeholders only; no application runtime is implemented.

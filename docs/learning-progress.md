@@ -14,7 +14,7 @@ This is the source of truth for the TaskFlow curriculum and its self-paced learn
 - **Checkpoint assessments:** Deferred. No Phase 1–11 learner checkpoint is being recorded as passed merely because its material has been published or explained.
 - **Suggested theory starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle. This is a recommended learning order, not a requirement before coding.
 - **Application implementation:** May start now, in parallel with theory study. Work should proceed in small vertical slices with matching beginner-friendly implementation documentation.
-- **Repository state:** Curriculum documentation only; no application runtime or AWS infrastructure is claimed.
+- **Repository state:** Theory curriculum, universal agent instructions, implementation documentation, and a folder-only project layout are present. The application directories contain README placeholders only; there is no application source code, package manifest, database schema, test runner, Docker configuration, CI workflow, or cloud infrastructure.
 
 ## Fixed roadmap
 
@@ -198,7 +198,23 @@ The implementation track is independent of theory completion. The following are 
 - [ ] Demonstrate the basic scaling and recovery path.
 - [ ] Verify and document the running application.
 
+## Implementation structure status
+
+- [x] Define the single `app/` root with `web/`, `api/`, and reserved `shared/` areas.
+- [x] Define database, infrastructure, GitHub Actions, tests, and scripts directory responsibilities.
+- [x] Add explanatory README placeholders so Git tracks and explains the planned folders.
+- [ ] Finalize MVP user journeys, UI/UX, API contracts, and data model.
+- [ ] Approve implementation tooling and begin application coding.
+
+The checked boxes above mean the directory structure and its explanations are present. They do not mean application functionality has been implemented.
+
 ## Learning log
+
+### Project directory structure prepared — 2026-11-11
+
+- Established a single `app/` root for the planned web frontend, backend API, and optional shared contracts/types.
+- Added folder-only placeholders for database migrations/seeds, local and future infrastructure stages, GitHub Actions, integration/e2e tests, and scripts.
+- No application source code, manifests, dependencies, database schema, test runner, containers, CI workflows, or cloud resources were created as part of this structure step.
 
 ### Parallel learning and implementation workflow prepared — 2026-11-11
 
