@@ -65,13 +65,16 @@ Phase 0 is the engineering foundations baseline. Phases 1–11 contain 30 planne
 | 11 | Kubernetes and Terraform | 3 | Published; self-paced |
 | **Total** | **Phases 1–11** | **30** | **All theory materials published** |
 
+## One instruction file for every coding agent
+
+TaskFlow deliberately maintains **one** agent instruction file: the root [AGENTS.md](AGENTS.md). It applies to Codex, Cursor, Claude Code, GitHub Copilot, Antigravity, and any other coding agent.
+
+There are no separate tool-specific rule files. Every agent must read the root `AGENTS.md` before working. Some tools may not automatically discover it, so explicitly tell the agent to open that file when starting a task. If a tool supports project instruction configuration, point it to the same root file rather than creating a duplicate.
+
 ## Repository map
 
     taskflow/
-    ├── AGENTS.md                         # Canonical instructions for all coding agents
-    ├── CLAUDE.md                         # Claude agent entry point
-    ├── .cursor/rules/                    # Cursor project rules
-    ├── .github/copilot-instructions.md    # GitHub Copilot project rules
+    ├── AGENTS.md                         # The single instruction source for every coding agent
     ├── README.md                         # Public project entry point
     ├── apps/                              # Frontend and backend source code as created
     ├── infrastructure/                    # Local and later cloud configuration
