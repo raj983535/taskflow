@@ -3,6 +3,21 @@
 **Phase:** 9 — Monitoring and Reliability  
 **Goal:** Understand how to tell whether TaskFlow is working, where a request is slow or failing, and what evidence helps explain the problem.
 
+## Start here: running is not the same as working
+
+A deployment can be successful and a process can be running while users still experience failures. For example, TaskFlow may return HTTP 200 for its health endpoint while the task-saving feature is timing out against PostgreSQL.
+
+That is why we need evidence from the running system.
+
+This lesson introduces three views of the same activity:
+
+- **Logs** record individual events.
+- **Metrics** summarize measurements over time.
+- **Traces** show the path and timing of one request across components.
+
+These signals are related. They are not three different names for the same thing.
+
+
 ## 1. Why do we need observability?
 
 Imagine TaskFlow is deployed and a student reports:
@@ -258,6 +273,40 @@ You need both service metrics and user-facing outcomes. A server can show low CP
 - **Logging secrets:** telemetry itself can become a security incident.
 - **Setting SLOs without evidence:** targets should match real service needs and capabilities.
 - **Ignoring telemetry cost:** high-volume logs and detailed metrics can become expensive.
+
+## Guided example: investigate one slow TaskFlow request
+
+A student clicks Save. The browser waits for five seconds and then displays an error.
+
+Imagine that the API attaches request ID req-123 to the operation.
+
+**Logs** might show:
+
+```text
+10:15:30 request_id=req-123 event=request_received
+10:15:30 request_id=req-123 event=database_query_started
+10:15:35 request_id=req-123 level=error event=database_timeout
+```
+
+These event records help answer what happened to this particular request.
+
+**Metrics** might show that API request latency and database timeout count increased during the same five-minute window. Metrics help answer whether this is one isolated request or a wider pattern.
+
+**Trace** might show the request spent most of its five seconds waiting for the database call. A trace helps answer where the time was spent across the request path.
+
+### Move from evidence to service goals
+
+Suppose the team decides the important user-facing measure is the percentage of task-save requests that succeed. That percentage is the SLI (the measured indicator). The team may then set a target over a stated time window; that target is the SLO.
+
+An SLO needs a precise definition: which requests count, what qualifies as success, and what time window is used. "99.9% availability" without those definitions is not a useful operational goal.
+
+### Keep health checks in the right role
+
+- Liveness asks whether a process is stuck and may need restarting.
+- Readiness asks whether the instance should receive traffic now.
+- User-facing metrics and tests tell you whether the full TaskFlow journey actually works.
+
+A liveness check should not fail every time PostgreSQL is temporarily slow; that could restart all API instances and amplify the incident.
 
 ## 11. Knowledge checkpoint
 
