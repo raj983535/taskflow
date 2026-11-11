@@ -5,6 +5,15 @@
 
 Lesson 4.1 explained the Compose file. This lesson explains how to operate the project described by that file.
 
+## Start here: the Compose file is the plan; commands operate the project
+
+Lesson 4.1 explained what a Compose file describes. This lesson is about using that file safely.
+
+Think of the file as the desired setup for TaskFlow. Compose commands read that setup and create, start, inspect, stop, or remove the project's runtime resources.
+
+Before typing a command, know which folder you are in. By default, Compose looks for a file such as compose.yaml in the current project directory. If the file is elsewhere, you must point Compose to it.
+
+
 ## 1. The Compose command
 
 Compose uses a command group:
@@ -335,6 +344,38 @@ The final command normally keeps named volumes. Do not append -v unless the data
 | docker compose down -v | Also remove project volumes; can delete database data |
 | docker compose --profile debug up -d | Start services with the selected optional profile |
 | docker compose -p taskflow-dev up -d | Run the stack with an explicit project name |
+
+## Guided example: a normal TaskFlow development session
+
+Assume the real TaskFlow source code and compose.yaml exist in a folder named taskflow. In PowerShell, the workflow could look like this:
+
+```powershell
+Set-Location .\taskflow
+docker compose config
+docker compose up --build -d
+docker compose ps
+docker compose logs -f api
+docker compose down
+```
+
+Read the sequence:
+
+1. `Set-Location` moves PowerShell into the project folder. The Compose file is expected there.
+2. `docker compose config` parses the YAML and displays the resolved configuration. Check for errors before creating services. Be careful: resolved output may contain secret values.
+3. `docker compose up --build -d` asks Compose to build images that have a build configuration, create or reconcile the project resources, and start services in the background. `--build` requests an image build; `-d` means detached mode.
+4. `docker compose ps` shows the services' containers and their state.
+5. `docker compose logs -f api` follows the API service's output. Press Ctrl+C to stop following the logs; that does not by itself stop the stack.
+6. `docker compose down` stops and removes the project's containers and default network. Named volumes are normally kept.
+
+### If the API is not working
+
+- Run `docker compose ps -a` to see whether the API exited or is restarting.
+- Run `docker compose logs --tail 100 api` to inspect recent API output.
+- Check the database logs using `docker compose logs --tail 100 db`.
+- Check whether the API uses the service hostname db, the correct database port, and matching credentials.
+- Check the database health status and the volume mount.
+
+Do not use `docker compose down -v` as a routine restart. The extra `-v` removes project volumes and can erase your local database data. Use it only when you intentionally want to discard that data and have verified that it is safe to lose.
 
 ## 16. Knowledge checkpoint
 
