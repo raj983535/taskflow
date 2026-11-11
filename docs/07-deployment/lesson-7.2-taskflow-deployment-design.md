@@ -3,6 +3,15 @@
 **Phase:** 7 — Cloud Deployment  
 **Goal:** Combine the cloud, networking, containers, database, DNS, HTTPS, and security concepts into one coherent deployment design for TaskFlow.
 
+## Start here: turn the application diagram into a hosting design
+
+You already know TaskFlow's three application responsibilities: React presents the user interface, Node.js/Express processes API requests, and PostgreSQL stores the data. In earlier phases, you learned how to package those parts, connect containers, and describe an AWS network.
+
+Deployment design answers a new question: **where does each part run, how do users reach it, and which parts must remain private?**
+
+A good design is not the design with the most AWS services. It is the simplest design that meets the current security, availability, traffic, and budget requirements.
+
+
 ## 1. What does deployment mean?
 
 Deployment is the process of making an application available in an environment where its users can access it.
@@ -265,6 +274,70 @@ These choices require the real application, expected usage, security requirement
 - **Assuming a healthy instance means a healthy application:** check the full request and dependency path.
 - **Ignoring rollback:** a deployment plan needs a route back to a known working version.
 - **Building a costly architecture too early:** match complexity to actual requirements.
+
+## Guided example: compare two possible first deployments
+
+Before selecting AWS resources, compare the operational shape of two approaches.
+
+### Option A: one Linux EC2 host running Docker Compose
+
+```text
+Browser
+  |
+  v
+Domain + HTTPS entry
+  |
+  v
+One EC2 host
+  |
+  +-- web container
+  +-- API container
+  |
+  v
+Managed PostgreSQL (private network)
+```
+
+This can be simpler to understand and operate for an early, small deployment. It has fewer moving parts, but the host is a single failure point and scaling is more limited. You still need a safe way to handle public HTTPS, updates, backups, and monitoring.
+
+### Option B: separate managed entry, scalable application compute, and managed database
+
+```text
+Browser
+  |
+  v
+DNS + HTTPS load balancer
+  |
+  v
+Multiple application tasks/instances
+  |
+  v
+Private RDS PostgreSQL
+```
+
+This can support more flexible scaling and availability patterns, but it adds resources, configuration, and cost. A load balancer, multiple compute instances, NAT Gateway, and managed database can all create ongoing charges.
+
+### The request path is the same idea in both designs
+
+1. DNS directs the browser to the public entry point.
+2. HTTPS protects the browser connection.
+3. The public entry layer routes the request to the web or API service.
+4. The API validates the request and applies business rules.
+5. The API connects privately to PostgreSQL.
+6. Logs, metrics, and health checks help the team operate the system.
+
+The implementation choices differ, but the responsibilities do not.
+
+### What must be decided before launch?
+
+- Expected usage and the budget limit.
+- Whether one host is enough or multiple application instances are required.
+- How the frontend and API are routed.
+- Which database service and version are selected.
+- How secrets are supplied and rotated.
+- Which ports are public and which remain private.
+- How backups are restored and deployments are rolled back.
+
+We have not selected or deployed either option. The correct choice needs real workload assumptions and a live cost estimate, not guesswork.
 
 ## 14. Knowledge checkpoint
 
