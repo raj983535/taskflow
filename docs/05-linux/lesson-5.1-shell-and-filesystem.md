@@ -3,6 +3,22 @@
 **Phase:** 5 — Linux and Server Administration  
 **Goal:** Understand how to work with a Linux server through a command-line shell, navigate its filesystem, and reason about users and file permissions.
 
+## Start here: why a web developer needs a Linux shell
+
+You already know how to work with files in Windows and PowerShell. A Linux server is another computer with its own operating system, directories, users, and running programs. When you connect to it over SSH, your commands run on that remote Linux machine, not on your Windows laptop.
+
+The terminal is the window where you type. The shell reads your command and asks Linux to perform it. The filesystem is the tree of folders and files that Linux makes available.
+
+Start with a simple mental picture:
+
+- Windows PowerShell is your local command environment.
+- SSH creates a remote session to a server.
+- Once connected, the Linux shell runs commands on that server.
+- Commands such as pwd, ls, and id let you inspect before you change anything.
+
+This lesson is about becoming comfortable inspecting the machine safely. It is not about memorizing every Linux command.
+
+
 ## 1. Why does TaskFlow need Linux knowledge?
 
 Imagine TaskFlow is deployed on a Linux server. The application stops responding.
@@ -332,6 +348,45 @@ When TaskFlow is containerized, Docker manages container filesystems and process
 - **Using chmod 777 to fix access:** it grants excessive access instead of correcting ownership or needed permissions.
 - **Forgetting directory execute permission:** users need it to traverse a directory.
 - **Assuming hidden files are secure:** a leading dot only affects normal listing behavior.
+
+## Guided example: inspect a TaskFlow server without changing it
+
+Imagine you have connected to a Linux server as the regular user appadmin. You want to find where you are, inspect an application folder, and check who owns its files.
+
+```bash
+whoami
+pwd
+ls -la
+cd /opt
+ls -la
+id
+ls -l /opt/taskflow
+df -h
+```
+
+Read what each step tells you:
+
+1. `whoami` identifies the current account.
+2. `pwd` prints the current directory. This prevents confusion about relative paths.
+3. `ls -la` lists normal and hidden entries with ownership and permission details.
+4. `cd /opt` changes into the optional application-software location. The path is absolute because it begins with /.
+5. `id` displays the user's numeric identity and group memberships.
+6. `ls -l /opt/taskflow` shows the owner, group, and permissions for the application folder.
+7. `df -h` shows filesystem capacity and free space.
+
+### How to read a permission example
+
+Suppose a file begins with:
+
+```text
+-rw-r----- appuser developers config.json
+```
+
+The owner appuser can read and write. Members of the developers group can read. Other users have no permission. The leading dash indicates a regular file; a directory normally begins with d.
+
+For a directory, execute permission means the user can traverse it. A user may be unable to open a file because a parent directory does not allow traversal, even when the file's own read bit is set.
+
+Do not "fix" access problems by giving everyone full access with chmod 777. First identify which account the service runs as, which file it needs, and which minimum permission is missing.
 
 ## 14. Knowledge checkpoint
 
