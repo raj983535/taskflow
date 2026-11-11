@@ -4,6 +4,29 @@
 
 CI means Continuous Integration. CD commonly means Continuous Delivery or Continuous Deployment. The exact meaning depends on the team's process.
 
+## Where Phase 8 fits in the bigger picture
+
+**You already know:** Phase 2 introduced commits, branches, and pull requests. Phase 3 introduced container images. Phase 7 introduced the deployment destination.
+
+**This phase adds:** automation that checks code and moves an identified release through build, publish, deploy, and verification.
+
+Follow this chain:
+
+```text
+Git push / pull request
+   -> workflow trigger
+   -> runner + jobs + steps
+   -> tests and build
+   -> image published to ECR
+   -> approved AWS identity
+   -> deployment
+   -> health verification
+```
+
+Lesson 8.1 explains the workflow and runner model. Lesson 8.2 follows a release and explains OIDC, permissions, approval, deployment, and rollback.
+
+**Important boundary:** a CI check passing is not the same as production deployment succeeding. A published image is not yet a running application.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
