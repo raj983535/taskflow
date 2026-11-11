@@ -70,6 +70,7 @@ taskflow/
 │   ├── 09-monitoring/
 │   ├── 10-scaling/
 │   ├── 11-kubernetes-terraform/
+│   ├── BEGINNER-MAP-PHASES-3-11.md
 │   ├── LEARNING-SCOPE.md
 │   ├── DOCUMENTATION-GUIDE.md
 │   └── learning-progress.md
