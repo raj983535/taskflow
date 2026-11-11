@@ -96,3 +96,7 @@ All three lesson documents and this integrated checkpoint are published in this 
 - [Ubuntu users and permissions](https://ubuntu.com/server/docs/security-users/)
 - [Ubuntu networking documentation](https://ubuntu.com/server/docs/how-to/networking/)
 - [OpenSSH manual pages](https://www.openssh.org/manual.html)
+
+## Continue the roadmap
+
+**Previous:** [Phase 4 — Docker Compose](../04-compose/README.md). **Next:** [Phase 6 — AWS cloud fundamentals](../06-aws/README.md).
