@@ -483,7 +483,7 @@ Explain these concepts in your own words:
 9. What should you do with conflict markers before staging the resolution?
 10. What is the difference between a fork and a clone?
 
-**Completion rule:** You should be able to narrate the full path from a local feature branch to a reviewed pull request merged into `main), and explain the purpose of fetch, pull, push, reviews, and conflict resolution. A memorized command list alone is not enough.
+**Completion rule:** You should be able to narrate the full path from a local feature branch to a reviewed pull request merged into `main`, and explain the purpose of fetch, pull, push, reviews, and conflict resolution. A memorized command list alone is not enough.
 
 ## Official references
 
