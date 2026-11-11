@@ -372,7 +372,7 @@ The Node.js server must listen on an interface reachable from outside its own pr
 
 To finish an ordinary test, use `docker stop taskflow-api`. Remove the container with `docker rm taskflow-api` only when you no longer need that container instance. Do not remove a database volume as a routine cleanup step.
 
-## 14. Knowledge checkpoint
+## 13. Knowledge checkpoint
 
 1. What is the difference between docker ps and docker ps -a?
 2. What does -d do in docker run?
