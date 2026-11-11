@@ -3,6 +3,20 @@
 **Phase:** 6 — AWS Cloud Fundamentals  
 **Goal:** Understand what AWS provides, how its global infrastructure is organized, and how identities and permissions are controlled.
 
+## Start here: cloud does not remove the need to understand servers
+
+You already know that an application needs a computer, storage, and a network. AWS provides those capabilities as services that you can request and configure rather than buying the physical machines yourself.
+
+The important new idea in this lesson is that cloud resources belong to an AWS account and access is controlled through identities and permissions.
+
+Two questions must not be confused:
+
+- **Authentication:** can the system confirm who or what is making the request?
+- **Authorization:** after identifying the requester, is that identity allowed to perform this action on this resource?
+
+IAM is AWS's system for managing that identity and permission layer. It is separate from the username/password that a TaskFlow user enters to log into the application and separate from a PostgreSQL database account.
+
+
 ## 1. What changes when TaskFlow moves to the cloud?
 
 So far, TaskFlow has been discussed as an application on a developer computer or a Linux server.
@@ -213,6 +227,29 @@ Do not confuse an AWS IAM identity with a PostgreSQL database user. IAM controls
 - **Assuming AWS secures the application automatically:** customer configuration remains important.
 - **Confusing Region and Availability Zone:** an AZ is a location within a Region.
 - **Assuming managed means no operations:** backups, access, monitoring, and cost still need decisions.
+
+## Guided example: what happens when TaskFlow needs an AWS resource?
+
+Imagine a TaskFlow backend running on an AWS compute service needs to download its container image from ECR.
+
+1. The workload runs with an attached IAM role or another supported workload identity.
+2. AWS provides temporary credentials for that role. The application or platform does not need a permanent access key written inside the image.
+3. The workload uses those credentials to sign an AWS API request.
+4. AWS identifies the role and evaluates its attached permissions and any relevant resource policies.
+5. If the policy allows the required action on the intended ECR repository, the request can proceed. If not, AWS denies it.
+
+A useful way to remember the policy layers:
+
+| Question | Security control |
+|---|---|
+| Who is allowed to take on this role? | Role trust policy |
+| What may the role do after it is assumed? | Permissions policy |
+| Which AWS account owns the resource? | AWS account boundary |
+| Which database user may query tables? | PostgreSQL database permissions |
+
+For example, a deployment role might be trusted only by a specified GitHub repository workflow and allowed to push to one ECR repository. It should not automatically receive permission to delete databases or manage every IAM user.
+
+The key lesson: identity proves who is asking; a policy decides what the identified principal may do. Temporary credentials and least privilege reduce the damage if a credential or workload is compromised.
 
 ## 13. Knowledge checkpoint
 
