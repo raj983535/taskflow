@@ -126,3 +126,7 @@ TaskFlow has a React frontend, a Node.js/Express API, and PostgreSQL. You want a
 ## Completion
 
 Study material for all three lessons and the connected walkthrough are published in this directory. Learner study and assessment are deliberately deferred until the full curriculum has been authored. See [Learning Progress](../learning-progress.md). Published material is not automatically a passed checkpoint.
+
+## Continue the roadmap
+
+**Previous:** [Phase 2 — Git and GitHub](../02-git/README.md). **Next:** [Phase 4 — Docker Compose](../04-compose/README.md).
