@@ -4,6 +4,26 @@
 
 Docker will matter when TaskFlow moves from source code on a developer's laptop to a consistent environment that can later run locally, in CI, and on a cloud server.
 
+## Where Phase 3 fits in the bigger picture
+
+**You already know:** TaskFlow is a frontend, an API, and a database (Phase 1). You also know that a server runs programs.
+
+**This phase adds:** a repeatable way to package the API or web-serving process and run it in an isolated container.
+
+Follow this chain:
+
+```text
+Application files
+   -> Dockerfile
+   -> image
+   -> container
+   -> ports, logs, volumes, networks
+```
+
+Lesson 3.1 explains the image/container relationship. Lesson 3.2 explains how the image is built. Lesson 3.3 explains how to run and troubleshoot the container. The output is the knowledge needed for Phase 4, where several containers are managed together.
+
+**Do not skip the difference:** building an image does not start the application; running a container does not automatically publish its port; deleting a container does not mean a separately mounted named volume has to be deleted.
+
 ## What you will be able to do
 
 By the end of Phase 3, you should be able to:
