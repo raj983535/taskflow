@@ -5,6 +5,15 @@
 
 Lesson 11.1 introduced the cluster, Pods, Deployments, and Services. This lesson connects the practical pieces required by a running application.
 
+## Start here: the cluster can run containers, but the application needs a complete configuration
+
+Lesson 11.1 introduced the cluster, Pods, Deployments, and Services. This lesson connects the remaining parts needed to run a real application: configuration, sensitive values, resource capacity, health checks, storage, and external traffic.
+
+A Kubernetes manifest is not a Dockerfile. A Dockerfile builds an image. A Kubernetes manifest describes the resource Kubernetes should create or maintain using an existing image.
+
+For TaskFlow, the API image may be built and stored in ECR first. Kubernetes then uses that image in a Pod. Configuration tells the process how to connect to other services, probes check whether it can safely receive traffic, and a Service gives other workloads a stable endpoint.
+
+
 ## 1. From image to running application
 
 Kubernetes does not build your application from source by default. A typical flow is:
@@ -353,6 +362,40 @@ Do not edit or delete resources without understanding which controller owns them
 - **Forgetting storage lifecycle:** PVC deletion and reclaim policy can affect real data.
 - **Creating an Ingress object without a controller:** routing functionality requires an implementation.
 - **Assuming Kubernetes is automatically cheaper than a VM:** cluster infrastructure and operations have cost.
+
+## Guided example: read the journey from manifest to API request
+
+Imagine a TaskFlow API Deployment requests two replicas and uses an image stored in ECR.
+
+1. The manifest declares a Deployment with two replicas and a container image.
+2. Kubernetes creates Pods from the Pod template. The image is pulled using the configured image-pull identity.
+3. Resource requests tell the scheduler the minimum CPU and memory capacity to reserve when placing a Pod. Limits constrain how much a container can use.
+4. A ConfigMap supplies non-secret settings such as log level or a service URL.
+5. A Secret or approved external secret integration supplies sensitive values such as a database password. Base64 in a Secret manifest is only encoding, not encryption.
+6. Startup/readiness/liveness probes check different conditions. A Pod that is not ready should not receive normal Service traffic.
+7. A Service selects the ready API Pods and gives other workloads a stable endpoint.
+8. An external Gateway, Ingress controller, or cloud load-balancer integration routes browser traffic to the appropriate Service.
+9. The API connects to PostgreSQL over a private network path. PostgreSQL can remain in managed RDS rather than running inside the Kubernetes cluster.
+
+### Follow the first troubleshooting checks
+
+```bash
+kubectl get deployments
+kubectl get pods
+kubectl describe pod POD_NAME
+kubectl logs POD_NAME
+kubectl get services
+kubectl get endpointslices
+kubectl rollout status deployment/taskflow-api
+```
+
+- If no Pod is created, check Deployment events and scheduling constraints.
+- If a Pod restarts, inspect its logs and liveness/startup probe configuration.
+- If the Pod is running but not Ready, inspect its readiness probe and required configuration.
+- If the Service has no endpoints, check its label selector and Pod readiness.
+- If the API starts but cannot reach PostgreSQL, check the database hostname, network rules, credentials, and secret injection.
+
+Always confirm the current kubectl context and namespace before changing resources. A command run against the wrong cluster can affect the wrong environment.
 
 ## 15. Knowledge checkpoint
 
