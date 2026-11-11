@@ -3,6 +3,20 @@
 **Phase:** 8 — CI/CD with GitHub Actions  
 **Goal:** Understand how GitHub Actions runs automated work when code changes.
 
+## Start here: replace the manual checklist with repeatable automation
+
+You already learned Git commits, branches, and pull requests. Imagine you open a pull request that changes the TaskFlow API. A teammate must check that it builds and that tests still pass before the change enters the shared main branch.
+
+A person could run those checks manually, but they might forget a step or use a different command. Continuous Integration (CI) moves that checklist into an automated workflow so the same checks run consistently when a code event occurs.
+
+The important distinction:
+
+- Git records the change.
+- GitHub stores and reviews the change.
+- GitHub Actions runs the automated checks.
+- A runner is the environment where those commands execute.
+
+
 ## 1. Why automate project checks?
 
 Imagine TaskFlow has several developers. One developer adds a feature. Another changes the database model. A third updates the frontend.
@@ -293,6 +307,33 @@ A separate deployment workflow can use approved release conditions and AWS authe
 - **Treating cache as required output:** a cache should only optimize work.
 - **Running deployment on every push:** restrict production deployment triggers and use approval gates.
 - **Using unreviewed third-party actions:** actions execute code; verify and pin dependencies appropriately.
+
+## Guided example: what happens when a pull request is opened?
+
+Imagine a developer pushes a feature branch and opens a pull request targeting main.
+
+1. **Event:** GitHub detects the pull_request event.
+2. **Workflow:** GitHub reads the workflow YAML under .github/workflows and decides which jobs should run.
+3. **Runner:** GitHub starts an available runner environment for the job.
+4. **Checkout:** an action downloads the repository version associated with the pull request into the runner's workspace.
+5. **Setup:** another action prepares the required Node.js version.
+6. **Install:** `npm ci` installs the dependencies recorded in the lockfile.
+7. **Checks:** commands such as `npm run lint`, `npm run typecheck`, and `npm test` run if those scripts exist in package.json.
+8. **Result:** GitHub reports whether the checks passed or failed on the pull request.
+
+A job is the unit assigned to a runner. Its steps run in order. Two independent jobs can run in parallel; a job that declares `needs: checks` waits for the checks job to succeed.
+
+### What happens when something fails?
+
+- If checkout fails, the workflow may not have the source code it needs.
+- If dependency installation fails, check the lockfile, package registry access, and Node.js version.
+- If lint or type checks fail, the code needs correction.
+- If tests fail, inspect the test output and reproduce the issue.
+- If the build fails, inspect the build error rather than treating it as a GitHub availability issue.
+
+The current TaskFlow repository contains learning documentation, not an application package.json. These commands describe the future application workflow and are not a runnable CI workflow yet.
+
+A cache may speed up dependency downloads, but it is not the source of truth. The lockfile and package registry must still let the runner recreate the dependencies. An artifact is different: it is a saved output such as a test report or build package.
 
 ## 14. Knowledge checkpoint
 
