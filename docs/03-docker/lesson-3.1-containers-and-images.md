@@ -3,6 +3,21 @@
 **Phase:** 3 — Docker Fundamentals  
 **Goal:** Understand what Docker packages, what an image and a container are, and how Docker components work together.
 
+## Start here: connect this to the application you already know
+
+You already know that a TaskFlow backend is a Node.js program, that Express handles HTTP requests, and that PostgreSQL stores data. Before Docker, the computer running the backend must have a compatible Node.js runtime, the application's dependencies, the correct files, and the right configuration.
+
+Docker does not rewrite that application. It gives the application a predictable package and an isolated place to run.
+
+Keep these three questions separate:
+
+1. **What did we build?** The image is the packaged template.
+2. **What is running now?** The container is the runtime instance created from that image.
+3. **Where is it running?** A Docker Engine on a developer computer or server manages the container.
+
+A container is not a tiny complete computer. It is an isolated group of processes using the host operating system's kernel. On Windows, Docker Desktop commonly supplies a Linux environment for Linux containers through WSL 2. That is why a Linux container can run on a Windows development laptop without being a normal Windows process.
+
+
 ## 1. Why do we need containers?
 
 Imagine you build TaskFlow on your laptop. It works because your computer already has the right Node.js version, packages, environment settings, and supporting tools.
@@ -269,6 +284,30 @@ We will not define their combined startup and dependency configuration here. Tha
 - **"Container data is automatically permanent."** Data stored only in the writable layer can disappear when the container is removed.
 - **"Containers are complete VMs."** They generally share the host kernel.
 - **"Containers are automatically secure."** Isolation requires correct configuration and maintenance.
+
+## Guided example: one TaskFlow API image becomes a running container
+
+Imagine the backend team has already built an image named taskflow-api:dev. The image contains the Node.js runtime, installed dependencies, and the application files. The image is not running yet.
+
+The sequence is:
+
+1. **Find the package.** `docker image ls` lists images available to the local Docker Engine. Look for the repository name and tag taskflow-api:dev.
+2. **Create an instance.** `docker run --name taskflow-api taskflow-api:dev` asks Docker to create and start a container using that image. The name makes it easier to refer to the container later.
+3. **Observe the result.** `docker ps` lists containers that are currently running. `docker ps -a` also shows containers that have exited.
+4. **Interpret the relationship.** Removing the container does not automatically remove the image. The image can be used to create another container.
+5. **Share the package.** When the image is tagged and pushed to a registry, another machine with permission can pull that image and create its own container.
+
+This is a conceptual walkthrough. The TaskFlow image does not exist yet, so these commands are examples rather than commands to run now.
+
+### What changed, and what did not?
+
+- The image is still the same packaged template.
+- Each container has its own runtime state and writable layer.
+- A container can stop while its image remains available.
+- Removing a container removes its writable layer, but does not normally remove a separately stored named volume.
+- A registry stores image packages; it does not run the application.
+
+The key confidence check is being able to say: "I build or download an image, then create a container from it. Docker Engine manages that container while the application process runs inside it."
 
 ## 13. Knowledge checkpoint
 
