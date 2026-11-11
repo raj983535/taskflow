@@ -3,6 +3,15 @@
 **Phase:** 6 — AWS Cloud Fundamentals  
 **Goal:** Understand the AWS network where TaskFlow resources live and the virtual server concept used to run applications.
 
+## Start here: reuse the network ideas you already know
+
+You already learned about IP addresses, ports, routes, DNS, and firewalls. An AWS VPC uses those same networking ideas, but AWS gives you cloud resources to build and control the network.
+
+Think of the VPC as the private network boundary. Subnets divide its address range. Route tables choose a path. Gateways provide paths to other networks. Security groups and network ACLs decide which traffic is allowed.
+
+The terms public and private describe routing and reachability, not whether a subnet is named public in a diagram. A public subnet normally has a route to an Internet Gateway. A resource still needs suitable addressing and security rules to be reachable from the internet.
+
+
 ## 1. Begin with a normal network
 
 From Phase 0 and Phase 5, you already know these ideas:
@@ -248,6 +257,29 @@ The goal is to avoid exposing the database directly to the public internet. The 
 - **Assuming a private subnet has no outbound path:** a NAT Gateway or other controlled route may provide outbound access.
 - **Ignoring Availability Zones:** AZ placement matters for resilience.
 - **Assuming stopping EC2 removes every cost:** attached storage and other resources may remain billable.
+
+## Guided example: trace one request through a TaskFlow VPC
+
+Imagine a student opens TaskFlow and the request reaches an Application Load Balancer in a public subnet. The API runs on private compute, and PostgreSQL runs in private database subnets.
+
+1. DNS directs the browser to the public load balancer.
+2. The load balancer receives the HTTPS connection through its listener.
+3. Its security group permits the intended inbound web traffic.
+4. The load balancer forwards the request to a healthy API target in the private application subnet.
+5. The API's security group permits the database connection to PostgreSQL on its database port.
+6. The database security group accepts that connection only from the API's security group, not from every public IP.
+
+Now separate the network controls:
+
+- The **route table** tells traffic where to go.
+- An **Internet Gateway** provides a path between the VPC and the internet when routes and public addressing are also configured.
+- A **NAT Gateway** can provide outbound internet access for private resources. It is not a way to accept new inbound internet connections to those resources.
+- A **security group** is a stateful allow-rule firewall associated with network interfaces/resources.
+- A **network ACL** is a stateless subnet-level filter; return traffic rules need to be considered separately.
+
+An EC2 instance is a virtual server placed into this network. Its AMI is the starting machine image, its instance type determines compute capacity, and EBS provides block storage.
+
+Before you draw a subnet as public, check the route table. Before you call a server publicly reachable, also check its public address, security group, and whether the application is listening on the intended port.
 
 ## 14. Knowledge checkpoint
 
