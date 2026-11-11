@@ -80,3 +80,7 @@ Explain:
 - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 - [Amazon ECR User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
 - [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
+
+## Continue the roadmap
+
+**Previous:** [Phase 5 — Linux and server administration](../05-linux/README.md). **Next:** [Phase 7 — Cloud deployment](../07-deployment/README.md).
