@@ -4,6 +4,28 @@
 
 The goal is to understand how someone enters a domain name in a browser and reaches TaskFlow securely, and how the application's services are placed behind public and private network boundaries.
 
+## Where Phase 7 fits in the bigger picture
+
+**You already know:** Phase 6 introduced AWS networks, compute, IAM, ECR, and RDS. Phase 1 introduced the browser/API/database request flow.
+
+**This phase adds:** the public path that lets a user reach the application securely.
+
+Follow this chain:
+
+```text
+Domain
+   -> DNS destination
+   -> HTTPS/TLS connection
+   -> public listener
+   -> reverse proxy / load balancer
+   -> web or API target
+   -> private database connection
+```
+
+Lesson 7.1 traces a browser request. Lesson 7.2 maps the TaskFlow components onto an example deployment and compares simpler and more managed hosting shapes.
+
+**Important boundary:** DNS finds the destination; it does not run the app. HTTPS protects the connection; it does not prove the app is healthy. The target still needs to be running and ready.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
