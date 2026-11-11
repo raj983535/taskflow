@@ -21,17 +21,17 @@ This is the source of truth for the TaskFlow curriculum and its self-paced learn
 | Phase | Focus | Lessons | Material status |
 |---|---|---:|---|
 | 0 | Engineering foundations | Baseline | Documented baseline |
-| 1 | Full-stack application fundamentals | 6 | Published; study deferred |
-| 2 | Git and GitHub workflows | 2 | Published; study deferred |
-| 3 | Docker fundamentals | 3 | Published; study deferred |
-| 4 | Docker Compose | 2 | Published; study deferred |
-| 5 | Linux and server administration | 3 | Published; study deferred |
-| 6 | AWS cloud fundamentals | 3 | Published; study deferred |
-| 7 | Cloud deployment | 2 | Published; study deferred |
-| 8 | CI/CD with GitHub Actions | 2 | Published; study deferred |
-| 9 | Monitoring and reliability | 2 | Published; study deferred |
-| 10 | Scaling and high availability | 2 | Published; study deferred |
-| 11 | Kubernetes and Terraform | 3 | Published; study deferred |
+| 1 | Full-stack application fundamentals | 6 | Published; self-paced; not a coding prerequisite |
+| 2 | Git and GitHub workflows | 2 | Published; self-paced; not a coding prerequisite |
+| 3 | Docker fundamentals | 3 | Published; self-paced; not a coding prerequisite |
+| 4 | Docker Compose | 2 | Published; self-paced; not a coding prerequisite |
+| 5 | Linux and server administration | 3 | Published; self-paced; not a coding prerequisite |
+| 6 | AWS cloud fundamentals | 3 | Published; self-paced; not a coding prerequisite |
+| 7 | Cloud deployment | 2 | Published; self-paced; not a coding prerequisite |
+| 8 | CI/CD with GitHub Actions | 2 | Published; self-paced; not a coding prerequisite |
+| 9 | Monitoring and reliability | 2 | Published; self-paced; not a coding prerequisite |
+| 10 | Scaling and high availability | 2 | Published; self-paced; not a coding prerequisite |
+| 11 | Kubernetes and Terraform | 3 | Published; self-paced; not a coding prerequisite |
 | **Total** | **Phases 1–11** | **30** | **All materials published** |
 
 ## Phase 0 — Engineering foundations
@@ -65,7 +65,7 @@ Phase guide: [Phase 1 overview](01-application/README.md). Reference material in
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study and assessment deferred.**
+**Material status: Both lessons and the integrated checkpoint published. study is self-paced; assessment records actual learner results.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -76,7 +76,7 @@ Phase guide and integrated checkpoint: [Phase 2 overview](02-git/README.md).
 
 ## Phase 3 — Docker fundamentals (3 lessons)
 
-**Material status: All three lessons and the connected walkthrough published. Study and assessment deferred.**
+**Material status: All three lessons and the connected walkthrough published. study is self-paced; assessment records actual learner results.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -99,7 +99,7 @@ Phase guide: [Phase 4 overview](04-compose/README.md).
 
 ## Phase 5 — Linux and server administration (3 lessons)
 
-**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
+**Material status: All three lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -111,7 +111,7 @@ Phase guide: [Phase 5 overview](05-linux/README.md).
 
 ## Phase 6 — AWS cloud fundamentals (3 lessons)
 
-**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
+**Material status: All three lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -123,7 +123,7 @@ Phase guide: [Phase 6 overview](06-aws/README.md).
 
 ## Phase 7 — Cloud deployment (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+**Material status: Both lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -134,7 +134,7 @@ Phase guide: [Phase 7 overview](07-deployment/README.md).
 
 ## Phase 8 — CI/CD with GitHub Actions (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+**Material status: Both lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -145,7 +145,7 @@ Phase guide: [Phase 8 overview](08-cicd/README.md).
 
 ## Phase 9 — Monitoring and reliability (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+**Material status: Both lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -156,7 +156,7 @@ Phase guide: [Phase 9 overview](09-monitoring/README.md).
 
 ## Phase 10 — Scaling and high availability (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+**Material status: Both lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -167,7 +167,7 @@ Phase guide: [Phase 10 overview](10-scaling/README.md).
 
 ## Phase 11 — Kubernetes and Terraform (3 lessons)
 
-**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
+**Material status: All three lessons and the integrated checkpoint published. self-paced; not a coding prerequisite.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -215,7 +215,7 @@ The implementation track is independent of theory completion. The following are 
 - Revised all 21 Phase 3–11 lessons with prior-knowledge bridges, guided end-to-end TaskFlow examples, clearer failure diagnosis, and concept boundaries. Added the connected beginner map and previous/next phase navigation.
 - Updated the documentation standard to require first-use jargon explanations, complete workflows, command/flag explanations, and a practical failure path.
 - Updated repository navigation to point to the first study lesson, Phase 1 Lesson 1.1.
-- Deferred learner study and assessments at the learner's direction. No Phase 1–11 lesson is recorded as passed by publication alone.
+- Learner study is self-paced and can run alongside implementation. Checkpoint results remain unrecorded until they are actually reviewed; no lesson is marked learned merely because its material is published.
 - Kept the repository documentation-only. No application code, Docker runtime, Kubernetes cluster, Terraform apply, or AWS infrastructure is claimed.
 
 
