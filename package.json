@@ -1,0 +1,20 @@
+{
+  "name": "taskflow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TaskFlow - Task management application and engineering learning project",
+  "workspaces": [
+    "app/api",
+    "app/web"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=@taskflow/api",
+    "dev:web": "npm run dev --workspace=@taskflow/web",
+    "build:api": "npm run build --workspace=@taskflow/api",
+    "build:web": "npm run build --workspace=@taskflow/web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
