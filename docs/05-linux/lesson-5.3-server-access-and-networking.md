@@ -3,6 +3,19 @@
 **Phase:** 5 — Linux and Server Administration  
 **Goal:** Understand how to connect to a Linux server securely and investigate common network access problems.
 
+## Start here: connect your laptop to a different computer
+
+When TaskFlow runs on a cloud server, your browser and terminal are on your Windows laptop, while the application is running on another machine. You need a secure administrative connection and a way to understand how network traffic reaches the service.
+
+Three questions guide this lesson:
+
+1. **Who am I connecting to?** The server address and account identify the target.
+2. **How do I prove my identity?** SSH key authentication can prove that you possess the private key matching a public key installed for the account.
+3. **Can traffic reach the application?** DNS, routing, listening ports, and firewall rules all play different roles.
+
+SSH is for remote administration. It is not the normal path students use to open TaskFlow in a browser.
+
+
 ## 1. Why do we need remote server access?
 
 When TaskFlow is deployed on a cloud server, your development computer is not the same computer that runs the application.
@@ -300,6 +313,48 @@ Phase 6 will introduce AWS networking and security groups. Phase 7 will connect 
 - **Using localhost to test a remote service from your laptop:** localhost refers to the computer where the command runs.
 - **Changing firewall rules over SSH without a fallback:** you may disconnect yourself.
 - **Opening database ports publicly:** keep database access restricted to the required application path.
+
+## Guided example: connect and investigate a website in layers
+
+Imagine you have a server address and a private key stored on your Windows computer. From PowerShell, a connection may look like this:
+
+```powershell
+ssh -i "$HOME\.ssh\taskflow_ed25519" appadmin@203.0.113.10
+```
+
+The address 203.0.113.10 is reserved for documentation examples; it is not a real TaskFlow server.
+
+- `ssh` starts the secure remote session.
+- `-i` selects the private identity file on your computer.
+- `appadmin` is the remote Linux account.
+- The final value is the server address.
+
+Once connected, commands run on the remote Linux server:
+
+```bash
+ip address
+ip route
+ss -lnt
+getent hosts taskflow.example.com
+curl -I http://127.0.0.1:3000
+```
+
+What each check means:
+
+1. `ip address` shows network interfaces and assigned addresses.
+2. `ip route` shows where the server sends traffic for different destinations.
+3. `ss -lnt` shows listening TCP ports. It helps confirm whether an application is listening at all.
+4. `getent hosts` asks the system to resolve a hostname.
+5. `curl -I` requests response headers from the local service. It tests the HTTP response path from the server itself.
+
+### How to reason about the result
+
+- If the hostname does not resolve, investigate DNS.
+- If the application is not listening, inspect the process/container and application configuration.
+- If localhost works on the server but the public site fails, investigate the server's listening address, routing, host firewall, cloud firewall/security group, and public entry point.
+- If the site loads but HTTPS reports a certificate error, inspect certificate name, validity, and listener configuration.
+
+A failed ping alone does not prove the website is down because ICMP may be blocked while HTTPS works. Never change remote firewall rules until you have confirmed that SSH remains allowed and that you have a recovery route.
 
 ## 14. Knowledge checkpoint
 
