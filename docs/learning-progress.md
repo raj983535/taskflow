@@ -1,190 +1,208 @@
 # TaskFlow — Learning Progress
 
-This is the source of truth for the roadmap. The goal is project-ready engineering fluency, not exhaustive mastery of every technology.
+This is the source of truth for the TaskFlow curriculum.
 
-## Current checkpoint
+## Curriculum authoring status
 
-- **Phase 0:** Completed as the engineering-foundations baseline.
-- **Current phase:** 3 — Docker fundamentals.
-- **Current checkpoint:** Phase 3 integrated Docker checkpoint for Lessons 3.1, 3.2, and 3.3.
-- **Lesson 1.1:** Material published; learner checkpoint remains pending and can be revisited.
-- **Lesson 1.2:** Material published; learner checkpoint remains pending and can be revisited.
-- **Lesson 1.3:** Material published; learner checkpoint remains pending and can be revisited.
-- **Lesson 1.4 material:** Published in GitHub; learner checkpoint and explanation exercise pending.
-- **Lesson 1.5 material:** Published in GitHub; learner checkpoint and data-modeling exercise pending.
-- **Lesson 1.6 material:** Published in GitHub; learner checkpoint and Phase 1 final walkthrough pending.
-- **Phase 1 progression:** Moved to Phase 2 at the learner's direction. Phase 1's individual learner checkpoints and final walkthrough were not separately validated or recorded in this tracker; this is a progression decision, not an assessment result.
-- **Phase 2 progression:** Advanced to Phase 3 at the learner's direction after the repository and lesson materials passed a documentation review. The final Phase 2 learner checkpoint remains pending and was not marked as passed.
-- **Phase 3 walkthrough:** All three lessons have been taught together in the conversation on 2026-11-11 from the basic application problem through image building, container runtime, networking, storage, and troubleshooting. The integrated checkpoint is published; learner answers are pending, so Phase 3 is not yet marked complete.
-- **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
-- **Repository state:** Learning documentation only.
-- **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
+**All planned study materials published.**
+
+- **Phase 0:** Engineering foundations baseline documented.
+- **Phases 1–11:** All **30 planned lessons** and their phase guides are published in GitHub.
+- **Learner study:** Deferred by the learner until the entire curriculum has been authored.
+- **Checkpoint assessments:** Deferred. No Phase 1–11 learner checkpoint is being recorded as passed merely because its material has been published or explained.
+- **Recommended starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle.
+- **Application implementation:** Not started. It remains after the later study pass and architecture review.
+- **Repository state:** Curriculum documentation only; no application runtime or AWS infrastructure is claimed.
 
 ## Fixed roadmap
 
-| Phase | Focus | Lessons | Status |
+| Phase | Focus | Lessons | Material status |
 |---|---|---:|---|
-| 0 | Engineering foundations | Baseline | **Completed** |
-| 1 | Full-stack application fundamentals | 6 | **Progressed to Phase 2; checkpoints not validated** |
-| 2 | Git and GitHub workflows | 2 | **Progressed to Phase 3 at learner's direction; checkpoint not validated** |
-| 3 | Docker fundamentals | 3 | **In progress: final integrated learner checkpoint** |
-| 4 | Docker Compose | 2 | Planned |
-| 5 | Linux and server administration | 3 | Planned |
-| 6 | AWS cloud fundamentals | 3 | Planned |
-| 7 | Cloud deployment | 2 | Planned |
-| 8 | CI/CD with GitHub Actions | 2 | Planned |
-| 9 | Monitoring and reliability | 2 | Planned |
-| 10 | Scaling and high availability | 2 | Planned |
-| 11 | Kubernetes and Terraform | 3 | Planned |
-| **Total** | **Phases 1–11** | **30** | |
+| 0 | Engineering foundations | Baseline | Documented baseline |
+| 1 | Full-stack application fundamentals | 6 | Published; study deferred |
+| 2 | Git and GitHub workflows | 2 | Published; study deferred |
+| 3 | Docker fundamentals | 3 | Published; study deferred |
+| 4 | Docker Compose | 2 | Published; study deferred |
+| 5 | Linux and server administration | 3 | Published; study deferred |
+| 6 | AWS cloud fundamentals | 3 | Published; study deferred |
+| 7 | Cloud deployment | 2 | Published; study deferred |
+| 8 | CI/CD with GitHub Actions | 2 | Published; study deferred |
+| 9 | Monitoring and reliability | 2 | Published; study deferred |
+| 10 | Scaling and high availability | 2 | Published; study deferred |
+| 11 | Kubernetes and Terraform | 3 | Published; study deferred |
+| **Total** | **Phases 1–11** | **30** | **All materials published** |
 
 ## Phase 0 — Engineering foundations
 
 **Status: Completed baseline.**
 
-Covered and documented:
+The foundation notes cover:
+
 - Client-server architecture and frontend/backend responsibilities.
 - How a browser reaches a server.
 - DNS, IP addresses, ports, and networking.
 - HTTP and HTTPS.
-- Bare-metal servers, virtual machines, containers, and the cloud/hosting model.
+- Bare-metal servers, virtual machines, containers, and cloud/hosting concepts.
 
-The [Phase 0 notes](00-foundations/README.md) remain a reference. We will revisit a foundation briefly when a later topic depends on it, without reopening Phase 0.
+Reference: [Phase 0 foundation notes](00-foundations/README.md).
 
 ## Phase 1 — Full-stack application fundamentals (6 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 1.1 | Full-stack architecture and request lifecycle | Trace a browser action through frontend, API, backend, and database | Study material published; checkpoint pending |
-| 1.2 | Browser, React, and TypeScript | Understand UI rendering, components, state, and type safety | Study material published; checkpoint pending |
-| 1.3 | Node.js and Express backend | Understand runtime, routes, middleware, validation, and error handling | Study material published; checkpoint pending |
-| 1.4 | HTTP, REST-style APIs, and JSON | Design and inspect request/response contracts | Study material published; checkpoint pending |
-| 1.5 | PostgreSQL and data modeling | Understand tables, relationships, SQL, constraints, and indexes | Study material published; checkpoint pending |
-| 1.6 | Identity, security, and quality basics | Understand sessions/cookies, authorization, secrets, migrations, and testing | Study material published; checkpoint and final walkthrough pending |
+**Material status: All six lesson documents published. Study and assessment deferred.**
 
-Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesson-1.1-full-stack-architecture.md). Lesson 1.2: [Browser, React, and TypeScript](01-application/lesson-1.2-browser-react-typescript.md). Lesson 1.3: [Node.js and the Express Backend](01-application/lesson-1.3-nodejs-express-backend.md). Lesson 1.4: [HTTP, REST APIs, and JSON](01-application/lesson-1.4-http-rest-apis-json.md). Lesson 1.5: [PostgreSQL and data modeling](01-application/lesson-1.5-postgresql-data-modeling.md). Lesson 1.6: [Identity, security, and quality basics](01-application/lesson-1.6-identity-security-quality.md). Reference notes: [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [security](01-application/authentication-and-security.md), [toolchain](01-application/toolchain-and-commands.md), [migrations and testing](01-application/migrations-and-testing.md).
+| Lesson | Topic | Material |
+|---|---|---|
+| 1.1 | Full-stack architecture and request lifecycle | [Open lesson](01-application/lesson-1.1-full-stack-architecture.md) |
+| 1.2 | Browser, React, and TypeScript | [Open lesson](01-application/lesson-1.2-browser-react-typescript.md) |
+| 1.3 | Node.js and Express backend | [Open lesson](01-application/lesson-1.3-nodejs-express-backend.md) |
+| 1.4 | HTTP, REST APIs, and JSON | [Open lesson](01-application/lesson-1.4-http-rest-apis-json.md) |
+| 1.5 | PostgreSQL and data modeling | [Open lesson](01-application/lesson-1.5-postgresql-data-modeling.md) |
+| 1.6 | Identity, security, and quality basics | [Open lesson](01-application/lesson-1.6-identity-security-quality.md) |
+
+Phase guide: [Phase 1 overview](01-application/README.md). Reference material includes [architecture](01-application/architecture.md), [API contract](01-application/api-reference.md), [database design](01-application/database-design.md), [authentication and security](01-application/authentication-and-security.md), and [migrations and testing](01-application/migrations-and-testing.md).
 
 ## Phase 2 — Git and GitHub workflows (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 2.1 | Git fundamentals | Understand working tree, staging, commits, history, and branches | Material published and walkthrough presented 2026-11-11; learner validation pending |
-| 2.2 | GitHub team workflow | Understand remotes, branches, pull requests, reviews, conflicts, and safe collaboration | Material published and walkthrough presented 2026-11-11; learner validation pending |
+**Material status: Both lessons and the integrated checkpoint published. Study and assessment deferred.**
 
-Lesson guides: [Phase 2 overview and final checkpoint](02-git/README.md), [Lesson 2.1 — Git fundamentals](02-git/lesson-2.1-git-fundamentals.md), and [Lesson 2.2 — GitHub team workflow](02-git/lesson-2.2-github-team-workflow.md).
+| Lesson | Topic | Material |
+|---|---|---|
+| 2.1 | Git fundamentals | [Open lesson](02-git/lesson-2.1-git-fundamentals.md) |
+| 2.2 | GitHub team workflow | [Open lesson](02-git/lesson-2.2-github-team-workflow.md) |
+
+Phase guide and integrated checkpoint: [Phase 2 overview](02-git/README.md).
 
 ## Phase 3 — Docker fundamentals (3 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 3.1 | Containers and images | Explain image vs container, Docker Engine, layers, registry, and lifecycle | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
-| 3.2 | Dockerfile and image build | Read and write Dockerfiles; understand build context, .dockerignore, layers, and cache | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
-| 3.3 | Container runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
+**Material status: All three lessons and the connected walkthrough published. Study and assessment deferred.**
 
-Lesson guides: [Phase 3 overview and integrated checkpoint](03-docker/README.md), [Lesson 3.1 — Containers and images](03-docker/lesson-3.1-containers-and-images.md), [Lesson 3.2 — Dockerfile and image build](03-docker/lesson-3.2-dockerfile-and-image-build.md), and [Lesson 3.3 — Container runtime operations](03-docker/lesson-3.3-container-runtime-operations.md).
+| Lesson | Topic | Material |
+|---|---|---|
+| 3.1 | Containers and images | [Open lesson](03-docker/lesson-3.1-containers-and-images.md) |
+| 3.2 | Dockerfile and image build | [Open lesson](03-docker/lesson-3.2-dockerfile-and-image-build.md) |
+| 3.3 | Container runtime operations | [Open lesson](03-docker/lesson-3.3-container-runtime-operations.md) |
+
+Phase guide and integrated checkpoint: [Phase 3 overview](03-docker/README.md).
 
 ## Phase 4 — Docker Compose (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 4.1 | Multi-service application | Understand services, networks, volumes, and Compose configuration | Planned |
-| 4.2 | Local operations | Understand startup order, environment, health checks, logs, and cleanup | Planned |
+**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 4.1 | Multi-service application | [Open lesson](04-compose/lesson-4.1-multi-service-application.md) |
+| 4.2 | Local Compose operations | [Open lesson](04-compose/lesson-4.2-local-compose-operations.md) |
+
+Phase guide: [Phase 4 overview](04-compose/README.md).
 
 ## Phase 5 — Linux and server administration (3 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 5.1 | Shell and filesystem | Navigate files, inspect content, and understand users and permissions | Planned |
-| 5.2 | Processes and services | Inspect processes, manage services, and read system logs | Planned |
-| 5.3 | Server access and networking | Understand SSH, firewall basics, ports, and basic troubleshooting | Planned |
+**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 5.1 | Shell and filesystem | [Open lesson](05-linux/lesson-5.1-shell-and-filesystem.md) |
+| 5.2 | Processes and services | [Open lesson](05-linux/lesson-5.2-processes-and-services.md) |
+| 5.3 | Server access and networking | [Open lesson](05-linux/lesson-5.3-server-access-and-networking.md) |
+
+Phase guide: [Phase 5 overview](05-linux/README.md).
 
 ## Phase 6 — AWS cloud fundamentals (3 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 6.1 | Cloud model and IAM | Understand regions, availability zones, shared responsibility, users, roles, and least privilege | Planned |
-| 6.2 | AWS networking and compute | Understand VPC, subnets, route tables, security groups, and EC2 | Planned |
-| 6.3 | Container and database services | Understand ECR and RDS, basic backups, access, and cost controls | Planned |
+**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
 
-AWS is the primary hands-on cloud path. Azure and Google Cloud are comparison points, not additional implementation targets.
+| Lesson | Topic | Material |
+|---|---|---|
+| 6.1 | Cloud model and IAM | [Open lesson](06-aws/lesson-6.1-cloud-model-and-iam.md) |
+| 6.2 | AWS networking and compute | [Open lesson](06-aws/lesson-6.2-aws-networking-and-compute.md) |
+| 6.3 | Container and database services | [Open lesson](06-aws/lesson-6.3-container-and-database-services.md) |
+
+Phase guide: [Phase 6 overview](06-aws/README.md).
 
 ## Phase 7 — Cloud deployment (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 7.1 | Public web access | Connect domain/DNS, HTTPS/TLS, reverse proxy, and application ports | Planned |
-| 7.2 | TaskFlow deployment design | Map frontend, backend, database, network boundaries, and secrets into AWS | Planned |
+**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 7.1 | Public web access | [Open lesson](07-deployment/lesson-7.1-public-web-access.md) |
+| 7.2 | TaskFlow deployment design | [Open lesson](07-deployment/lesson-7.2-taskflow-deployment-design.md) |
+
+Phase guide: [Phase 7 overview](07-deployment/README.md).
 
 ## Phase 8 — CI/CD with GitHub Actions (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 8.1 | Pipeline fundamentals | Understand workflow YAML, triggers, jobs, steps, runners, and artifacts | Planned |
-| 8.2 | Delivery pipeline | Understand test, build, image publish, deploy, secrets, and rollback flow | Planned |
+**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 8.1 | Pipeline fundamentals | [Open lesson](08-cicd/lesson-8.1-pipeline-fundamentals.md) |
+| 8.2 | Delivery pipeline | [Open lesson](08-cicd/lesson-8.2-delivery-pipeline.md) |
+
+Phase guide: [Phase 8 overview](08-cicd/README.md).
 
 ## Phase 9 — Monitoring and reliability (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 9.1 | Observability basics | Distinguish logs, metrics, traces, and health/readiness checks | Planned |
-| 9.2 | Operational response | Understand alerts, dashboards, CloudWatch basics, and incident triage | Planned |
+**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 9.1 | Observability basics | [Open lesson](09-monitoring/lesson-9.1-observability-basics.md) |
+| 9.2 | Operational response | [Open lesson](09-monitoring/lesson-9.2-operational-response.md) |
+
+Phase guide: [Phase 9 overview](09-monitoring/README.md).
 
 ## Phase 10 — Scaling and high availability (2 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 10.1 | Application scaling | Understand load balancers, replicas, stateless services, and autoscaling | Planned |
-| 10.2 | Data and resilience | Understand caching, database bottlenecks, backups, and availability trade-offs | Planned |
+**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+
+| Lesson | Topic | Material |
+|---|---|---|
+| 10.1 | Application scaling | [Open lesson](10-scaling/lesson-10.1-application-scaling.md) |
+| 10.2 | Data and resilience | [Open lesson](10-scaling/lesson-10.2-data-and-resilience.md) |
+
+Phase guide: [Phase 10 overview](10-scaling/README.md).
 
 ## Phase 11 — Kubernetes and Terraform (3 lessons)
 
-| Lesson | Topic | Main outcome | Status |
-|---|---|---|---|
-| 11.1 | Kubernetes mental model | Understand cluster, node, Pod, Deployment, and Service | Planned |
-| 11.2 | Running an application on Kubernetes | Understand configuration, secrets, probes, storage, and ingress at project level | Planned |
-| 11.3 | Terraform and infrastructure as code | Understand providers, resources, plan/apply, variables, outputs, and state | Planned |
+**Material status: All three lessons and the integrated checkpoint published. Study deferred.**
 
-## Completion rule for a lesson
+| Lesson | Topic | Material |
+|---|---|---|
+| 11.1 | Kubernetes mental model | [Open lesson](11-kubernetes-terraform/lesson-11.1-kubernetes-mental-model.md) |
+| 11.2 | Running an app on Kubernetes | [Open lesson](11-kubernetes-terraform/lesson-11.2-running-app-on-kubernetes.md) |
+| 11.3 | Terraform and infrastructure as code | [Open lesson](11-kubernetes-terraform/lesson-11.3-terraform-and-infrastructure-as-code.md) |
 
-A lesson is complete when the learner can explain the purpose, trace the main flow, use the essential vocabulary, understand the relevant commands/configuration, and pass a short checkpoint. Memorizing every option or learning specialist internals is not required.
+Phase guide: [Phase 11 overview](11-kubernetes-terraform/README.md).
+
+## Completion rule and later study plan
+
+A lesson is considered learned only after the learner studies it, can explain its main flow, understands the important vocabulary and commands, and completes its checkpoint. Publishing a lesson does not count as learner completion.
+
+The learner has explicitly deferred study and checkpoint assessment until all planned materials are authored. When study begins, follow the phases in order, starting with Phase 1, Lesson 1.1. Record checkpoint results only after they are actually reviewed.
 
 ## After Phase 11 — Build and ship TaskFlow
 
-- [ ] Freeze the theory syllabus and review the architecture.
-- [ ] Agree on the implementation blueprint and supported technology versions.
+After the study pass and architecture review:
+
+- [ ] Freeze the theory syllabus and confirm technology versions.
+- [ ] Agree on the implementation blueprint and deployment architecture.
 - [ ] Build the minimum full-stack application.
 - [ ] Add Docker and Docker Compose.
-- [ ] Deploy to AWS with appropriate security boundaries.
+- [ ] Provision infrastructure using the agreed AWS design.
+- [ ] Deploy the application.
 - [ ] Add CI/CD.
 - [ ] Add health checks, logs, metrics, and alerts.
-- [ ] Demonstrate the basic scaling path.
-- [ ] Verify and document the deployed application.
+- [ ] Demonstrate the basic scaling and recovery path.
+- [ ] Verify and document the running application.
 
 ## Learning log
 
-### Phase 3 walkthrough and checkpoint — 2026-11-11
-- Added the Phase 3 guide and three lesson documents covering containers/images, Dockerfiles/image builds, and container runtime operations.
-- Presented the three lessons as one connected flow, beginning with the normal TaskFlow application environment and progressing through Docker images, containers, ports, storage, networks, and troubleshooting.
-- Added an integrated Phase 3 checkpoint to the guide. Learner answers are pending; Phase 3 is not marked complete until the checkpoint is assessed.
-- Docker installation and runtime experiments remain deferred; Phase 3 is theory-first.
-- Phase 2 assessment remains unvalidated. Progress advanced to Phase 3 at the learner's direction, not because a Phase 2 pass was recorded.
+### Curriculum authoring completed — 2026-11-11
 
-### Phase 2 walkthrough and repository update — 2026-11-11
-- Added the Phase 2 guide and both planned lesson documents: Git fundamentals and GitHub team workflow.
-- Presented the combined Git and GitHub walkthrough in the conversation and added a six-part final checkpoint to the Phase 2 guide.
-- Updated the repository navigation and tracker to identify the final Phase 2 learner checkpoint.
-- Phase 2 material and instructional walkthrough are complete; learner assessment is pending because checkpoint answers have not yet been submitted.
-- Progress moved from Phase 1 to Phase 2 at the learner's direction. The Phase 1 checkpoint results were not individually recorded or independently validated in this tracker.
-
-### Repository scope update — 2026-11-10
-- Confirmed Phase 0 as the completed foundation baseline.
-- Reduced Phases 1–11 to a fixed set of 30 project-relevant lessons.
-- Added explicit depth limits and a stop rule to prevent endless theory.
-- Confirmed that implementation and deployment follow the bounded theory roadmap.
-- Published Phase 1 Lesson 1.1 as a standalone theory document; its learner checkpoint remains pending.
-- Published Phase 1 Lesson 1.2 as a standalone theory document; its learner checkpoint remains pending.
-- Published Phase 1 Lesson 1.3 as a standalone theory document; its learner checkpoint remains pending.
-- Published Phase 1 Lesson 1.4 as a standalone theory document covering HTTP semantics, REST-style API design, JSON, API contracts, request inspection, and common status codes; its learner checkpoint remains pending.
-- Published Phase 1 Lesson 1.5 as a standalone theory document covering PostgreSQL, relational modeling, SQL CRUD, keys, constraints, transactions, indexes, and backend/database boundaries; its learner checkpoint remains pending.
-- Published Phase 1 Lesson 1.6 as the final study-material unit, covering authentication, authorization, sessions, cookies, security risks, secrets, migrations, and testing; its learner checkpoint and the Phase 1 final walkthrough remain pending.
-- No application code or deployment is claimed.
+- Confirmed the fixed roadmap of 30 planned lessons across Phases 1–11.
+- Published the guides and lesson documents for Phases 1–11.
+- Added integrated phase checkpoints and official reference links to the phase guides.
+- Updated repository navigation to point to the first study lesson, Phase 1 Lesson 1.1.
+- Deferred learner study and assessments at the learner's direction. No Phase 1–11 lesson is recorded as passed by publication alone.
+- Kept the repository documentation-only. No application code, Docker runtime, Kubernetes cluster, Terraform apply, or AWS infrastructure is claimed.
