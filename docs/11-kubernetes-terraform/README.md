@@ -102,3 +102,7 @@ Explain:
 - [Terraform core workflow](https://developer.hashicorp.com/terraform/intro/core-workflow)
 - [Terraform providers](https://developer.hashicorp.com/terraform/language/providers)
 - [Terraform state backends](https://docs.hashicorp.com/terraform/language/state/backends)
+
+## Continue the roadmap
+
+**Previous:** [Phase 10 — Scaling and high availability](../10-scaling/README.md). **Next:** After your study pass, move to [Build and ship TaskFlow](../learning-progress.md#after-phase-11--build-and-ship-taskflow).
