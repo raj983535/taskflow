@@ -86,19 +86,21 @@ We move on when you can:
 
 You do not need to memorize every option, know every edge case, or explain source-code internals.
 
-## 6. The build-and-ship rule
+## 6. The build-and-learn rule
 
-After Phase 11:
+**Implementation can begin at any point. It does not wait for Phase 11 or for the learner to pass a theory checkpoint.** The learner studies at their own pace while the application grows in small, understandable steps.
 
-1. Freeze the learning syllabus.
-2. Review the proposed TaskFlow architecture and make the remaining technology decisions.
-3. Build a working minimum version of the application.
-4. Containerize it and run the services together.
-5. Deploy it to AWS using the studied network and security concepts.
-6. Add CI/CD, monitoring, and a basic scaling path.
-7. Verify the deployed system and document what actually works.
+A practical development path is:
 
-The application is the practical test of the theory. We will learn additional topics only when the build exposes a real gap. The goal is to ship, not to postpone shipping for endless study.
+1. Confirm the smallest useful first-version feature and user journey.
+2. Agree on the initial architecture and record important technology decisions.
+3. Build the frontend, API, and data path in small vertical slices.
+4. Add tests and learn debugging against real behaviour.
+5. Introduce Docker, Compose, Linux, AWS, CI/CD, monitoring, scaling, Kubernetes, or Terraform when the application has a real reason to use them.
+6. Document every meaningful implementation and connect it to the relevant theory lesson.
+7. Verify and document what actually works. Learn additional theory just in time when implementation exposes a gap.
+
+The curriculum remains bounded, but implementation is not held until the curriculum is completed. A working application and its implementation guides are another way to learn the concepts.
 
 ## 7. Teaching style
 

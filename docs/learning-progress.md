@@ -1,6 +1,6 @@
 # TaskFlow — Learning Progress
 
-This is the source of truth for the TaskFlow curriculum.
+This is the source of truth for the TaskFlow curriculum and its self-paced learning track. Application implementation is tracked separately and may proceed in parallel.
 
 ## Curriculum authoring status
 
@@ -10,10 +10,10 @@ This is the source of truth for the TaskFlow curriculum.
 - **Phases 1–11:** All **30 planned lessons** and their phase guides are published in GitHub.
 - **Phases 3–11 beginner revision:** All 21 lesson files now include a plain-language bridge to prior knowledge and a guided TaskFlow walkthrough that connects the concepts end to end. Phase guides also link backward/forward through the roadmap.
 - **Beginner's map:** [How Phases 3–11 fit together](BEGINNER-MAP-PHASES-3-11.md).
-- **Learner study:** Deferred by the learner until the entire curriculum has been authored.
+- **Learner study:** Self-paced. The learner may study any phase while application implementation proceeds.
 - **Checkpoint assessments:** Deferred. No Phase 1–11 learner checkpoint is being recorded as passed merely because its material has been published or explained.
-- **Recommended starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle.
-- **Application implementation:** Not started. It remains after the later study pass and architecture review.
+- **Suggested theory starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle. This is a recommended learning order, not a requirement before coding.
+- **Application implementation:** May start now, in parallel with theory study. Work should proceed in small vertical slices with matching beginner-friendly implementation documentation.
 - **Repository state:** Curriculum documentation only; no application runtime or AWS infrastructure is claimed.
 
 ## Fixed roadmap
@@ -50,7 +50,7 @@ Reference: [Phase 0 foundation notes](00-foundations/README.md).
 
 ## Phase 1 — Full-stack application fundamentals (6 lessons)
 
-**Material status: All six lesson documents published. Study and assessment deferred.**
+**Material status: All six lesson documents published. Study is self-paced; assessment records only actual learner results.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -88,7 +88,7 @@ Phase guide and integrated checkpoint: [Phase 3 overview](03-docker/README.md).
 
 ## Phase 4 — Docker Compose (2 lessons)
 
-**Material status: Both lessons and the integrated checkpoint published. Study deferred.**
+**Material status: Both lessons and the integrated checkpoint published. Study is self-paced.**
 
 | Lesson | Topic | Material |
 |---|---|---|
@@ -177,19 +177,19 @@ Phase guide: [Phase 10 overview](10-scaling/README.md).
 
 Phase guide: [Phase 11 overview](11-kubernetes-terraform/README.md).
 
-## Completion rule and later study plan
+## Completion rule and self-paced study plan
 
 A lesson is considered learned only after the learner studies it, can explain its main flow, understands the important vocabulary and commands, and completes its checkpoint. Publishing a lesson does not count as learner completion.
 
-The learner has explicitly deferred study and checkpoint assessment until all planned materials are authored. When study begins, follow the phases in order, starting with Phase 1, Lesson 1.1. Record checkpoint results only after they are actually reviewed.
+The learner may study the published material at their own pace while implementation continues. Phase 1, Lesson 1.1 is the suggested starting point for a sequential theory pass, but no lesson or checkpoint must be completed before coding. Record checkpoint results only after they are actually reviewed.
 
-## After Phase 11 — Build and ship TaskFlow
+## Build-and-learn track — can begin alongside theory
 
-After the study pass and architecture review:
+The implementation track is independent of theory completion. The following are project milestones, not prerequisites for beginning the code:
 
-- [ ] Freeze the theory syllabus and confirm technology versions.
-- [ ] Agree on the implementation blueprint and deployment architecture.
-- [ ] Build the minimum full-stack application.
+- [ ] Confirm the smallest first-version feature and initial architecture.
+- [ ] Scaffold the frontend and API with documented setup decisions.
+- [ ] Build the minimum full-stack application in small vertical slices.
 - [ ] Add Docker and Docker Compose.
 - [ ] Provision infrastructure using the agreed AWS design.
 - [ ] Deploy the application.
@@ -199,6 +199,13 @@ After the study pass and architecture review:
 - [ ] Verify and document the running application.
 
 ## Learning log
+
+### Parallel learning and implementation workflow prepared — 2026-11-11
+
+- Clarified that theory study is self-paced and is not a prerequisite for coding.
+- Added the implementation documentation structure, project context handoff, implementation templates, and mandatory coding-agent instructions.
+- Required meaningful implementation code and its beginner-friendly explanation to be maintained together.
+- Prepared a parallel build-and-learn track. Application code remains unimplemented until actual coding work is started.
 
 ### Curriculum authoring completed — 2026-11-11
 
@@ -210,3 +217,8 @@ After the study pass and architecture review:
 - Updated repository navigation to point to the first study lesson, Phase 1 Lesson 1.1.
 - Deferred learner study and assessments at the learner's direction. No Phase 1–11 lesson is recorded as passed by publication alone.
 - Kept the repository documentation-only. No application code, Docker runtime, Kubernetes cluster, Terraform apply, or AWS infrastructure is claimed.
+
+
+## Implementation documentation system
+
+The practical documentation index is [docs/implementation/README.md](implementation/README.md). It covers architecture, features and business logic, infrastructure, decisions, debugging, and templates. Coding agents must follow the root [AGENTS.md](../AGENTS.md). This structure does not claim that application code has already been implemented.
