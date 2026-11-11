@@ -1,6 +1,6 @@
 # Phase 1 — Full-Stack Application Fundamentals
 
-**Six focused lessons.** The goal is to understand the moving parts of a web application well enough to design and explain TaskFlow before implementation.
+**Six focused lessons.** The goal is to understand the moving parts of a web application and connect them to TaskFlow's actual code as it is built. Study these lessons at your own pace; completing Phase 1 is not a prerequisite for implementation.
 
 This is not an exhaustive web-development course. We cover the project-relevant behavior of the browser, React, TypeScript, Node.js, Express, HTTP APIs, PostgreSQL, authentication, and basic quality practices.
 
