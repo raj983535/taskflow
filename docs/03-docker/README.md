@@ -52,6 +52,57 @@ After the three lessons, you should be able to explain:
 
 **Pass standard:** You can describe the path from source files to an image, from an image to a running container, and from a running container to safe inspection and cleanup.
 
+## One connected TaskFlow walkthrough
+
+Keep this sequence in mind as you study the three lessons:
+
+```text
+TaskFlow source code
+        |
+        v
+Dockerfile + build context
+        |
+        v
+Docker builder creates image layers
+        |
+        v
+TaskFlow image
+        |
+        v
+Docker creates and starts a container
+        |
+        +---- publish a port for host/browser access
+        |
+        +---- attach a volume for data that must persist
+        |
+        +---- attach a network for service-to-service communication
+        |
+        v
+Inspect status, logs, configuration and resource usage
+        |
+        v
+Stop, replace or remove the container safely
+```
+
+For TaskFlow, the frontend build will normally produce static files that a web server can serve. React runs in the user's browser. The backend container runs the Node.js API. A database service needs persistent storage. The exact images, base versions, ports, build steps, and runtime configuration must be chosen from the real application; the examples in these lessons are not implemented TaskFlow configuration.
+
+## Phase 3 integrated checkpoint
+
+Explain this scenario from beginning to end, in your own words:
+
+TaskFlow has a React frontend, a Node.js/Express API, and PostgreSQL. You want a repeatable local environment that can later be deployed to a server.
+
+1. What does Docker solve in this scenario? Explain the role of the Docker CLI, Engine/daemon, image, container, and registry.
+2. Explain the difference between an image, its read-only layers, and the writable layer of a running container. What happens to data held only in that writable layer when the container is removed?
+3. Describe how a Dockerfile and build context become an image. Explain the purpose of FROM, WORKDIR, COPY, RUN, EXPOSE, USER, and CMD.
+4. Why do we use .dockerignore? Why might copying dependency manifests before source files make builds faster?
+5. Explain the difference between a build-time action and the command that starts an application at runtime. Also distinguish --pull from --no-cache.
+6. The API listens on port 3000 inside its container. Explain what -p 127.0.0.1:3000:3000 does and what EXPOSE does not do.
+7. PostgreSQL must keep its data when its container is replaced. Explain why a named volume is used, and how that differs from a bind mount.
+8. The API must contact PostgreSQL. Explain how a Docker network helps, then describe how you would investigate an API container that is not reachable.
+
+**Pass standard:** Your explanation connects all three lessons into one operational flow. You should be able to explain why each resource exists, what it changes, and where you would look when something fails. Perfect command memorization is not required.
+
 ## Completion
 
-Study material for all three lessons is published in this directory. The learner checkpoints are tracked separately in [Learning Progress](../learning-progress.md). Published material is not automatically a passed checkpoint.
+Study material for all three lessons and the connected walkthrough are published in this directory. The learner checkpoint is tracked separately in [Learning Progress](../learning-progress.md). Published or presented material is not automatically a passed checkpoint.
