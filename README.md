@@ -19,18 +19,18 @@ See [Learning Scope](docs/LEARNING-SCOPE.md) for the exact boundaries and [Learn
 
 | Phase | Focus | Lessons | Status |
 |---|---|---:|---|
-| 0 | Engineering foundations | Baseline | **Completed** |
-| 1 | Full-stack application fundamentals | 6 | **Progressed to Phase 2; checkpoints not validated** |
-| 2 | Git and GitHub workflows | 2 | **Progressed to Phase 3 at learner's direction; checkpoint not validated** |
-| 3 | Docker fundamentals | 3 | **In progress: Lesson 3.1; materials published** |
-| 4 | Docker Compose | 2 | Planned |
-| 5 | Linux and server administration | 3 | Planned |
-| 6 | AWS cloud fundamentals | 3 | Planned |
-| 7 | Cloud deployment | 2 | Planned |
-| 8 | CI/CD with GitHub Actions | 2 | Planned |
-| 9 | Monitoring and reliability | 2 | Planned |
-| 10 | Scaling and high availability | 2 | Planned |
-| 11 | Kubernetes and Terraform | 3 | Planned |
+| 0 | Engineering foundations | Baseline | **Completed baseline** |
+| 1 | Full-stack application fundamentals | 6 | **Materials published; study deferred** |
+| 2 | Git and GitHub workflows | 2 | **Materials published; study deferred** |
+| 3 | Docker fundamentals | 3 | **Materials published; study deferred** |
+| 4 | Docker Compose | 2 | **Materials published; study deferred** |
+| 5 | Linux and server administration | 3 | **Materials published; study deferred** |
+| 6 | AWS cloud fundamentals | 3 | **Materials published; study deferred** |
+| 7 | Cloud deployment | 2 | **Materials published; study deferred** |
+| 8 | CI/CD with GitHub Actions | 2 | **Materials published; study deferred** |
+| 9 | Monitoring and reliability | 2 | **Materials published; study deferred** |
+| 10 | Scaling and high availability | 2 | **Materials published; study deferred** |
+| 11 | Kubernetes and Terraform | 3 | **Materials published; study deferred** |
 | **Total** | **Phases 1–11** | **30** | |
 
 ## Technology landscape
@@ -62,13 +62,21 @@ taskflow/
 │   ├── 01-application/
 │   ├── 02-git/
 │   ├── 03-docker/
+│   ├── 04-compose/
+│   ├── 05-linux/
+│   ├── 06-aws/
+│   ├── 07-deployment/
+│   ├── 08-cicd/
+│   ├── 09-monitoring/
+│   ├── 10-scaling/
+│   ├── 11-kubernetes-terraform/
 │   ├── LEARNING-SCOPE.md
 │   ├── DOCUMENTATION-GUIDE.md
 │   └── learning-progress.md
 └── .gitignore
 ```
 
-Only learning documentation is present at this stage. Application source code and infrastructure configuration will be added when the theory roadmap is complete and the implementation blueprint is agreed.
+All planned study materials for Phases 1–11 are published. The learner has chosen to defer studying and checkpoint assessments until the complete curriculum is available. Application source code and infrastructure configuration have not been created; they will be added after the learner's study pass and an agreed implementation blueprint.
 
 ## Guardrails
 
@@ -80,8 +88,9 @@ Only learning documentation is present at this stage. Application source code an
 
 ## Start here
 
+The full curriculum is now available. Begin learning in order when ready.
+
 1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
-2. [Phase 3 — Docker fundamentals](docs/03-docker/README.md)
-3. [Lesson 3.1 — Containers and images](docs/03-docker/lesson-3.1-containers-and-images.md)
-4. [Phase 2 — Git and GitHub reference](docs/02-git/README.md)
-5. [Learning progress](docs/learning-progress.md)
+2. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
+3. [Lesson 1.1 — Full-stack architecture and request lifecycle](docs/01-application/lesson-1.1-full-stack-architecture.md)
+4. [Learning progress and all phase links](docs/learning-progress.md)
