@@ -3,6 +3,20 @@
 **Phase:** 10 — Scaling and High Availability  
 **Goal:** Understand how an application handles increasing demand and how additional compute capacity can be added safely.
 
+## Start here: capacity is about the workload, not just the number of users
+
+Imagine TaskFlow is used by one class today and an entire campus tomorrow. More simultaneous users usually means more browser requests, API work, and database activity.
+
+Scaling means changing capacity to meet the workload. It is not automatically the same as making the application faster. First find which component is limiting the user journey.
+
+There are two basic ways to add compute capacity:
+
+- **Vertical scaling:** give one machine more CPU or memory.
+- **Horizontal scaling:** add more application instances and distribute requests across them.
+
+The second approach introduces more moving parts. The application must be designed so that any healthy instance can handle the next request.
+
+
 ## 1. What does scaling mean?
 
 Imagine TaskFlow initially has 100 active users. Later, a campus campaign brings 5,000 students to the application at the same time.
@@ -233,6 +247,30 @@ The exact number of instances and scaling thresholds cannot be chosen without wo
 - **Removing instances abruptly:** active requests may be interrupted.
 - **Ignoring minimum and maximum capacity:** an autoscaling policy needs cost and safety bounds.
 - **Assuming replicas equal high availability:** failure zones and shared dependencies still matter.
+
+## Guided example: prepare for a campus-wide TaskFlow login peak
+
+Suppose many students open TaskFlow at 9:00 AM.
+
+1. Request traffic rises. Measure request rate, latency, error rate, CPU, memory, and database connections.
+2. If one API server is running out of CPU or memory, a larger instance may help. That is vertical scaling.
+3. If the API is well suited to multiple independent instances, add replicas. That is horizontal scaling.
+4. Put a load balancer in front of the replicas so traffic can be sent to healthy instances.
+5. Keep important session and application state outside one server's local memory. Otherwise, a request sent to another replica may not recognize the user's state.
+6. If demand remains high, an Auto Scaling Group or another autoscaling mechanism can add capacity according to a defined policy.
+7. When demand falls, scale-in can remove excess capacity, but instances should be drained safely so active requests are not interrupted.
+
+### A hidden bottleneck: the database
+
+Suppose every API instance opens 20 database connections. Adding five instances could raise the potential connection count to 100. If PostgreSQL cannot handle that load, the API tier may become larger while the overall application becomes slower.
+
+That is why scaling decisions must follow the full request path. Check the database and external dependencies before deciding that more API instances are the answer.
+
+### What does "stateless" mean here?
+
+It does not mean TaskFlow has no data. It means one API instance does not keep the only copy of important user/session state in its own memory or local disk. Shared database/session storage or carefully designed tokens let another healthy instance process the next request.
+
+A load balancer distributes traffic; an autoscaling system changes capacity. These are related but separate jobs.
 
 ## 12. Knowledge checkpoint
 
