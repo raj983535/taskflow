@@ -3,6 +3,22 @@
 **Phase:** 7 — Cloud Deployment  
 **Goal:** Understand how a browser reaches an application through DNS, HTTPS, a public entry point, and a reverse proxy or load balancer.
 
+## Start here: separate the name, the destination, and the application
+
+You already know what an IP address and port are. Now imagine a student types a name such as taskflow.example.com instead of an IP address.
+
+Several different systems are involved, and they do different jobs:
+
+- **Domain registration** gives you control of the name.
+- **DNS** helps the browser find the destination for that name.
+- **The public entry point** receives the network connection.
+- **TLS/HTTPS** protects the web connection and authenticates the server name.
+- **A reverse proxy or load balancer** decides which application service should receive the request.
+- **The application** processes the request and returns a response.
+
+Buying a domain does not automatically create DNS records, a server, a certificate, or a running website. Those are separate pieces that must be connected correctly.
+
+
 ## 1. Start with the browser
 
 Imagine a student opens:
@@ -299,6 +315,32 @@ Do not change DNS and security-group rules at the same time. Find the layer that
 - **Thinking a healthy target means every feature works:** health checks are limited tests.
 - **Using internal Docker DNS names in browser JavaScript:** browser requests need a user-accessible hostname or a proxy path.
 - **Trusting forwarded headers from any source:** accept them only from known reverse proxies.
+
+## Guided example: follow the browser request step by step
+
+Imagine a student visits `https://taskflow.example.com`.
+
+1. **DNS lookup:** the browser asks DNS for the records associated with taskflow.example.com. DNS returns or aliases to the public entry destination.
+2. **Network connection:** the browser connects to that destination using the HTTPS port, commonly TCP 443.
+3. **TLS check:** the server presents a certificate for the hostname. The browser checks its validity and trust, then establishes encrypted communication.
+4. **Listener:** a load balancer or reverse proxy accepts the connection on its configured HTTPS listener.
+5. **Routing rule:** the entry layer decides whether the request is for the web frontend or an API path/hostname.
+6. **Target group or upstream:** the request is forwarded to a healthy application target.
+7. **Response:** the application creates the response, which travels back through the entry layer to the browser.
+
+### Where would you look if it fails?
+
+| Symptom | First layer to check |
+|---|---|
+| Domain does not resolve | DNS records, hosted zone, nameserver delegation |
+| Domain resolves, but connection times out | Public entry point, routing, security rules, listener |
+| Browser reports certificate warning | Certificate hostname, validity, and listener attachment |
+| Load balancer reports unhealthy targets | Health-check path/port and application readiness |
+| Frontend loads, API call fails | API URL/path, proxy route, CORS/cookies if separate origins, API target health |
+
+A health check is a limited test of a target, not proof that every TaskFlow feature works. If the entry layer forwards `/api` to the API, the API's health endpoint and network path must be configured consistently.
+
+The browser is outside Docker or Kubernetes internal DNS. A browser-side React application must call a user-accessible API hostname or a same-domain route handled by a reverse proxy. It cannot normally use a private container service name such as api.
 
 ## 15. Knowledge checkpoint
 
