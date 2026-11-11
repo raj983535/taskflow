@@ -105,4 +105,4 @@ TaskFlow has a React frontend, a Node.js/Express API, and PostgreSQL. You want a
 
 ## Completion
 
-Study material for all three lessons and the connected walkthrough are published in this directory. The learner checkpoint is tracked separately in [Learning Progress](../learning-progress.md). Published or presented material is not automatically a passed checkpoint.
+Study material for all three lessons and the connected walkthrough are published in this directory. Learner study and assessment are deliberately deferred until the full curriculum has been authored. See [Learning Progress](../learning-progress.md). Published material is not automatically a passed checkpoint.
