@@ -6,7 +6,7 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 
 - **Phase 0:** Completed as the engineering-foundations baseline.
 - **Current phase:** 3 — Docker fundamentals.
-- **Current lesson:** 3.1 — Containers and images.
+- **Current checkpoint:** Phase 3 integrated Docker checkpoint for Lessons 3.1, 3.2, and 3.3.
 - **Lesson 1.1:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.2:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.3:** Material published; learner checkpoint remains pending and can be revisited.
@@ -15,7 +15,7 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 - **Lesson 1.6 material:** Published in GitHub; learner checkpoint and Phase 1 final walkthrough pending.
 - **Phase 1 progression:** Moved to Phase 2 at the learner's direction. Phase 1's individual learner checkpoints and final walkthrough were not separately validated or recorded in this tracker; this is a progression decision, not an assessment result.
 - **Phase 2 progression:** Advanced to Phase 3 at the learner's direction after the repository and lesson materials passed a documentation review. The final Phase 2 learner checkpoint remains pending and was not marked as passed.
-- **Phase 3 study material:** All three lesson documents and the phase guide are published. The learner checkpoints remain pending.
+- **Phase 3 walkthrough:** All three lessons have been taught together in the conversation on 2026-11-11 from the basic application problem through image building, container runtime, networking, storage, and troubleshooting. The integrated checkpoint is published; learner answers are pending, so Phase 3 is not yet marked complete.
 - **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
 - **Repository state:** Learning documentation only.
 - **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
@@ -27,7 +27,7 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 | 0 | Engineering foundations | Baseline | **Completed** |
 | 1 | Full-stack application fundamentals | 6 | **Progressed to Phase 2; checkpoints not validated** |
 | 2 | Git and GitHub workflows | 2 | **Progressed to Phase 3 at learner's direction; checkpoint not validated** |
-| 3 | Docker fundamentals | 3 | **In progress: Lesson 3.1** |
+| 3 | Docker fundamentals | 3 | **In progress: final integrated learner checkpoint** |
 | 4 | Docker Compose | 2 | Planned |
 | 5 | Linux and server administration | 3 | Planned |
 | 6 | AWS cloud fundamentals | 3 | Planned |
@@ -77,11 +77,11 @@ Lesson guides: [Phase 2 overview and final checkpoint](02-git/README.md), [Lesso
 
 | Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 3.1 | Containers and images | Explain image vs container, Docker Engine, layers, registry, and lifecycle | Study material published; learner checkpoint pending |
-| 3.2 | Dockerfile and image build | Read and write Dockerfiles; understand build context, .dockerignore, layers, and cache | Study material published; learner checkpoint pending |
-| 3.3 | Container runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Study material published; learner checkpoint pending |
+| 3.1 | Containers and images | Explain image vs container, Docker Engine, layers, registry, and lifecycle | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
+| 3.2 | Dockerfile and image build | Read and write Dockerfiles; understand build context, .dockerignore, layers, and cache | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
+| 3.3 | Container runtime operations | Use essential run, logs, exec, stop, inspect, volume, and network concepts | Material published and walkthrough presented 2026-11-11; included in final checkpoint |
 
-Lesson guides: [Phase 3 overview](03-docker/README.md), [Lesson 3.1 — Containers and images](03-docker/lesson-3.1-containers-and-images.md), [Lesson 3.2 — Dockerfile and image build](03-docker/lesson-3.2-dockerfile-and-image-build.md), and [Lesson 3.3 — Container runtime operations](03-docker/lesson-3.3-container-runtime-operations.md).
+Lesson guides: [Phase 3 overview and integrated checkpoint](03-docker/README.md), [Lesson 3.1 — Containers and images](03-docker/lesson-3.1-containers-and-images.md), [Lesson 3.2 — Dockerfile and image build](03-docker/lesson-3.2-dockerfile-and-image-build.md), and [Lesson 3.3 — Container runtime operations](03-docker/lesson-3.3-container-runtime-operations.md).
 
 ## Phase 4 — Docker Compose (2 lessons)
 
@@ -162,11 +162,12 @@ A lesson is complete when the learner can explain the purpose, trace the main fl
 
 ## Learning log
 
-### Phase 3 opened and materials published — 2026-11-11
+### Phase 3 walkthrough and checkpoint — 2026-11-11
 - Added the Phase 3 guide and three lesson documents covering containers/images, Dockerfiles/image builds, and container runtime operations.
-- Updated the root navigation and progress tracker to start Phase 3 at Lesson 3.1.
-- Kept the Phase 2 assessment state explicit: its walkthrough was presented and its final checkpoint is available, but the learner's answers were not submitted or assessed. Progress advanced at the learner's direction, not because a pass was recorded.
+- Presented the three lessons as one connected flow, beginning with the normal TaskFlow application environment and progressing through Docker images, containers, ports, storage, networks, and troubleshooting.
+- Added an integrated Phase 3 checkpoint to the guide. Learner answers are pending; Phase 3 is not marked complete until the checkpoint is assessed.
 - Docker installation and runtime experiments remain deferred; Phase 3 is theory-first.
+- Phase 2 assessment remains unvalidated. Progress advanced to Phase 3 at the learner's direction, not because a Phase 2 pass was recorded.
 
 ### Phase 2 walkthrough and repository update — 2026-11-11
 - Added the Phase 2 guide and both planned lesson documents: Git fundamentals and GitHub team workflow.
