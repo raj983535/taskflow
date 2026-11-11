@@ -3,6 +3,23 @@
 **Phase:** 4 — Docker Compose  
 **Goal:** Understand how one configuration describes multiple containers that together make up an application.
 
+## Start here: move from one container to a complete application
+
+In Phase 3, you learned to build one image and run one container. A real application usually needs more than one component. TaskFlow has a web frontend, an API, and a database. Each component has its own image, settings, ports, and storage needs.
+
+You could start each one with a long docker run command, but then you would have to remember how they connect every time. Docker Compose gives you one project description that brings the related services and shared resources together.
+
+Keep this relationship clear:
+
+- A **service** is the named configuration for a component, such as api or db.
+- A **container** is the actual runtime instance created for that service.
+- A **project** is the group of services Compose manages together.
+- A **network** lets the containers communicate.
+- A **volume** keeps important data outside a replaceable container.
+
+A Compose file does not contain your whole application. It describes how the already-built application components should be created and connected.
+
+
 ## 1. Why do we need Docker Compose?
 
 In Phase 3, you learned how to build and run a container.
@@ -336,6 +353,29 @@ A real implementation must also decide how the frontend routes API requests, how
 - **Treating a service as a container:** a service is the configuration; containers are runtime instances created from it.
 - **Assuming a volume is a backup:** persistent storage can still be corrupted or deleted. Backups are separate.
 - **Copying an old Compose version field from tutorials:** modern Compose uses the Compose Specification; a top-level version field is generally unnecessary.
+
+## Guided example: follow one API request to PostgreSQL
+
+Imagine a student opens TaskFlow and clicks Save on a task. The browser sends an HTTP request to the API. The API needs to write the task to PostgreSQL.
+
+A Compose project describes how those parts are connected:
+
+1. Compose creates the database service from a PostgreSQL image and the API service from the backend build context.
+2. Both services join the project's default network unless the file specifies another network.
+3. The API's database host is the service name db. Inside the API container, localhost would mean the API container itself, not the database.
+4. The database listens on its internal port 5432. The API can reach that port over the Compose network without publishing PostgreSQL to your Windows host.
+5. The API port may be published to the host so your browser can reach the API through a local URL.
+6. The database service mounts a named volume so replacing the container does not automatically remove the database files.
+
+The key connection is that **network, port publishing, and storage solve three different problems**:
+
+- Network: which containers can talk to one another?
+- Port publishing: which container port can be reached from outside the Docker host?
+- Volume: which data must survive container replacement?
+
+The browser is not inside the Compose network. A React app running in the browser cannot normally call the hostname db or api directly. It needs a host-accessible API URL or a reverse proxy that forwards the browser's request to the API.
+
+This is a design walkthrough, not a running TaskFlow stack. The repository does not yet contain the application code or Dockerfiles.
 
 ## 13. Knowledge checkpoint
 
