@@ -3,6 +3,22 @@
 **Phase:** 3 — Docker Fundamentals  
 **Goal:** Understand how a Dockerfile describes an image build, what files a build can access, and how image layers and cache affect build speed and maintainability.
 
+## Start here: why do we need build instructions?
+
+Lesson 3.1 introduced the image as the package used to create containers. This lesson answers the question that naturally follows: **how does our own application become an image?**
+
+A Dockerfile is a repeatable recipe. The build context is the set of files the builder is allowed to use. The build process follows the recipe and produces an image. Later, Lesson 3.3 uses that image to start a container.
+
+Keep the stages separate:
+
+- Editing TypeScript or JavaScript changes your source code.
+- Building the application may compile TypeScript into JavaScript.
+- Building a Docker image packages the runtime and required application files.
+- Running a container starts the application process.
+
+These are related steps, but they are not the same operation. For example, a Dockerfile may run the TypeScript build as one of its build steps, then copy only the compiled output into the final runtime image.
+
+
 ## 1. What is a Dockerfile?
 
 In Lesson 3.1, you learned that an image is a template used to create containers.
@@ -257,6 +273,44 @@ The Dockerfile must reflect:
 - Environment and secret handling.
 
 We will not guess these details before the source project exists. A Dockerfile is executable configuration, not just documentation.
+
+## Guided example: from a backend folder to an image
+
+Imagine the backend directory contains a Dockerfile, package.json, package-lock.json, and src/ folder.
+
+You run this command from the backend directory:
+
+```powershell
+docker build -t taskflow-api:dev .
+```
+
+Read it piece by piece:
+
+- `docker build` starts an image build.
+- `-t` is the tag option. It gives the image a readable name and tag.
+- `taskflow-api:dev` is the image reference. The repository name is taskflow-api and the tag is dev.
+- `.` means the current directory is the build context. The Docker builder can use files from this directory, subject to ignore rules.
+
+What happens next?
+
+1. Docker finds the Dockerfile in the build context unless you specify another file.
+2. It reads the instructions from top to bottom.
+3. `FROM` selects the starting image.
+4. `WORKDIR` sets the working folder inside the image.
+5. `COPY` adds selected project files.
+6. `RUN` executes a build-time command, such as installing dependencies.
+7. Docker saves the resulting image layers and metadata.
+
+A successful build means an image was created. It does **not** mean the API has started or that the API can connect to PostgreSQL. That comes when the image is run and configured.
+
+### How to reason about a failed build
+
+- If Docker cannot find the Dockerfile, check the current directory and the build command.
+- If a COPY instruction says a file does not exist, check the build context and .dockerignore.
+- If dependency installation fails, inspect the package files, lockfile, network access, and the error from the package manager.
+- If the image builds but the app later exits, the problem is likely in runtime startup or configuration, not necessarily in the image build.
+
+Do not treat every Docker error as the same kind of failure. First identify whether the problem occurred while preparing the image or while running the container.
 
 ## 11. Knowledge checkpoint
 
