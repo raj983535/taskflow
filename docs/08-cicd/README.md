@@ -83,3 +83,7 @@ Explain:
 - [Workflow artifacts](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts)
 - [GitHub Actions security hardening](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions)
 - [GitHub Actions OIDC with AWS](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws)
+
+## Continue the roadmap
+
+**Previous:** [Phase 7 — Cloud deployment](../07-deployment/README.md). **Next:** [Phase 9 — Monitoring and reliability](../09-monitoring/README.md).
