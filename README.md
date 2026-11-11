@@ -91,6 +91,7 @@ All planned study materials for Phases 1–11 are published. The learner has cho
 The full curriculum is now available. Begin learning in order when ready.
 
 1. [Learning scope and depth limits](docs/LEARNING-SCOPE.md)
-2. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
-3. [Lesson 1.1 — Full-stack architecture and request lifecycle](docs/01-application/lesson-1.1-full-stack-architecture.md)
-4. [Learning progress and all phase links](docs/learning-progress.md)
+2. [Beginner's map for Phases 3–11](docs/BEGINNER-MAP-PHASES-3-11.md)
+3. [Phase 1 — Full-stack application fundamentals](docs/01-application/README.md)
+4. [Lesson 1.1 — Full-stack architecture and request lifecycle](docs/01-application/lesson-1.1-full-stack-architecture.md)
+5. [Learning progress and all phase links](docs/learning-progress.md)
