@@ -7,6 +7,28 @@
 
 These tools solve different problems. Kubernetes manages application workloads after a cluster exists. Terraform can create and manage the infrastructure, including networks, compute resources, and sometimes the cluster itself.
 
+## Where Phase 11 fits in the bigger picture
+
+**You already know:** Docker packages containers, Compose connects local services, AWS supplies infrastructure, and CI/CD can publish a release.
+
+**This phase adds two separate management layers:**
+
+```text
+Terraform
+   -> provisions cloud infrastructure
+   -> network + identity + compute + cluster
+   |
+   v
+Kubernetes
+   -> manages application workloads
+   -> Deployments + Pods + Services
+   -> configuration + probes + storage + traffic
+```
+
+Lessons 11.1 and 11.2 explain how Kubernetes runs and connects TaskFlow workloads. Lesson 11.3 explains how Terraform describes and changes the infrastructure that those workloads use.
+
+**Important boundary:** Kubernetes is not automatically needed for TaskFlow's first release. A simpler Docker/Compose deployment may be more appropriate. Terraform and Kubernetes are introduced so you understand the options and can make that decision deliberately.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
