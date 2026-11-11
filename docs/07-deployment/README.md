@@ -89,3 +89,7 @@ Explain:
 - [Application Load Balancer target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html)
 - [Application Load Balancer health checks](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html)
 - [NGINX reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+
+## Continue the roadmap
+
+**Previous:** [Phase 6 — AWS cloud fundamentals](../06-aws/README.md). **Next:** [Phase 8 — CI/CD with GitHub Actions](../08-cicd/README.md).
