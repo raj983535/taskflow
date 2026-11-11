@@ -9,6 +9,37 @@ TaskFlow is a learning-oriented full-stack task-management application. It is al
 
 The exact product requirements and detailed business rules must be written down as features are agreed. Do not invent complex roles, permissions, collaboration rules, billing, notifications, or enterprise features without a requirement.
 
+## 1A. Initial application model from the theory design
+
+The existing Phase 1 material contains a **proposed learning design** for a simple task-management application. It is useful context for the first implementation discussion, but it is not proof that any feature or endpoint has been implemented or that every proposed detail has been approved.
+
+The illustrative first user journey is:
+
+1. A person creates an account and signs in.
+2. The application identifies the current user.
+3. That user can create, list, update, and delete tasks that belong to them.
+4. The backend validates each request and enforces ownership. The browser is not trusted to decide who owns a task.
+5. PostgreSQL stores the user, session, and task records in the proposed relational model.
+
+The teaching database model currently describes three entities:
+
+- **Users:** account identity, a unique email, a password hash, and creation time.
+- **Sessions:** a session record linked to a user, a token hash, and an expiry time. This is one conceptual session-based design, not a final authentication decision.
+- **Tasks:** a task linked to its owner, with a title, optional description, status, priority, optional due date, and creation/update timestamps.
+
+The Phase 1 API reference contains illustrative routes such as health checks, registration, login, current-user lookup, logout, listing tasks, creating tasks, updating a task, and deleting a task. Those routes are examples only. Final route names, request/response shapes, validation rules, and authentication behaviour must be reviewed during implementation.
+
+Useful existing references:
+
+- [Phase 1 overview and six lessons](../01-application/README.md)
+- [Proposed full-stack architecture and task-creation flow](../01-application/architecture.md)
+- [Illustrative API contract](../01-application/api-reference.md)
+- [Proposed users, sessions, and tasks data model](../01-application/database-design.md)
+- [Authentication and security learning notes](../01-application/authentication-and-security.md)
+- [Migrations and testing learning notes](../01-application/migrations-and-testing.md)
+
+Before implementing this model, confirm the first-version requirements and record any important decisions. Do not assume that all listed API routes, fields, session storage details, or security mechanisms are already final.
+
 ## 2. The learning and development model
 
 There are two parallel tracks:
