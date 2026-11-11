@@ -38,7 +38,7 @@ Do not pick a library merely because it is popular. At the point it is needed, c
 At the time this context file was created:
 
 - The complete Phase 0–11 theory material is present under docs/.
-- Agent instructions and the implementation documentation system are being established.
+- Agent instructions and the implementation documentation system are now established.
 - There is not yet an application scaffold or feature implementation on the main branch.
 - There is no verified frontend runtime, backend runtime, database instance, Docker setup, CI pipeline, AWS deployment, Kubernetes cluster, or Terraform-managed infrastructure.
 
