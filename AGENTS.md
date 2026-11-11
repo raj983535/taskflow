@@ -2,6 +2,19 @@
 
 These instructions apply to every agent that reads, plans, edits, tests, reviews, or documents this repository. Follow them whether you use Codex, Cursor, Claude Code, Copilot, or another coding tool.
 
+## Single source of truth: this file only
+
+**The root `AGENTS.md` is the one and only instruction file for every coding agent working on TaskFlow.** It applies equally to Codex, Cursor, Claude Code, GitHub Copilot, Antigravity, IDE-integrated agents, terminal agents, and any future coding agent.
+
+- All project rules, technical context, learning requirements, documentation requirements, coding standards, security rules, and definition-of-done requirements must live in this file.
+- Do not create separate tool-specific instruction files such as `CLAUDE.md`, `.cursor/rules/*`, or `.github/copilot-instructions.md`.
+- Do not create nested or duplicate agent instruction files elsewhere in the repository. There must be one canonical instruction source at the repository root.
+- Every agent must read this file before doing repository work. **Do not assume every tool automatically discovers `AGENTS.md`.** When the tool does not load it automatically, the person launching the agent must explicitly tell it to open and follow the root `AGENTS.md` before planning or editing.
+- If an agent tool offers a way to configure project instructions, point it to this root file where possible. Do not copy the rules into a second file.
+- When project rules change, update this file only. Other project documentation may link to it, but must not maintain a second copy of its instructions.
+
+This keeps the rules identical regardless of which coding agent is selected and prevents conflicting or outdated tool-specific versions.
+
 ## 1. Read the project context before changing anything
 
 At the start of a task, inspect the current repository and read:
