@@ -3,6 +3,19 @@
 **Phase:** 8 — CI/CD with GitHub Actions  
 **Goal:** Understand how a validated code change becomes a versioned container image and how an approved release can be deployed to AWS safely.
 
+## Start here: validation is not the same as deployment
+
+Lesson 8.1 explained how automated checks run when code changes. This lesson follows the next stage: how a version that passed those checks becomes a release on AWS.
+
+Keep three results distinct:
+
+- **CI passed:** the checked code met the configured validation steps.
+- **Image published:** a container image was stored in a registry such as ECR.
+- **Deployment verified:** the hosting environment is running the intended release and the application behaves as expected.
+
+A green check on GitHub does not by itself mean that production is healthy. Every stage needs its own evidence.
+
+
 ## 1. From CI checks to delivery
 
 Lesson 8.1 explained how GitHub Actions validates code.
@@ -285,6 +298,38 @@ Use sensible triggers, dependency caching where useful, and limited artifact ret
 - **Deploying latest without a release record:** identify the exact image or digest.
 - **Skipping post-deployment checks:** verify the service and application after deployment.
 - **Ignoring database migration compatibility:** rollback can fail if schema changes are not compatible.
+
+## Guided example: follow one approved TaskFlow release
+
+Imagine a pull request has been reviewed and merged into main.
+
+1. **Identify the source:** the workflow records the exact commit SHA that will be built.
+2. **Validate:** lint, type checks, tests, and application builds run.
+3. **Build once:** the pipeline creates the TaskFlow image from that commit.
+4. **Tag and publish:** the image receives an identifiable release tag and is pushed to ECR. The resulting image digest identifies the exact image content.
+5. **Authenticate to AWS:** the workflow requests a GitHub OIDC identity token. AWS STS validates the token against the IAM role trust policy and issues temporary credentials if the claims meet the configured conditions.
+6. **Deploy:** the deployment job tells the selected compute platform to use that exact image reference.
+7. **Verify:** check deployment status, healthy targets, a basic API response, frontend access, and database connectivity.
+8. **Recover if needed:** if the release causes user impact, use the approved rollback process to return to a known-good release, while considering whether any database migration is compatible with rollback.
+
+### Trust policy versus permissions policy
+
+These answer different questions:
+
+- The **trust policy** controls which identity is allowed to assume the IAM role. Restrict it to the intended GitHub repository and branch or environment conditions.
+- The **permissions policy** controls what the role can do after it is assumed, such as pushing to one ECR repository or updating one deployment target.
+
+Do not store long-lived AWS access keys in the workflow when OIDC and a properly scoped role can be used. Do not expose deployment credentials to untrusted pull request code.
+
+### What does a failed stage tell you?
+
+- CI failure: the change has not passed the required checks; do not publish/deploy it.
+- ECR push failure: inspect registry login, repository name, AWS role trust, and push permissions.
+- Deployment failure: inspect the target platform's deployment events and image reference.
+- Health-check failure: inspect application startup, ports, readiness endpoint, configuration, and database connection.
+- Application regression after a healthy deployment: verify real user journeys and consider rollback.
+
+The TaskFlow compute platform has not yet been selected, so a final deploy command or live workflow would be premature. The pipeline stages and security boundaries are the concepts to retain.
 
 ## 15. Knowledge checkpoint
 
