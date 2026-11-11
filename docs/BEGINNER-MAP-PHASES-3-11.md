@@ -172,7 +172,7 @@ You do not need to memorize every option or specialist detail. You should be abl
 - Do not use Terraform against a real AWS account before the architecture, cost limit, permissions, and cleanup plan are reviewed.
 - Do not mistake sample configuration for a working TaskFlow deployment.
 
-The active repository remains a learning curriculum. Real implementation begins after the study pass and a separate architecture decision.
+The theory curriculum and implementation documentation are maintained side by side. Application code can be started at any point while the learner studies at their own pace. Architecture decisions should be reviewed before they are locked in, but completing the study pass is not a requirement for coding.
 
 ## Recommended order
 
