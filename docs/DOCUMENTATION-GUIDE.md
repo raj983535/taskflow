@@ -10,16 +10,30 @@ Do not create extra sub-lessons for every technical term. Group related concepts
 
 ## Standard lesson structure
 
-1. What problem this solves.
-2. The plain-language mental model.
-3. Important terms and how they relate.
-4. One useful diagram or flow.
-5. How TaskFlow will use it.
-6. Essential commands/configuration, with important arguments explained.
-7. Common errors, security/cost implications, and practical trade-offs.
-8. A short exercise and checkpoint.
+1. **Start from the familiar:** state what the learner already knows from the previous phase and what new problem this lesson introduces.
+2. **Explain the problem first:** show why the concept/tool exists before introducing its name.
+3. **Build the mental model:** explain important terms in plain English on first use and show how they relate.
+4. **Show the complete flow:** use one diagram or ordered sequence from the first action to the final result.
+5. **Work through one TaskFlow example:** explain the scenario step by step, including what each important command or configuration field does.
+6. **Explain the boundary:** distinguish concepts that are easy to confuse, such as image/container, route/firewall, build/deploy, backup/replica, or Kubernetes/Terraform.
+7. **Show how to investigate failure:** explain which status, log, metric, or configuration to check first and what common results mean.
+8. **Connect forward:** explain what the learner will use this concept for in the next phase.
+9. **Checkpoint:** ask the learner to explain the flow and reason about one realistic situation.
 
-Keep the lesson focused. The learner should finish knowing what the technology is for, how it fits into the system, and how to use or discuss the project-relevant parts.
+Keep the lesson focused. A first-time learner should be able to explain the main purpose, follow the complete example, recognize the important vocabulary, and identify the next useful check when something fails. Do not require memorizing every flag or specialist edge case.
+
+## Beginner-friendly depth rule
+
+For every new concept from Phase 3 onward:
+
+- Define a technical word the first time it appears, then use the correct term consistently.
+- Do not introduce a command without saying where to run it, what it changes, and what success or failure looks like.
+- Explain important flags and arguments instead of expecting the learner to infer their purpose.
+- Keep one connected TaskFlow example through the lesson rather than presenting unrelated examples.
+- Explain how the new concept connects to the previous phase and what it enables in the next phase.
+- Prefer one complete, realistic workflow over a long list of unexplained commands.
+- Use a short comparison table when two terms are easy to confuse.
+- Label examples as illustrative when the real TaskFlow code, cloud resources, or deployment do not yet exist.
 
 ## Theory-first rules
 
