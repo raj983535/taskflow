@@ -3,6 +3,22 @@
 **Phase:** 10 — Scaling and High Availability  
 **Goal:** Understand why databases become bottlenecks, how caching helps, and how backups and availability design protect TaskFlow from failures.
 
+## Start here: more API servers do not make PostgreSQL unlimited
+
+In the previous lesson, you learned how to add application capacity. Now consider what those extra API instances do: they send more queries to PostgreSQL.
+
+The database can become the bottleneck even when the API servers have plenty of CPU and memory. Before adding more infrastructure, measure query time, connection usage, lock waits, and storage pressure.
+
+This lesson separates four different tools that are easy to mix up:
+
+- Query/index improvement reduces unnecessary database work.
+- Caching reuses selected results to avoid repeating work.
+- Read replicas distribute suitable read traffic.
+- Backups and failover protect different parts of recovery and availability.
+
+They are not interchangeable.
+
+
 ## 1. Why does scaling become a data problem?
 
 Imagine TaskFlow has more API instances and more users.
@@ -240,6 +256,31 @@ Do not begin by adding every cache, replica, and availability feature. Use measu
 - **Assuming Multi-AZ replaces backups:** failover and point-in-time recovery have different goals.
 - **Setting unrealistic RPO/RTO values:** recovery requirements have cost and operational impact.
 - **Adding complex resilience features too early:** first understand the actual failure and business requirement.
+
+## Guided example: TaskFlow dashboard is slow during peak usage
+
+Imagine the dashboard repeatedly loads a list of campus announcements and task counts.
+
+1. **Measure first.** Confirm that the API is waiting on PostgreSQL rather than spending time in frontend rendering or an external service.
+2. **Inspect the query.** Check whether the query scans too many rows, returns unused columns, or performs repeated lookups. An appropriate index may help a specific query, but indexes also cost storage and make writes more expensive.
+3. **Reduce repeated work.** If announcement data changes infrequently, a cache may help. Decide how long it can remain cached and how to invalidate it when an announcement changes.
+4. **Consider read replicas only for appropriate reads.** A read replica may be behind the primary because replication can be asynchronous. Do not send a read that must immediately reflect a just-completed write to a lagging replica unless the application can tolerate that behavior.
+5. **Protect the data separately.** Keep backups with a defined retention period and test restoring them. Replication alone can copy accidental deletions to the replica.
+6. **Define recovery needs.** RPO expresses how much recent data loss is acceptable, measured in time. RTO expresses how long restoration may take.
+7. **Choose availability features based on the requirement.** A Multi-AZ standby can help with failover. It is not the same as a read replica and it does not replace backups.
+
+### Which tool addresses which problem?
+
+| Observed problem | First area to investigate |
+|---|---|
+| One query is slow | Query plan, index, SQL shape |
+| Same safe data is requested repeatedly | Cache design and freshness |
+| Read workload is very high | Query optimization, then possible read replica |
+| Data was accidentally deleted | Backup and restore |
+| Database infrastructure availability is the concern | Failover / Multi-AZ design |
+| API instances exhaust DB connections | Connection pool and concurrency limits |
+
+The confidence test is being able to name the problem before choosing the tool. Do not add a cache, replica, or Multi-AZ configuration just because the application feels slow.
 
 ## 14. Knowledge checkpoint
 
