@@ -3,6 +3,21 @@
 **Phase:** 9 — Monitoring and Reliability  
 **Goal:** Understand how to turn monitoring signals into useful alerts, investigate incidents systematically, and improve the system after recovery.
 
+## Start here: what should happen after an alert?
+
+Lesson 9.1 introduced the signals that help us notice a problem. This lesson connects those signals to a human response.
+
+An alert does not automatically tell you the cause. It tells you that a condition worth investigating has occurred. The responder must confirm user impact, gather evidence, reduce the damage, verify recovery, and record what should improve.
+
+Keep these terms distinct:
+
+- Dashboard: a visual view of selected system signals.
+- Alert: a notification that a configured condition needs attention.
+- Incident: an event that disrupts or threatens normal service.
+- Triage: the first structured effort to understand impact and likely cause.
+- Runbook: documented steps for handling a known operational task or failure.
+
+
 ## 1. Monitoring must lead to action
 
 Imagine TaskFlow's API error rate suddenly increases.
@@ -296,6 +311,29 @@ This is the start of operating software responsibly, not just deploying it once.
 - **Treating dashboards as incident response:** dashboards show evidence; people and procedures use it.
 - **Not verifying recovery:** an alert clearing does not prove users can complete their workflow.
 - **Blaming an individual:** improve the system and procedures that allowed the failure.
+
+## Guided example: TaskFlow task creation starts returning errors
+
+Imagine a dashboard alert reports that the TaskFlow API's HTTP 5xx error rate has increased.
+
+Follow the response in order:
+
+1. **Confirm impact.** Is the alert real? Are students unable to create tasks? Which environment and endpoints are affected?
+2. **Set priority.** A failure of the main task workflow for many users is more urgent than a minor issue in an optional admin screen.
+3. **Check recent changes.** Did a new release, configuration change, database migration, or infrastructure update happen just before the errors began?
+4. **Compare signals.** Look at error rate, latency, traffic, CPU/memory, database connections, and target health for the same time window.
+5. **Inspect related logs.** Search by time, service, endpoint, and request ID. Avoid copying secrets or personal data into an incident report.
+6. **Form one hypothesis.** For example, the latest API release may have changed a query that now times out.
+7. **Mitigate.** If evidence supports it, use the approved rollback or recovery process. Do not make several unrelated changes at once.
+8. **Verify recovery.** Confirm that the error rate has fallen and a real task-creation request succeeds.
+9. **Communicate and record.** Tell affected people what is known, what is being done, and when the next update will come.
+10. **Improve afterward.** Add a regression test, improve the alert or health check, and update the runbook if that would reduce future impact.
+
+### Mitigation is not the same as root-cause correction
+
+Rolling back may restore service quickly. It does not explain why the release failed or prevent the same bug from returning. A post-incident review records the causes and follow-up work.
+
+A blameless review looks at the conditions, gaps, and safeguards in the system. Its purpose is to make future failures less likely or easier to detect and recover from.
 
 ## 16. Knowledge checkpoint
 
