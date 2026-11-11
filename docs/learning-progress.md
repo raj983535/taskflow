@@ -5,15 +5,16 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 ## Current checkpoint
 
 - **Phase 0:** Completed as the engineering-foundations baseline.
-- **Current phase:** 1 — Full-stack application fundamentals.
-- **Current lesson:** 1.6 — Identity, security, and quality basics.
+- **Current phase:** 2 — Git and GitHub workflows.
+- **Current lesson:** 2.1 — Git fundamentals.
 - **Lesson 1.1:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.2:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.3:** Material published; learner checkpoint remains pending and can be revisited.
 - **Lesson 1.4 material:** Published in GitHub; learner checkpoint and explanation exercise pending.
 - **Lesson 1.5 material:** Published in GitHub; learner checkpoint and data-modeling exercise pending.
 - **Lesson 1.6 material:** Published in GitHub; learner checkpoint and Phase 1 final walkthrough pending.
-- **Phase 1 study material:** All six lesson documents are published. Learner checkpoints and the final walkthrough remain pending; Phase 1 is not marked complete.
+- **Phase 1 progression:** Moved to Phase 2 at the learner's direction. Phase 1's individual learner checkpoints and final walkthrough were not separately validated or recorded in this tracker; this is a progression decision, not an assessment result.
+- **Phase 2 study material:** Both lesson documents are published. The learner checkpoints and workflow exercise remain open for study and review.
 - **Application implementation:** Not started; intentionally postponed until all 30 planned lessons are complete.
 - **Repository state:** Learning documentation only.
 - **Depth limit:** Follow [Learning Scope](LEARNING-SCOPE.md). Do not expand lessons into an endless syllabus.
@@ -23,8 +24,8 @@ This is the source of truth for the roadmap. The goal is project-ready engineeri
 | Phase | Focus | Lessons | Status |
 |---|---|---:|---|
 | 0 | Engineering foundations | Baseline | **Completed** |
-| 1 | Full-stack application fundamentals | 6 | **In progress: Lesson 1.6** |
-| 2 | Git and GitHub workflows | 2 | Planned |
+| 1 | Full-stack application fundamentals | 6 | **Progressed to Phase 2; checkpoints not validated** |
+| 2 | Git and GitHub workflows | 2 | **In progress: Lesson 2.1** |
 | 3 | Docker fundamentals | 3 | Planned |
 | 4 | Docker Compose | 2 | Planned |
 | 5 | Linux and server administration | 3 | Planned |
@@ -66,8 +67,10 @@ Lesson 1.1: [Full-stack architecture and request lifecycle](01-application/lesso
 
 | Lesson | Topic | Main outcome | Status |
 |---|---|---|---|
-| 2.1 | Git fundamentals | Understand working tree, staging, commits, history, and remotes | Planned |
-| 2.2 | Team workflow | Understand branches, pull requests, reviews, conflicts, and safe collaboration | Planned |
+| 2.1 | Git fundamentals | Understand working tree, staging, commits, history, and remotes | Study material published; learner checkpoint pending |
+| 2.2 | GitHub team workflow | Understand remotes, branches, pull requests, reviews, conflicts, and safe collaboration | Study material published; learner checkpoint pending |
+
+Lesson guides: [Phase 2 overview](02-git/README.md), [Lesson 2.1 — Git fundamentals](02-git/lesson-2.1-git-fundamentals.md), and [Lesson 2.2 — GitHub team workflow](02-git/lesson-2.2-github-team-workflow.md).
 
 ## Phase 3 — Docker fundamentals (3 lessons)
 
@@ -155,6 +158,12 @@ A lesson is complete when the learner can explain the purpose, trace the main fl
 - [ ] Verify and document the deployed application.
 
 ## Learning log
+
+### Phase 2 published — 2026-11-11
+- Added the Phase 2 guide and both planned lesson documents: Git fundamentals and GitHub team workflow.
+- Updated the repository navigation to start Phase 2 at Lesson 2.1.
+- Progress moved from Phase 1 to Phase 2 at the learner's direction. The Phase 1 checkpoint results were not individually recorded or independently validated in this tracker.
+- Phase 2 lesson materials are published; learner checkpoints and the workflow exercise remain open.
 
 ### Repository scope update — 2026-11-10
 - Confirmed Phase 0 as the completed foundation baseline.
