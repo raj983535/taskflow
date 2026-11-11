@@ -5,6 +5,19 @@
 
 Lesson 3.1 explained images and containers. Lesson 3.2 explained how to build an image. This lesson covers what you do after an image exists.
 
+## Start here: the image exists; now make the application reachable
+
+Lesson 3.2 ended with a packaged TaskFlow API image. An image is only a package. To use the API, Docker must create a container and start the Node.js process inside it.
+
+Once running, three different network locations matter:
+
+- The port where Node.js listens inside the container.
+- The port published on your Windows or Linux host.
+- The URL and port that the browser uses to reach the host.
+
+The browser is outside the container. A port mapping connects the host port to the container port; it does not change the port on which Node.js listens.
+
+
 ## 1. A practical command workflow
 
 Imagine you have a TaskFlow API image named taskflow-api:dev.
@@ -322,7 +335,44 @@ Avoid changing multiple settings at once. Check evidence, form one hypothesis, m
 
 Replace placeholders such as IMAGE and CONTAINER with actual names. Do not type the placeholder words literally.
 
-## 13. Knowledge checkpoint
+## Guided example: start, test, investigate, and clean up an API container
+
+Assume the image already exists and the API listens on port 3000 inside the container.
+
+```powershell
+docker run -d --name taskflow-api -p 127.0.0.1:3000:3000 taskflow-api:dev
+docker ps
+docker logs taskflow-api
+docker port taskflow-api
+```
+
+What each part means:
+
+1. `docker run` creates and starts a container from the image.
+2. `-d` means detached mode: the container runs in the background and the terminal returns to the prompt.
+3. `--name taskflow-api` assigns a human-readable container name.
+4. `-p 127.0.0.1:3000:3000` publishes host address 127.0.0.1, host port 3000, to container port 3000.
+5. `docker ps` checks whether the container is still running.
+6. `docker logs taskflow-api` shows output written by the application.
+7. `docker port taskflow-api` displays the published port mapping.
+
+You would then try the local API URL, such as `http://127.0.0.1:3000`, assuming the application has a route that responds there.
+
+### A common networking trap
+
+The Node.js server must listen on an interface reachable from outside its own process namespace. In a container, binding only to `127.0.0.1` can make it reachable only from inside that container. A typical server listens on `0.0.0.0` inside the container, while Docker's port mapping controls which host interface exposes it.
+
+### Follow the evidence when it fails
+
+- **Container is not listed in docker ps:** check `docker ps -a` to see whether it exited.
+- **Container exited:** inspect `docker logs taskflow-api` for the startup error.
+- **Container runs but browser cannot connect:** check the published port, the application's listen address, the host firewall, and whether the application actually serves the requested route.
+- **API works but database connection fails:** check the container's network and database hostname; localhost inside the API container means the API container itself.
+- **Database data disappears after replacing its container:** check that the database uses a named volume.
+
+To finish an ordinary test, use `docker stop taskflow-api`. Remove the container with `docker rm taskflow-api` only when you no longer need that container instance. Do not remove a database volume as a routine cleanup step.
+
+## 14. Knowledge checkpoint
 
 1. What is the difference between docker ps and docker ps -a?
 2. What does -d do in docker run?
