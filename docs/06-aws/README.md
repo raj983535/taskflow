@@ -4,6 +4,27 @@
 
 The goal is not to memorize every AWS service. It is to understand where TaskFlow's network, servers, container images, and database would live, how access is controlled, and what can create cost or security risk.
 
+## Where Phase 6 fits in the bigger picture
+
+**You already know:** Phase 5 taught the operating-system and network concepts used by a server. Phase 3 introduced container images.
+
+**This phase adds:** AWS's cloud resources, identity model, and network layout.
+
+Follow this chain:
+
+```text
+AWS account + Region
+   -> IAM identity and role
+   -> VPC + subnets + routes
+   -> security groups
+   -> compute (EC2)
+   -> ECR images + RDS database
+```
+
+Lesson 6.1 explains who is allowed to do what. Lesson 6.2 explains where network traffic can travel and where compute runs. Lesson 6.3 explains where container images and relational database services fit.
+
+**Important boundary:** IAM permission, network access, and database login are separate controls. A service must pass the relevant checks at each layer.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
