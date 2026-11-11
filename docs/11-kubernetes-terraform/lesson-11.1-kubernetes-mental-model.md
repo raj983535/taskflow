@@ -3,6 +3,23 @@
 **Phase:** 11 — Kubernetes and Terraform  
 **Goal:** Understand why Kubernetes exists, what a cluster contains, and how Pods, Deployments, and Services work together.
 
+## Start here: why Kubernetes comes after Docker Compose
+
+You already understand images, containers, and the way Compose starts several services on one computer. Now imagine TaskFlow needs several API copies running across multiple machines, and one copy must be replaced when it fails.
+
+Docker Compose describes a local multi-service application. Kubernetes coordinates workloads across a cluster. It needs to know what you want running and continually works to keep the real cluster close to that desired state.
+
+Think of the relationship this way:
+
+- A container is the application process environment.
+- A Pod is Kubernetes' deployable wrapper around one or more closely related containers.
+- A Deployment asks Kubernetes to maintain a chosen number of matching Pods.
+- A Service provides a stable network name and endpoint for those Pods.
+- A cluster is the environment containing the control plane and worker nodes.
+
+Kubernetes is not required for every application. It adds complexity and should be chosen when the operational requirements justify it.
+
+
 ## 1. Why do teams use Kubernetes?
 
 In Phase 3, you learned how to build an image and run a container. In Phase 4, you learned how Docker Compose can manage multiple services on one development host.
@@ -280,6 +297,39 @@ Kubernetes should be introduced only if TaskFlow's operational needs justify its
 - **Thinking a Service runs the app:** the Service provides a network endpoint to Pods.
 - **Treating a namespace as strong isolation by itself:** use RBAC, network policies, and other security controls.
 - **Thinking Kubernetes creates the cloud infrastructure automatically:** a cluster needs nodes, network, identity, storage and other infrastructure.
+
+## Guided example: what happens when you ask Kubernetes to run two API copies?
+
+Imagine you submit a Deployment manifest that asks for two TaskFlow API replicas.
+
+1. You run `kubectl apply -f deployment.yaml`. kubectl sends the desired configuration to the Kubernetes API server.
+2. The API server validates and stores the resource state.
+3. The Deployment controller notices that the requested number of replicas is two and creates or updates a ReplicaSet.
+4. The ReplicaSet controller creates Pods until the desired count is reached.
+5. The scheduler chooses suitable worker nodes for the unscheduled Pods.
+6. The kubelet on each selected node asks the container runtime to pull the image when needed and start the container.
+7. A Service selects the Pods using matching labels and provides a stable network endpoint.
+8. If one Pod disappears, the controllers notice that actual state differs from desired state and create a replacement.
+
+### Why do labels and selectors matter?
+
+A Deployment's selector must match the labels in its Pod template. A Service uses its own selector to find the Pods that should receive traffic. If the label names do not match, the Service may have no endpoints even though the Pods are running.
+
+### How would you inspect this?
+
+```bash
+kubectl get deployments
+kubectl get pods
+kubectl get services
+kubectl describe pod POD_NAME
+kubectl logs POD_NAME
+```
+
+- `get` gives a quick list and current status.
+- `describe` gives details and recent events, such as scheduling or probe failures.
+- `logs` shows the application output from a container in the Pod.
+
+The mental model to keep is: declare what should exist, let controllers create and maintain it, and use a Service rather than depending on a Pod's temporary IP address.
 
 ## 16. Knowledge checkpoint
 
