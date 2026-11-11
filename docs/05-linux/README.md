@@ -4,6 +4,26 @@
 
 This phase gives you the practical command-line knowledge needed to inspect a Linux server, manage files and permissions, monitor processes and services, and diagnose basic access and networking problems.
 
+## Where Phase 5 fits in the bigger picture
+
+**You already know:** Docker packages applications, and Compose connects local containers. A container still runs on a computer with an operating system.
+
+**This phase adds:** the practical knowledge needed to inspect and manage that computer when it is Linux.
+
+Follow this chain:
+
+```text
+Remote connection (SSH)
+   -> shell and filesystem
+   -> users and permissions
+   -> processes and services
+   -> logs, ports, routes, DNS, firewall
+```
+
+Lesson 5.1 teaches safe navigation and permissions. Lesson 5.2 connects running programs to systemd services and logs. Lesson 5.3 follows the path from remote access to network troubleshooting.
+
+**Important boundary:** Linux host commands and container commands operate at different layers. When TaskFlow runs in Docker, systemd may manage Docker Engine while Docker logs show the API process inside its container.
+
 ## Outcomes
 
 By the end of Phase 5, you should be able to:
