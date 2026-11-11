@@ -69,6 +69,20 @@ This is a learning map, not a claim that TaskFlow has already been built or depl
 | 10. Scaling | What changes when usage grows or components fail? | More capacity, bottleneck management, backup and recovery |
 | 11. Kubernetes and Terraform | How are cluster workloads and infrastructure managed? | Kubernetes runs app workloads; Terraform describes infrastructure |
 
+### Phase guide links
+
+| Phase | Guide |
+|---|---|
+| 3 | [Docker fundamentals](03-docker/README.md) |
+| 4 | [Docker Compose](04-compose/README.md) |
+| 5 | [Linux and server administration](05-linux/README.md) |
+| 6 | [AWS cloud fundamentals](06-aws/README.md) |
+| 7 | [Cloud deployment](07-deployment/README.md) |
+| 8 | [CI/CD with GitHub Actions](08-cicd/README.md) |
+| 9 | [Monitoring and reliability](09-monitoring/README.md) |
+| 10 | [Scaling and high availability](10-scaling/README.md) |
+| 11 | [Kubernetes and Terraform](11-kubernetes-terraform/README.md) |
+
 ## How the pieces fit together
 
 ### 1. Docker and Docker Compose are related, but different
@@ -115,6 +129,28 @@ Keep this path in mind across Phases 3–11:
 10. Logs, metrics, traces, and health checks provide evidence about the request and the system.
 
 A browser is outside the private Docker or Kubernetes service network. Browser-side JavaScript cannot normally resolve an internal service name such as \`api\` or \`db\`. It needs a public or host-accessible API URL, or a same-domain proxy route.
+
+## A small glossary for the later phases
+
+| Term | Plain meaning |
+|---|---|
+| Runtime | The software environment that executes a program |
+| Image | The packaged template used to create a container |
+| Container | An isolated running instance created from an image |
+| Compose service | A named component configuration in a multi-container project |
+| Host | The computer that runs the container engine or virtual machine |
+| Volume | Storage that can outlive a container |
+| IAM | AWS identity and permission management |
+| VPC | A logically isolated network in AWS |
+| DNS | The naming system that helps a client find a network destination |
+| TLS | The security protocol that protects HTTPS connections |
+| Reverse proxy | A server that receives requests and forwards them to another service |
+| Runner | The machine/environment that executes a GitHub Actions job |
+| OIDC | A way for one system to prove its identity to another using signed tokens |
+| Trace | A record of how one request moves through multiple operations |
+| Replica | Another running copy of an application workload |
+| Pod | Kubernetes' smallest deployable unit, containing one or more containers |
+| Terraform state | The record connecting Terraform configuration to the real infrastructure it manages |
 
 ## How to read each lesson
 
