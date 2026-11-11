@@ -3,6 +3,17 @@
 **Phase:** 11 — Kubernetes and Terraform  
 **Goal:** Understand how Terraform describes infrastructure, previews changes, provisions resources, and tracks the real infrastructure it manages.
 
+## Start here: Kubernetes manages workloads; Terraform prepares infrastructure
+
+In the previous lessons, Kubernetes managed Pods and application Services inside a cluster. But where did the cluster, network, compute nodes, IAM roles, and database come from?
+
+Those are infrastructure resources. Creating them by clicking through a console is possible, but repeating the exact setup consistently is difficult.
+
+**Infrastructure as Code (IaC)** means describing infrastructure in configuration files so the changes can be reviewed, version-controlled, repeated, and managed over time.
+
+Terraform reads those declarations and works with providers such as the AWS provider to create or update real infrastructure. It does not automatically run the TaskFlow application inside that infrastructure. Kubernetes or another runtime manages the application workload.
+
+
 ## 1. What problem does Terraform solve?
 
 Imagine you need to create TaskFlow's cloud environment:
@@ -422,6 +433,55 @@ The final module structure, provider versions, Region, state backend, and hostin
 - **Treating outputs marked sensitive as safe to publish:** sensitive display settings do not remove the underlying value from state.
 - **Running destroy without verifying the workspace and plan:** it can remove real infrastructure.
 - **Letting Terraform and another tool own the same resource:** define clear ownership.
+
+## Guided example: trace one small Terraform change safely
+
+Imagine the agreed TaskFlow design needs an AWS VPC. A Terraform configuration declares a VPC resource. The following is a simplified example and has not been applied to AWS:
+
+```hcl
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_vpc" "taskflow" {
+  cidr_block = "10.20.0.0/16"
+
+  tags = {
+    Name = "taskflow-vpc"
+  }
+}
+```
+
+Read it:
+
+- The provider block selects the AWS provider and a Region.
+- The resource block declares an AWS VPC that Terraform should manage.
+- aws_vpc is the provider's resource type.
+- taskflow is the local name Terraform uses to refer to this resource in the configuration.
+- cidr_block supplies the VPC network range.
+- tags add useful resource metadata.
+
+Now follow the workflow:
+
+1. `terraform fmt` formats the files.
+2. `terraform init` prepares the folder and downloads the required provider.
+3. `terraform validate` checks the configuration structure and consistency. It does not prove AWS will allow the change.
+4. `terraform plan` compares the configuration with state and current provider information, then previews the proposed actions.
+5. Review the plan. A plus sign generally indicates an add, a tilde a change, and a minus a destroy. A replacement can involve both destruction and creation.
+6. `terraform apply` executes the approved plan and updates state.
+7. Verify the VPC and related settings in AWS, then keep the configuration and state workflow under team control.
+
+### Why state matters
+
+The configuration says what should exist. State records which real objects Terraform manages and their identifiers. If the state file is lost or two people modify it concurrently, Terraform may no longer have a safe and accurate view of the infrastructure.
+
+For shared work, use a protected remote backend with supported state locking. State can contain sensitive information, so it needs access control, encryption, and backup. Commit the provider lock file .terraform.lock.hcl, but do not commit local state, saved plans, or the .terraform directory.
+
+### The safety rule
+
+Never run `terraform apply` or `terraform destroy` without confirming the AWS account, Region, workspace, backend, and exact plan. These commands can change or delete real resources and may create charges or data loss.
+
+Terraform provisions infrastructure. Kubernetes manages application workloads. Define which tool owns each resource so two tools do not fight over the same configuration.
 
 ## 15. Knowledge checkpoint
 
