@@ -2,6 +2,27 @@
 
 **Two focused lessons.** This phase explains what happens when more users and requests arrive, where an application can become a bottleneck, and how a system can continue operating when a component fails.
 
+## Where Phase 10 fits in the bigger picture
+
+**You already know:** Phase 9 showed how to measure latency, traffic, errors, resource use, and failures. Those measurements help decide whether TaskFlow needs more capacity.
+
+**This phase adds:** ways to respond to increasing demand and to protect data and availability.
+
+Follow this chain:
+
+```text
+Measure workload
+   -> identify bottleneck
+   -> improve query / application behavior
+   -> scale compute or add replicas
+   -> consider cache / read replica when appropriate
+   -> design backup and failover
+```
+
+Lesson 10.1 explains application capacity and stateless replicas. Lesson 10.2 explains database bottlenecks, caching, replicas, backups, RPO/RTO, and availability trade-offs.
+
+**Important boundary:** more servers can make a database bottleneck worse. Identify the constrained component before adding capacity.
+
 ## Lesson sequence
 
 | Lesson | Topic | Main outcome |
