@@ -3,6 +3,22 @@
 **Phase:** 5 — Linux and Server Administration  
 **Goal:** Understand what is running on a Linux server, how background services are managed, and where to look when an application fails.
 
+## Start here: a file is not the same as a running program
+
+You already know that a Node.js backend is source code stored in files. When someone starts that backend, the operating system creates a **process**, which is the running instance of the program.
+
+A **service** is the longer-running function the server provides, such as SSH, a web server, a database, or a TaskFlow API. On many Linux systems, systemd manages services and can start them during boot.
+
+Keep the layers separate:
+
+- Program file: the code or executable stored on disk.
+- Process: the currently running instance with a process ID.
+- Service: the managed application function and its service configuration.
+- systemd: the service manager that starts, stops, and watches supported services.
+
+This distinction becomes especially important when TaskFlow is containerized: a Linux host service such as Docker Engine can manage containers, while the Node.js process runs inside an API container.
+
+
 ## 1. What is a process?
 
 A **process** is a running instance of a program.
@@ -271,6 +287,41 @@ Do not confuse a container's application process with the host's Docker service.
 - **Reading only application logs:** host service logs and resource usage may reveal another cause.
 - **Treating load average as CPU percentage:** it measures a different concept.
 - **Ignoring full disks:** storage exhaustion can cause many unrelated-looking failures.
+
+## Guided example: find out why TaskFlow is not responding
+
+There are two different deployment styles. First identify which one you are investigating.
+
+### Case A: the API is installed directly as a Linux service
+
+```bash
+systemctl status taskflow-api
+journalctl -u taskflow-api -n 50 --no-pager
+ps aux
+free -h
+df -h
+```
+
+- `systemctl status` shows whether the service is active, failed, or restarting.
+- `journalctl -u taskflow-api -n 50 --no-pager` shows the latest 50 journal entries for that service without opening an interactive pager.
+- `ps aux` lists processes so you can see whether the expected program is running.
+- `free -h` and `df -h` help identify memory or disk pressure.
+
+### Case B: the API runs in a Docker container
+
+In this case, systemd may manage Docker Engine, but the TaskFlow API process is inside a container. Start by checking the container and its logs:
+
+```bash
+systemctl status docker
+docker ps -a
+docker logs taskflow-api
+```
+
+Do not expect `systemctl status taskflow-api` to work unless you actually created a systemd unit with that name.
+
+### Choose the least disruptive action
+
+If the service is failed, read the error before restarting it. A restart may restore service temporarily, but it can hide evidence or repeat the same failure. Use `restart` only after understanding the likely cause and any impact on users. Do not use `kill -KILL` as your first response.
 
 ## 12. Knowledge checkpoint
 
