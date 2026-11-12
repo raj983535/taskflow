@@ -43,6 +43,11 @@ header {
   letter-spacing: -0.5px;
 }
 
+.nav-info {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 main {
   flex: 1;
   max-width: 900px;
@@ -59,11 +64,32 @@ main {
   margin-bottom: 1.5rem;
 }
 
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-subtitle {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.status-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -72,11 +98,13 @@ main {
 .status-online {
   background-color: rgba(16, 185, 129, 0.15);
   color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .status-offline {
   background-color: rgba(239, 68, 68, 0.15);
   color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .indicator {
@@ -93,17 +121,76 @@ button {
   border-radius: var(--radius);
   padding: 0.5rem 1rem;
   font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, outline 0.15s ease;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background-color: var(--accent-hover);
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.btn-recheck {
+  margin-left: auto;
+}
+
+.card-list {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.card-list li.pending {
+  color: var(--text-muted);
+}
+
 code {
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background-color: rgba(0, 0, 0, 0.3);
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
+  font-size: 0.875em;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  header {
+    padding: 0.75rem 1rem;
+  }
+
+  main {
+    margin: 1rem auto;
+    padding: 0 0.75rem;
+  }
+
+  .status-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-recheck {
+    margin-left: 0;
+    width: 100%;
+  }
 }

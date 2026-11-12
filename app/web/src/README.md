@@ -1,12 +1,16 @@
-# Frontend source
+# Frontend Source (`app/web/src/`)
 
-Planned areas:
-- `app/` — application entry, routing, and providers.
-- `components/` — reusable visual components.
-- `features/` — user-facing feature modules, beginning with tasks.
-- `hooks/` — reusable React hooks.
-- `services/` — API clients and external service clients.
-- `styles/` — global styles and design tokens.
-- `types/` — frontend-specific TypeScript types.
+Contains the implemented TypeScript and React 19 source code for the browser web client.
 
-Keep feature-specific code close to its feature. No source files have been created yet.
+---
+
+## Structure and Responsibilities
+
+- **`main.tsx`**: Browser entry point that mounts the application into `#root` with React StrictMode and defensive DOM checks.
+- **`app/`**: Contains `App.tsx`, providing the application foundation layout, health check indicator, and roadmap summary.
+- **`styles/`**: Global stylesheet (`index.css`) containing CSS custom properties, responsive card layouts, and accessible button/focus styles.
+- **`components/`**: Reserved for shared visual components (buttons, modals, form inputs).
+- **`features/`**: Reserved for domain features, starting with `tasks/` (Kanban board) in Stage 4.
+- **`hooks/`**: Reserved for custom React state/lifecycle hooks.
+- **`services/`**: Reserved for HTTP API client wrappers and fetch handlers.
+- **`types/`**: Frontend TypeScript interface definitions.

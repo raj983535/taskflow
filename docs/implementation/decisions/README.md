@@ -2,9 +2,14 @@
 
 Use this folder for meaningful choices that affect how TaskFlow is organized, built, secured, or operated.
 
-## Current accepted structure decision
+---
 
-- [0001 — Project folder structure](0001-project-folder-structure.md) — establishes the repository's planned directory responsibilities only. It does not select package tooling or create application code.
+## Accepted Architecture Decisions
+
+- **[0001 — Project folder structure](0001-project-folder-structure.md)**: Establishes the repository's directory layout (`app/api`, `app/web`, `app/shared`, `database/`, `infrastructure/`, `tests/`, `scripts/`, `docs/`).
+- **[0002 — Stage 1 application foundation and tooling](0002-stage-1-application-foundation.md)**: Establishes npm workspaces, Node.js (>=20), Express 4.21, React 19, Vite 6, TypeScript 5.7, Zod environment validation, and Node.js built-in `node:test` runner.
+
+---
 
 ## When to create a decision record
 

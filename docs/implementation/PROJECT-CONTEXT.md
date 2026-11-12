@@ -1,159 +1,119 @@
-# TaskFlow project context
+# TaskFlow project context for coding agents
 
-**Purpose:** Give a new human or AI coding agent the project context without requiring access to previous conversations.
+**Last reviewed:** 2026-11-12  
+**Current state:** Stage 1 Application Foundation (Implemented & Verified)  
+**Purpose:** Give a human or AI coding agent complete, accurate context to begin work safely without relying on a private chat history.
 
-## 1. Project identity
+---
 
-TaskFlow is a task-management web application and a practical engineering learning project. It is intended to help the learner understand frontend, backend, databases, testing, Docker, Linux, cloud deployment, CI/CD, monitoring, scaling, Kubernetes, and Terraform through one evolving project.
+## 1. What TaskFlow is
 
-The theory curriculum and application development are parallel tracks. The learner studies at their own pace; theory completion is not a prerequisite for coding.
+TaskFlow is a learning-oriented full-stack task-management application and a practical engineering learning repository. The application is developed as a real, maintainable project while the learner studies the published theory material at their own pace.
 
-The initial product direction is a personal task-management application. The detailed MVP, user journeys, task fields, business rules, authentication, and acceptance criteria must be finalized before feature implementation.
+The detailed product requirements and business rules are introduced in incremental vertical slices. Do not invent complex roles, permissions, collaboration rules, billing, notifications, or enterprise features without explicit approval.
 
-## 2. Environment and constraints
+---
 
-- Local operating system: Windows 11.
-- Preferred shell: PowerShell.
-- Local project folder: `E:\Taskflow`.
-- Hardware: approximately 8 GB RAM.
-- Cost preference: keep local development lightweight and avoid paid services unless approved.
-- GitHub repository: [raj983535/taskflow](https://github.com/raj983535/taskflow).
-- Use one local repository with a working branch. Do not create a second clone unless the learner requests it.
+## 2. The learning and development model
 
-Before reconciling a local folder with a remote branch, inspect Git status, current branch, remotes, existing files, and untracked/ignored content. Never overwrite or delete local files without reporting the exact conflict and receiving approval.
+There are two parallel tracks:
+- **Theory Track:** The learner studies Phase 0–11 curriculum documents at their own pace. Completing theory is not a prerequisite for implementing code.
+- **Implementation Track:** The application is developed in small, verified vertical slices. When an unfamiliar concept is introduced, an implementation guide under `docs/implementation/` explains it in context and links to the relevant theory lesson.
 
-## 3. Agreed technology direction
+The repository must serve both a reader who wants to understand the code and a reader who wants to study the concepts.
 
-| Area | Agreed direction | Still open |
-|---|---|---|
-| Web frontend | React + TypeScript | Build tool, routing, styling, state and form approach |
-| Backend API | Node.js + Express + TypeScript | Runtime/package setup, module conventions, validation and error format |
-| Database | PostgreSQL | Driver/query library, migration tool, schema, local setup |
-| Cloud | AWS as the later primary cloud path | Exact architecture, services, networking, cost and deployment sequence |
+---
 
-These are technology directions, not a selection of every supporting library. Record meaningful decisions in `docs/implementation/decisions/` before hard-to-change assumptions are introduced.
+## 3. Technology direction and accepted decisions
 
-## 4. Current repository stage
+| Area | Direction | Selected Tooling | Decision Status |
+|---|---|---|---|
+| Project Structure | Monorepo layout under `app/` | `app/api`, `app/web`, `app/shared` | Accepted ([ADR 0001](decisions/0001-project-folder-structure.md)) |
+| Application Foundation | npm Workspaces | Node.js (>=20), npm | Accepted ([ADR 0002](decisions/0002-stage-1-application-foundation.md)) |
+| Backend API | Express + TypeScript | Express 4.21, TypeScript 5.7, Helmet, CORS, Zod | Implemented (Stage 1) |
+| Web Frontend | React + TypeScript | React 19, Vite 6, Plain CSS | Implemented (Stage 1) |
+| Testing Stack | Native Test Runner | `node:test`, `node:assert`, `tsx` | Implemented (Stage 1) |
+| Database | PostgreSQL | Planned `pg` driver + migrations | Open (Stage 2) |
+| Cloud Path | AWS | VPC, ECS/EC2, RDS | Open (Stage 7+) |
 
-**Current stage: folder-structure preparation only.**
+Do not quietly substitute other frameworks, databases, or cloud providers without an explicit proposal and accepted decision record.
 
-The repository contains:
-- Published Phase 0–11 theory documentation.
-- Root universal `AGENTS.md`.
-- Implementation documentation categories and templates.
-- A planned application folder layout under `app/`.
-- Planned database, infrastructure, CI/CD, and testing directories.
+---
 
-The folder layout is represented by explanatory README placeholders. It does not contain application source code or runtime setup.
+## 4. Current repository state (Stage 1 Foundation)
 
-Not yet implemented:
-- React application source code or frontend package manifest.
-- Express API source code or backend package manifest.
-- Root package manifest, package manager workspace configuration, or dependency lockfile.
-- PostgreSQL connection, schema, migrations, or seed scripts.
-- Authentication, sessions, or task CRUD.
-- Unit/integration/e2e test implementation or test runner configuration.
-- Dockerfiles, Compose configuration, CI workflows, AWS resources, Kubernetes manifests, or Terraform code.
+### Implemented and Verified:
+- **Workspace Monorepo:** Root `package.json` with npm workspaces (`app/api`, `app/web`).
+- **Backend API (`app/api`):**
+  - Express application with Helmet, CORS restricted to validated frontend origin, JSON body parser, and foundation cookie-parser.
+  - Validated runtime configuration with Zod (`PORT` validated as integer between 1–65535, `FRONTEND_ORIGIN` validated as scheme://host[:port]).
+  - Modular health endpoints: `/health/live` (process liveness probe) and `/health/ready` (Stage 1 process readiness probe).
+  - Server entry point with graceful shutdown (`SIGINT`/`SIGTERM`) and forced shutdown timeout fallback.
+  - Automated test suite using `node:test` covering configuration validation, route responses, 404 handling, and security headers (18 passing tests).
+- **Web Frontend (`app/web`):**
+  - React 19 + TypeScript browser application bundled with Vite.
+  - Responsive, accessible CSS design system (<3 KB) supporting `:focus-visible` and `prefers-reduced-motion`.
+  - Application dashboard component (`App.tsx`) with live API connection check, accessible live region (`aria-live="polite"`), and local Vite development proxy (`/health` and `/api` -> `http://localhost:5000`).
+  - StrictMode-safe `useEffect` lifecycle with `AbortController` cleanup and clear client-side observation timestamp labeling.
+- **Documentation:** Root `README.md`, `folderstructure.md`, [Stage 1 Implementation Guide](architecture/01-workspace-and-application-foundation.md), ADR 0001, and ADR 0002.
 
-Check the current branch and repository contents before relying on this snapshot.
+### Pending Implementation (Upcoming Stages):
+- **Stage 2:** PostgreSQL connection pool, relational schema (`users`, `sessions`, `tasks`), and versioned SQL migrations under `database/`.
+- **Stage 3:** Task CRUD endpoints, Zod request schemas, and server-side session authentication.
+- **Stage 4:** Interactive React Kanban board (Todo, In Progress, Completed).
+- **Stage 5:** Docker multi-stage builds and Docker Compose orchestration.
+- **Stage 6:** GitHub Actions CI/CD workflows for automated linting, testing, and builds.
+- **Stages 7–11:** AWS deployment, monitoring, scaling, Kubernetes, and Terraform.
 
-## 5. Planned top-level structure
+---
+
+## 5. Directory layout and responsibilities
 
 ```text
 taskflow/
+├── AGENTS.md                # Single source of truth for all coding agents
+├── README.md                # Public project overview
+├── folderstructure.md       # Full architectural directory responsibilities
 ├── app/
-│   ├── web/                 # Browser frontend
-│   ├── api/                 # Backend HTTP API
-│   └── shared/              # Shared contracts/types if genuinely needed
+│   ├── web/                 # React 19 browser application
+│   ├── api/                 # Express backend HTTP API
+│   └── shared/              # Reserved for future shared types/contracts
 ├── database/
-│   ├── migrations/
-│   └── seeds/
+│   ├── migrations/          # Ordered SQL migration files (Stage 2)
+│   └── seeds/               # Development test fixtures (Stage 2)
 ├── infrastructure/
-│   ├── local/
-│   ├── docker/
-│   ├── linux/
-│   ├── aws/
-│   ├── deployment/
-│   ├── monitoring/
-│   ├── kubernetes/
-│   └── terraform/
-├── .github/
-│   └── workflows/           # Future CI/CD workflows
+│   ├── local/               # Local environment configuration
+│   ├── docker/              # Dockerfiles and Compose configurations (Stage 5)
+│   └── aws/                 # AWS deployment templates (Stage 7+)
+├── .github/workflows/       # GitHub Actions CI workflows (Stage 6)
 ├── tests/
-│   ├── integration/
-│   └── e2e/
-├── scripts/
+│   ├── integration/         # Cross-application integration tests
+│   └── e2e/                 # End-to-end browser tests
+├── scripts/                 # Repeatable operational scripts
 └── docs/
-    ├── theory phases 0–11
+    ├── 00-foundations/ ... 11-kubernetes-terraform/
     └── implementation/
 ```
 
-Each folder README explains its intended responsibility and whether it is only planned. The structure does not force an immediate choice of package manager, workspace tool, or application library.
+---
 
-Unit tests may live close to the code they test. Cross-application tests belong in the root `tests/` area.
+## 6. Development environment and resource constraints
 
-## 6. Application areas
+The primary learner environment is **Windows 11 with PowerShell** on a machine with **~8 GB RAM**.
+- Provide PowerShell commands from the correct working directory.
+- Keep the local development stack lightweight; avoid unnecessary background services.
+- The two hard permission gates from `AGENTS.md` (No unauthorized downloads/installations, No unauthorized paid services/costs) apply to every task.
+- Verification commands must be executed and their actual results recorded before claiming success.
 
-### `app/web/`
+---
 
-Reserved for the React + TypeScript browser application. The proposed organization separates application entry/routing, reusable components, user-facing features, hooks, API clients/services, styles, types, public assets, and frontend tests.
+## 7. Source of truth precedence
 
-### `app/api/`
-
-Reserved for the Node.js + Express + TypeScript backend API. The proposed organization separates configuration, database access, middleware, and feature modules. Initial module areas are health, authentication, and tasks; their presence as folders does not mean their endpoints or behaviour are implemented.
-
-### `app/shared/`
-
-Reserved for contracts or types genuinely shared between the web and API. Do not add abstractions here before a real reuse case exists.
-
-## 7. Database, infrastructure, and testing responsibilities
-
-- `database/migrations/`: ordered schema changes after the schema and migration approach are approved.
-- `database/seeds/`: safe fictional development/test data.
-- `infrastructure/local/`: local environment documentation/configuration.
-- `infrastructure/docker/`: Dockerfiles and related build resources at the Docker stage.
-- `infrastructure/linux/`: server administration and host configuration when needed.
-- `infrastructure/aws/`: approved AWS infrastructure.
-- `infrastructure/deployment/`: deployment and reverse-proxy/TLS configuration.
-- `infrastructure/monitoring/`: logs, metrics, traces, health and alerts.
-- `infrastructure/kubernetes/`: Kubernetes manifests when that stage begins.
-- `infrastructure/terraform/`: Terraform infrastructure code when approved.
-- `.github/workflows/`: GitHub Actions workflow files after CI decisions.
-- `tests/integration/`: tests across application boundaries.
-- `tests/e2e/`: complete browser-to-API user journeys.
-- `scripts/`: repeatable maintenance/development scripts only when a concrete need exists.
-
-## 8. Implementation sequence
-
-The proposed delivery sequence is:
-
-1. Confirm MVP scope, user journeys, task business rules, and acceptance criteria.
-2. Finalize UI/UX wireframes and API/data contracts.
-3. Select necessary supporting libraries and record decisions.
-4. Set up the web and API applications using the approved project tooling.
-5. Establish the database schema and migrations.
-6. Implement authentication and authorization if included in the approved MVP.
-7. Deliver task workflows as small end-to-end vertical slices.
-8. Add and run automated tests and document debugging.
-9. Introduce Docker and Compose after the application works locally.
-10. Add CI/CD, then AWS deployment after reviewing security, cost, and cleanup.
-11. Add monitoring, scaling, Kubernetes, and Terraform progressively.
-
-This is a plan, not an instruction to generate all layers at once. The learner can study theory in parallel.
-
-## 9. Documentation requirements
-
-For every meaningful implementation slice, maintain a beginner-friendly guide under `docs/implementation/` in the same change. Explain why it was needed, what changed, the business logic, how the full flow works, which code files matter, how to configure/run/test/debug it, relevant security and failure cases, what was actually verified, trade-offs, and links to theory.
-
-Start with [the implementation documentation guide](README.md), follow the root [AGENTS.md](../../AGENTS.md), and use the implementation guide template.
-
-## 10. Source of truth
-
-When information differs, use:
-1. Current user-approved requirements and decisions.
-2. Current code/tests/configuration on the branch being changed.
-3. Accepted decision records and current implementation guides.
-4. This project context and the root README.
-5. Older theory examples and historical discussions.
-
-Never treat a folder placeholder or theory example as proof that an implementation decision has been finalized.
+When information differs, use this order:
+1. Current explicit user-approved requirements and decisions.
+2. The root `AGENTS.md` instruction file.
+3. Current verified code, tests, and configuration on the active branch.
+4. Accepted architecture decision records under `docs/implementation/decisions/`.
+5. Current implementation guides under `docs/implementation/`.
+6. Project context and README summaries.
+7. Older theory examples, drafts, or historical discussion.

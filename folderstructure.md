@@ -1,10 +1,9 @@
-# TaskFlow Project Folder Structure — Architecture Proposal
+# TaskFlow Project Folder Structure — Architecture Baseline
 
-> **Document status:** Proposal for review and approval  
+> **Document status:** Accepted architecture baseline (Recorded in [ADR 0001](docs/implementation/decisions/0001-project-folder-structure.md))  
 > **Repository:** `raj983535/taskflow`  
-> **Current baseline:** The folder-only structure already merged into `main`  
-> **Scope of this proposal:** Explain the architecture, responsibilities, relationships, learning value, and future extension points.  
-> **Not an implementation approval:** Do not create application code, dependencies, configuration, database schemas, CI/CD workflows, containers, or cloud resources based on this document alone.
+> **Current implementation state:** Stage 1 Application Foundation implemented within `app/api/` and `app/web/` (Recorded in [ADR 0002](docs/implementation/decisions/0002-stage-1-application-foundation.md))  
+> **Scope:** Defines repository directory responsibilities, component boundaries, and future extension points. Supporting toolchain choices are documented in their respective implementation guides and ADRs.
 
 ---
 
