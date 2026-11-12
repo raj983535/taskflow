@@ -1,11 +1,20 @@
 # TaskFlow tests
 
-This folder is for tests that span application boundaries.
+This directory is reserved for automated tests that span application and service boundaries.
 
-## Test locations
+---
 
-- Unit and component tests may live close to their related source under `app/web/` or `app/api/`.
-- [integration/](integration/README.md) — tests across API/database or other service boundaries.
-- [e2e/](e2e/README.md) — complete browser-to-API user journeys.
+## Test Locations and Hierarchy
 
-The test runner, libraries, data setup, and test environments are not selected yet. No tests are implemented.
+- **Unit and Modular Tests:** Located close to the source they test (e.g., [`app/api/src/config/config.test.ts`](../app/api/src/config/config.test.ts) and [`app/api/src/modules/health/health.test.ts`](../app/api/src/modules/health/health.test.ts)), executed via Node.js native `node:test` runner.
+- **[integration/](integration/README.md)**: Reserved for integration tests spanning API, database, and local services (introduced in Stage 2 with PostgreSQL).
+- **[e2e/](e2e/README.md)**: Reserved for end-to-end browser-to-API user journeys (introduced in Stage 4 with the Kanban board).
+
+---
+
+## Running Existing Tests
+
+```powershell
+# Run from repository root (executes 18 automated tests in app/api)
+npm test
+```

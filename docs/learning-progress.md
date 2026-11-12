@@ -14,7 +14,7 @@ This is the source of truth for the TaskFlow curriculum and its self-paced learn
 - **Checkpoint assessments:** Deferred. No Phase 1–11 learner checkpoint is being recorded as passed merely because its material has been published or explained.
 - **Suggested theory starting point:** Phase 1, Lesson 1.1 — Full-stack architecture and request lifecycle. This is a recommended learning order, not a requirement before coding.
 - **Application implementation:** May start now, in parallel with theory study. Work should proceed in small vertical slices with matching beginner-friendly implementation documentation.
-- **Repository state:** Theory curriculum, universal agent instructions, implementation documentation, and a folder-only project layout are present. The application directories contain README placeholders only; there is no application source code, package manifest, database schema, test runner, Docker configuration, CI workflow, or cloud infrastructure.
+- **Repository state:** Theory curriculum, universal agent instructions, and implementation documentation are present. Stage 1 Application Foundation is implemented and verified under `app/api` (Express + TypeScript) and `app/web` (React + Vite + TypeScript) with monorepo npm workspaces, health probes, and automated test suites. Database schema, Docker, CI/CD, and cloud infrastructure remain planned for upcoming stages.
 
 ## Fixed roadmap
 
